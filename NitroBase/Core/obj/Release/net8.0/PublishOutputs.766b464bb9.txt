@@ -1,0 +1,12 @@
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Utility.dll
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Utility.deps.json
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Utility.pdb
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\AutoMapper.dll
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Microsoft.Extensions.Configuration.dll
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Microsoft.Extensions.Logging.Abstractions.dll
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Microsoft.Extensions.Options.dll
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Microsoft.Extensions.Primitives.dll
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Newtonsoft.Json.dll
+D:\Source\nitro.starter\Core\bin\Release\net8.0\publish\Utf8Json.dll

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WebCore</name>
+    </assembly>
+    <members>
+        <member name="M:WebCore.Controllers.BaseController`2.RestResultBody(System.String,System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Use this method for returning a common message signature in Apis
+            </summary>
+            <seealso cref="!:RestResultBody(string, string[])"/>
+            <seealso cref="!:PaymentGatewayMicro.Infrastructure.Dtos.HttpStatusMessageDto"/>
+            <seealso cref="!:PaymentGatewayMicro.Infrastructure.Helpers.RestHelper.RestResultBody(string, IEnumerable&lt;string&gt;)"/>
+            <param name="message">message</param>
+            <param name="parameters">list of parameters (e.g. the invalid parameter)</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebCore.Controllers.BaseController`2.RestResultBody(System.String,System.Object[])">
+            <summary>
+            Use this method for returning a common message signature in Apis
+            </summary>
+            <seealso cref="!:RestResultBody(string, IEnumerable&lt;string&gt;)"/>
+            <seealso cref="!:PaymentGatewayMicro.Infrastructure.Dtos.HttpStatusMessageDto"/>
+            <seealso cref="!:PaymentGatewayMicro.Infrastructure.Helpers.RestHelper.RestResultBody(string, IEnumerable&lt;string&gt;)"/>
+            <param name="message">message</param>
+            <param name="parameters">list of parameters (e.g. the invalid parameter)</param>
+            <returns></returns>
+        </member>
+        <member name="M:WebCore.Controllers.BaseController`2.Conflict">
+            <summary>
+            Do not use this method. This method has been restricted in order to keep the output in standard format
+            </summary>
+            <returns>throw NotImplementedException</returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:WebCore.Controllers.BaseController`2.Conflict(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary)">
+            <summary>
+            Do not use this method. This method has been restricted in order to keep the output in standard format
+            </summary>
+            <returns>throw NotImplementedException</returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:WebCore.Controllers.BaseController`2.NotFound">
+            <summary>
+            Do not use this method. This method has been restricted in order to keep the output in standard format
+            </summary>
+            <returns>throw NotImplementedException</returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:WebCore.Controllers.BaseController`2.BadRequest">
+            <summary>
+            Do not use this method. This method has been restricted in order to keep the output in standard format
+            </summary>
+            <returns>throw NotImplementedException</returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:WebCore.Controllers.BaseController`2.Unauthorized">
+            <summary>
+            Do not use this method. This method has been restricted in order to keep the output in standard format
+            </summary>
+            <returns>throw NotImplementedException</returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:WebCore.Controllers.BaseController`2.StatusCode(System.Int32)">
+            <summary>
+            Do not use this method. This method has been restricted in order to keep the output in standard format
+            </summary>
+            <returns>throw NotImplementedException</returns>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:WebCore.Extensions.ConfigurationBuilderExtensions.Config``1(Microsoft.Extensions.Configuration.ConfigurationBuilder,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,Microsoft.Extensions.Configuration.IConfigurationRoot@,``0@)">
+            <summary>
+            Configures appsetting files
+            </summary>
+            <param name="env"></param>
+            <param name="_configuration"></param>
+            <param name="_applicationSetting"></param>
+        </member>
+        <member name="M:WebCore.Helpers.APIResultHelper.RestResultBody(System.String,System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Use this method for returning a common message signature in Apis
+            </summary>
+            <seealso cref="!:ControllerBase RestResultBody(string, List&lt;string&gt;)"/>
+            <seealso cref="!:PaymentGatewayMicro.Infrastructure.Dtos.HttpStatusMessageDto"/>
+            <param name="message">message</param>
+            <param name="parameters">list of parameters (e.g. the invalid parameter)</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Utility</name>
+    </assembly>
+    <members>
+        <member name="T:Utility.ServiceLocator">
+            <summary>
+            An static object for getting services from DI
+            </summary>
+        </member>
+        <member name="M:Utility.ServiceLocator.Configure(System.IServiceProvider,Utility.Models.ApplicationSettingModel)">
+            <summary>
+            Configures ServiceLocator static object
+            </summary>
+            <param name="serviceProvider"></param>
+            <param name="configuration"></param>
+        </member>
+        <member name="M:Utility.ServiceLocator.GetService(System.String)">
+            <summary>
+            Use reflection to get a service from DI
+            </summary>
+            <param name="typeName">The type name to get from DI</param>
+            <returns>returns System.Object</returns>
+        </member>
+        <member name="M:Utility.ServiceLocator.GetService(System.Type)">
+            <summary>
+            Gets a service from DI
+            </summary>
+            <param name="type">The Type to get from DI</param>
+            <returns>returns System.Object</returns>
+        </member>
+        <member name="M:Utility.ServiceLocator.GetService``1">
+            <summary>
+            Gets a service from DI
+            </summary>
+            <typeparam name="T"></typeparam>
+            <returns>returns T</returns>
+        </member>
+    </members>
+</doc>
