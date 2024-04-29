@@ -2,11 +2,9 @@
 
 public interface INotifService
 {
-    Task<Notif> CreateNotifAsync(Notif entity);
-    Task CreateNotifAsync(ICollection<Notif> entities);
+    Task<Notif> CreateNotifAsync(CreateNotifRq entity);
+    Task CreateNotifAsync(ICollection<CreateNotifRq> entities);
 
     Task<Notif> UpdateNotifAsync(Notif entity);
     Task UpdateNotifAsync(ICollection<Notif> entities);
-
-
 }

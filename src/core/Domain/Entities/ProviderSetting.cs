@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-public class ProviderConfiguration
+public class ProviderSetting
 {
     public int Id { get; set; }
     public string Key { get; set; } = default!;

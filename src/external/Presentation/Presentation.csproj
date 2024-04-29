@@ -25,7 +25,6 @@
 		<Folder Include="Abstractions\" />
 		<Folder Include="Dtos\" />
 		<Folder Include="Middlewares\" />
-		<Folder Include="Configuration\" />
 		<Folder Include="HttpClients\" />
 	</ItemGroup>
 

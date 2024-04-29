@@ -1,12 +1,14 @@
-﻿using Application.Services.Abstractions;
+﻿using Application.Models;
+using Application.Models.Requests;
+using WebCore.Controllers;
 
 namespace Presentation.Controllers;
 
 [ApiController]
 //[ApiExplorerSettings(IgnoreApi = false)]
-//[Route("api/v{version:apiVersion}/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
 //[EnableCors(Constants.CorsPolicyName)]
-public class NotifController : ControllerBase
+public class NotifController : BaseController<NotifController, ApplicationSettingExtenderModel>
 {
     private readonly INotifService _notifService;
     public NotifController(INotifService notifService)
@@ -14,7 +16,7 @@ public class NotifController : ControllerBase
         _notifService = notifService;
     }
 
-    [HttpGet("")]
+    [HttpGet("Index")]
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> Index()
     {
@@ -23,19 +25,19 @@ public class NotifController : ControllerBase
         return Ok();
     }
 
-    [HttpGet("")]
-    [MapToApiVersion("1.0")]
+    [HttpPost("SendNotif")]
     [ProducesResponseType(typeof(NotOkResultDto), StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(typeof(OkListResult<>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> SendNotifAsync([FromBody] NotifDto notifDto, CancellationToken cancellationToken)
+    [MapToApiVersion("1.0")]
+    public async Task<IActionResult> SendNotifAsync([FromBody] CreateNotifRq notifRq, CancellationToken cancellationToken = default)
     {
-        var notifs = await _notifService.CreateNotifAsync(notifDto);
+        var notifs = await _notifService.CreateNotifAsync(notifRq);
 
         return Ok("hello everyone");
     }
 
 
-    [HttpGet("")]
+    [HttpGet("Send")]
     //[ProducesResponseType(typeof(NotOkResultDto), StatusCodes.Status500InternalServerError)]
     //[ProducesResponseType(typeof(OkListResult<CancelledFundRs>), StatusCodes.Status200OK)]
     [MapToApiVersion("1.0")]

@@ -8,6 +8,7 @@ C:\Users\s.ghahremani\source\repos\Temp\src\core\Domain\obj\Debug\net8.0\Domain.
 C:\Users\s.ghahremani\source\repos\Temp\src\core\Domain\obj\Debug\net8.0\Domain.AssemblyInfoInputs.cache
 C:\Users\s.ghahremani\source\repos\Temp\src\core\Domain\obj\Debug\net8.0\Domain.AssemblyInfo.cs
 C:\Users\s.ghahremani\source\repos\Temp\src\core\Domain\obj\Debug\net8.0\Domain.csproj.CoreCompileInputs.cache
+C:\Users\s.ghahremani\source\repos\Temp\src\core\Domain\obj\Debug\net8.0\Domain.sourcelink.json
 C:\Users\s.ghahremani\source\repos\Temp\src\core\Domain\obj\Debug\net8.0\Domain.csproj.Up2Date
 C:\Users\s.ghahremani\source\repos\Temp\src\core\Domain\obj\Debug\net8.0\Domain.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\core\Domain\obj\Debug\net8.0\refint\Domain.dll

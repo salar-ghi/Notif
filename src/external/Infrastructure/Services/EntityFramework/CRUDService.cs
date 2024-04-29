@@ -20,12 +20,12 @@ public class CRUDService<T> where T : EntityBase, new()
 
     public virtual IQueryable<T> GetQuery()
     {
-        return _unitOfWork.NotifContext.Set<T>().AsNoTracking().AsQueryable();
+        return _unitOfWork._context.Set<T>().AsNoTracking().AsQueryable();
     }
 
     public virtual IQueryable<TEntity> GetQueryAs<TEntity>()
     {
-        return _unitOfWork.NotifContext.Set<T>().AsNoTracking().OfType<TEntity>().AsQueryable();
+        return _unitOfWork._context.Set<T>().AsNoTracking().OfType<TEntity>().AsQueryable();
     }
 
 

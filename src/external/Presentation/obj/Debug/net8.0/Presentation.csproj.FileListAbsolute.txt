@@ -3,8 +3,8 @@ C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.AssemblyInfoInputs.cache
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.AssemblyInfo.cs
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.csproj.CoreCompileInputs.cache
-C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.sourcelink.json
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\appsettings.json
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Presentation.exe
@@ -12,6 +12,7 @@ C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Presentation.runtimeconfig.json
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Presentation.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Presentation.pdb
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Presentation.xml
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\AutoMapper.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Azure.Core.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Azure.Identity.dll
@@ -205,6 +206,7 @@ C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Infrastructure.pdb
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Core.pdb
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Domain.pdb
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\staticwebassets\msbuild.Presentation.Microsoft.AspNetCore.StaticWebAssets.props
@@ -216,8 +218,7 @@ C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presenta.BC777DBE.Up2Date
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\refint\Presentation.dll
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.xml
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.pdb
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.genruntimeconfig.cache
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\ref\Presentation.dll
-C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Presentation.xml
-C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.xml

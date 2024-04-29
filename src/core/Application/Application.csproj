@@ -9,11 +9,21 @@
   <ItemGroup>
     <Folder Include="Enums\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Models\" />
     <Folder Include="Extensions\" />
+    <Folder Include="Models\Requests\ThirdParties\" />
+    <Folder Include="Models\Responses\ThirdParties\" />
     <Folder Include="Persistence\" />
     <Folder Include="Services\Abstractions\HttpClients\" />
     <Folder Include="Services\Abstractions\ThirdParties\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="8.0.4" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,4 @@
-﻿
-namespace Infrastructure.Services.EntityFramework;
+﻿namespace Infrastructure.Services.EntityFramework;
 
 public class NotifService : INotifService
 {
@@ -19,7 +18,7 @@ public class NotifService : INotifService
     {
         foreach (var notif in notifs)
         {
-            notif.status = NotifStatus.Read;
+            notif.status = NotifStatus.Delivered;
         }
         bool saveFailed;
         do
@@ -44,22 +43,15 @@ public class NotifService : INotifService
         
     }
 
-    public async Task CreateNotifAsync(NotifDto NotifReq)
+
+    public async Task<Notif> CreateNotifAsync(CreateNotifRq entity)
     {
-
-    }
-
-    public async Task ScheduleNotifAsync(NotifDto NotifReq)
-    {
-
-    }
-
-    public Task<Notif> CreateNotifAsync(Notif entity)
-    {
+        //var items = await _context
+        await _context.SaveChangesAsync();
         throw new NotImplementedException();
     }
 
-    public Task CreateNotifAsync(ICollection<Notif> entities)
+    public Task CreateNotifAsync(ICollection<CreateNotifRq> entities)
     {
         throw new NotImplementedException();
     }

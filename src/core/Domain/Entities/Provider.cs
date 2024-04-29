@@ -6,12 +6,11 @@ public abstract class Provider
     public string Name { get; set; } = default!;
     public string Description { get; set; } = default!;
     public bool IsEnabled { get; set; }
-
+    public string JsonConfig { get; set; } = default!;
     //public NotifType Type { get; set; } // e.g., SMS, Email, RabbitMQ
 
     //.... Another Properties and Configurations
-    public List<ProviderConfiguration> config { get; set; } = new List<ProviderConfiguration>();
+    //public List<ProviderSetting> config { get; set; } = new List<ProviderSetting>();
 
-    public abstract Task<bool> SendNotifAsync(Notif notif);
 
 }

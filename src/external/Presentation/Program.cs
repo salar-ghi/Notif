@@ -1,5 +1,9 @@
+using Application.Models;
+using Presentation.Configuration.DI;
+
 var builder = WebApplication.CreateBuilder(args);
 
+var _applicationExtenderSetting = new ApplicationSettingExtenderModel();
 // Add services to the container.
 builder.Services.AddExceptionHandler<GlobalErrorHandler>();
 builder.Services.AddProblemDetails();
@@ -29,6 +33,7 @@ builder.Services.AddDbContext<NotifContext>(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 //builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
+builder.Services.AddServices(_applicationExtenderSetting);
 builder.Services.AddApiVersioning();
 builder.Services.AddOpenApiDocument(config =>
 {

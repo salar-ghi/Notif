@@ -3,8 +3,17 @@
 public enum NotifStatus : byte
 {
     [Description("")]
-    Read = 0 ,
+    waiting = 1,
 
     [Description("")]
-    Unread = 1 ,
+    Delivered = 2,
+
+    [Description("")]
+    failed_waiting = 3,
+
+    //[Description("")]
+    //waiting_ = 4,
+
+    [Description("")]
+    failed= 5,
 }
