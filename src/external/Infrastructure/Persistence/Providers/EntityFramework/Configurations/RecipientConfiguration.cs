@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+namespace Infrastructure.Persistence.Providers.EntityFramework.Configurations;
 
-namespace Infrastructure.Persistence.Providers.EntityFramework.Configurations
+public class RecipientConfiguration : IEntityTypeConfiguration<Recipient>
 {
-    internal class RecipientConfiguration
+    public void Configure(EntityTypeBuilder<Recipient> builder)
     {
+        BaseConfiguration<Recipient>.Configure(builder);
+
+        builder.Property(x => x.UserId).IsRequired();
     }
 }

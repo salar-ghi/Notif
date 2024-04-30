@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "wVWhlJptcq6PYrpkDN34SFTlMZwKLYw0kIBLcxbeIpzhFsPMMGc/QqNGVodp+AsWQDQ+87xzt6iZtsBxJnf90Q==",
+  "dgSpecHash": "7U7rquPp6xe0pzDUopl7vlRHOsntR8V4oI0QGxg8nMtjhZdNhu9plWtVIY2LFp9/rFBDccVmB/Noi77BcIjj7Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Presentation\\Presentation.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\hangfire.aspnetcore\\1.8.12\\hangfire.aspnetcore.1.8.12.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\hangfire.core\\1.8.12\\hangfire.core.1.8.12.nupkg.sha512",
+    "C:\\Users\\s.ghahremani\\.nuget\\packages\\hangfire.dashboard.basic.authentication\\7.0.1\\hangfire.dashboard.basic.authentication.7.0.1.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\hangfire.netcore\\1.8.12\\hangfire.netcore.1.8.12.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\hangfire.sqlserver\\1.8.12\\hangfire.sqlserver.1.8.12.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

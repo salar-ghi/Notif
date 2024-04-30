@@ -1,10 +1,14 @@
 ﻿global using NSwag;
+global using Hangfire;
 global using Core.Models;
 global using WebCore.Dtos;
 global using WebCore.Helpers;
 global using Core.Extensions;
+global using Application.Models;
 global using Microsoft.AspNetCore.Mvc;
+global using Presentation.Configuration.DI;
 global using Microsoft.EntityFrameworkCore;
+global using HangfireBasicAuthenticationFilter;
 global using Application.Services.Abstractions;
 global using Infrastructure.Services.EntityFramework;
 global using Infrastructure.Persistence.Providers.EntityFramework.Context;

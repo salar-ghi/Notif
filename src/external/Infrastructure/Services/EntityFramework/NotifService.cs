@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Services.EntityFramework;
+﻿using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+
+namespace Infrastructure.Services.EntityFramework;
 
 public class NotifService : INotifService
 {
@@ -44,16 +46,32 @@ public class NotifService : INotifService
     }
 
 
-    public async Task<Notif> CreateNotifAsync(CreateNotifRq entity)
+    public async Task<Notif> CreateNotifAsync(CreateNotifRq entity, CancellationToken ct = default(CancellationToken))
     {
-        //var items = await _context
-        await _context.SaveChangesAsync();
+        //Convert model to notif  ??????????????????
+        ////////var items = await _context.Notifs.AddAsync(entity, ct);
+        ////////await _context.SaveChangesAsync();
+
+        ////////var res = await _context.Recipients.AddRangeAsync(entity.Recipients);
+
+        //foreach (var Recipient in entity.Recipients)
+        //{
+
+        //    var res = await _context.AddAsync(, ct);
+        //}
+
+        //var itemId = items
+        //return items.Entity;
         throw new NotImplementedException();
+
+
     }
 
-    public Task CreateNotifAsync(ICollection<CreateNotifRq> entities)
+    public async Task CreateNotifAsync(IEnumerable<CreateNotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
     {
-        throw new NotImplementedException();
+        await _context.AddRangeAsync(entities);
+        await _context.SaveChangesAsync();
+
     }
 
     public Task<Notif> UpdateNotifAsync(Notif entity)
@@ -61,7 +79,7 @@ public class NotifService : INotifService
         throw new NotImplementedException();
     }
 
-    public Task UpdateNotifAsync(ICollection<Notif> entities)
+    public Task UpdateNotifAsync(IEnumerable<Notif> entities)
     {
         throw new NotImplementedException();
     }

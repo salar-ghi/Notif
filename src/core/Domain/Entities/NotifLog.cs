@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-public class NotifLog
+public class NotifLog : EntityBase
 {
     public int Id { get; set; }
     public int NotifId { get; set; }

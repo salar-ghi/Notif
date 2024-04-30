@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+namespace Infrastructure.Persistence.Providers.EntityFramework.Configurations;
 
-namespace Infrastructure.Persistence.Providers.EntityFramework.Configurations
+public class ProviderConfiguration : IEntityTypeConfiguration<Provider>
 {
-    internal class ProviderConfiguration
+    public void Configure(EntityTypeBuilder<Provider> builder)
     {
+        BaseConfiguration<Provider>.Configure(builder);
+
+        builder.HasKey(x => x.Id);
+        builder.Property(x => x.Name).IsRequired().HasMaxLength(100);
     }
 }

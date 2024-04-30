@@ -1,5 +1,6 @@
 ﻿using Hangfire;
 using Hangfire.SqlServer;
+using Presentation.Scheduler;
 
 namespace Presentation.Extensions;
 
@@ -11,6 +12,8 @@ public static class IServiceCollectionExtensions
         var sqlServerOptions = new SqlServerStorageOptions
         {
             PrepareSchemaIfNecessary = true,
+            SlidingInvisibilityTimeout = TimeSpan.FromSeconds(30),
+            QueuePollInterval = TimeSpan.Zero,
         };
         GlobalConfiguration.Configuration
             .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
@@ -25,9 +28,11 @@ public static class IServiceCollectionExtensions
             x.Queues = new[] { appName.ToLower() };
             x.StopTimeout = TimeSpan.FromSeconds(30);
             x.MaxDegreeOfParallelismForSchedulers = 10;
-            x.SchedulePollingInterval = TimeSpan.FromSeconds(30);
+            x.SchedulePollingInterval = TimeSpan.FromMinutes(3);
         });
         //GlobalJobFilters.Filters.Add(new Delete)
+        GlobalJobFilters.Filters.Add(new PreserveOriginalQueueAttribute());
+        GlobalJobFilters.Filters.Add(new DeleteConcurrentExecutionAttribute());
         GlobalJobFilters.Filters.Add(new DisableConcurrentExecutionAttribute(15));
 
     }

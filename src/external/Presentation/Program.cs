@@ -1,5 +1,5 @@
-using Application.Models;
-using Presentation.Configuration.DI;
+using Microsoft.Identity.Client.Extensions.Msal;
+using Presentation.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,10 +30,23 @@ builder.Services.AddDbContext<NotifContext>(options =>
     });
 }, ServiceLifetime.Scoped); //, ServiceLifetime.Transient  
 
+builder.Services.AddControllers();
+//builder.Services.AddEndpointsApiExplorer();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 //builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
 builder.Services.AddServices(_applicationExtenderSetting);
+builder.Services.ConfigHangfire(configuration, "Nitro_Notif", builder.Environment);
+
+//builder.Services.AddHangfire((sp, config) =>
+//{
+//    var connection = sp.GetRequiredService<IConfiguration>().GetConnectionString("HangFireConnection");
+//    config.UseSqlServerStorage(connection);
+//});
+//builder.Services.AddHangfireServer();
+
+//builder.Services.ConfigHangfire(configuration, "Nitro_Notif", builder.Environment);
+
 builder.Services.AddApiVersioning();
 builder.Services.AddOpenApiDocument(config =>
 {
@@ -41,7 +54,6 @@ builder.Services.AddOpenApiDocument(config =>
     config.Title = "My API";
     config.Version = "v1";
 });
-builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -54,9 +66,22 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    DashboardTitle = "Notification Job",
+    DarkModeEnabled = true,
+    DisplayStorageConnectionString = false,
+    Authorization = new[]
+    {
+        new HangfireCustomBasicAuthenticationFilter
+        {
+            User = "Admin",
+            Pass = "adminNitro"
+        }
+    }
+
+});
 
 app.Run();

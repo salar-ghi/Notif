@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
-namespace Infrastructure.Persistence.Providers.EntityFramework.Configurations;
+﻿namespace Infrastructure.Persistence.Providers.EntityFramework.Configurations;
 
 public class BaseConfiguration<T> where T : notnull, EntityBase
 {

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Infrastructure.Persistence.Providers.EntityFramework.Configurations;
 
-namespace Infrastructure.Persistence.Providers.EntityFramework.Configurations
+public class BlackListConfiguration : IEntityTypeConfiguration<BlackList>
 {
-    internal class BlackListConfiguration
+    public void Configure(EntityTypeBuilder<BlackList> builder)
     {
+        BaseConfiguration<BlackList>.Configure(builder);
+
+        builder.HasKey(x => x.Id);
     }
 }

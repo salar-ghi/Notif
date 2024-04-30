@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-public class BlackList
+public class BlackList : EntityBase
 {
     public int Id { get; set; }
 

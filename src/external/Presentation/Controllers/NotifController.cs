@@ -1,14 +1,16 @@
 ﻿using Application.Models;
 using Application.Models.Requests;
+using Hangfire;
 using WebCore.Controllers;
 
 namespace Presentation.Controllers;
 
 [ApiController]
 //[ApiExplorerSettings(IgnoreApi = false)]
-[Route("api/v{version:apiVersion}/[controller]")]
+//[Route("api/v{version:apiVersion}/[controller]")]
 //[EnableCors(Constants.CorsPolicyName)]
-public class NotifController : BaseController<NotifController, ApplicationSettingExtenderModel>
+public class NotifController : ControllerBase
+    //BaseController<NotifController, ApplicationSettingExtenderModel>
 {
     private readonly INotifService _notifService;
     public NotifController(INotifService notifService)
@@ -31,7 +33,9 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> SendNotifAsync([FromBody] CreateNotifRq notifRq, CancellationToken cancellationToken = default)
     {
-        var notifs = await _notifService.CreateNotifAsync(notifRq);
+        BackgroundJob.Enqueue(() => Console.WriteLine("Hangfire Triggered ????????????????????????????????????*********************** / How are you "));
+
+        var notifs = await _notifService.CreateNotifAsync(notifRq, cancellationToken);
 
         return Ok("hello everyone");
     }
