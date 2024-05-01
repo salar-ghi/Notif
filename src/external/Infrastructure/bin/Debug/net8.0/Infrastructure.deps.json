@@ -10,6 +10,7 @@
         "dependencies": {
           "Application": "1.0.0",
           "Domain": "1.0.0",
+          "Hangfire.Core": "1.8.12",
           "Microsoft.EntityFrameworkCore": "8.0.4",
           "Microsoft.EntityFrameworkCore.Proxies": "8.0.4",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.4",
@@ -95,6 +96,61 @@
           "lib/net5.0/EPPlus.dll": {
             "assemblyVersion": "5.8.6.0",
             "fileVersion": "5.8.6.0"
+          }
+        }
+      },
+      "Hangfire.Core/1.8.12": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Hangfire.Core.dll": {
+            "assemblyVersion": "1.8.12.0",
+            "fileVersion": "1.8.12.0"
+          }
+        },
+        "resources": {
+          "lib/netstandard2.0/ca/Hangfire.Core.resources.dll": {
+            "locale": "ca"
+          },
+          "lib/netstandard2.0/de/Hangfire.Core.resources.dll": {
+            "locale": "de"
+          },
+          "lib/netstandard2.0/es/Hangfire.Core.resources.dll": {
+            "locale": "es"
+          },
+          "lib/netstandard2.0/fa/Hangfire.Core.resources.dll": {
+            "locale": "fa"
+          },
+          "lib/netstandard2.0/fr/Hangfire.Core.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/netstandard2.0/nb/Hangfire.Core.resources.dll": {
+            "locale": "nb"
+          },
+          "lib/netstandard2.0/nl/Hangfire.Core.resources.dll": {
+            "locale": "nl"
+          },
+          "lib/netstandard2.0/pt-BR/Hangfire.Core.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/netstandard2.0/pt-PT/Hangfire.Core.resources.dll": {
+            "locale": "pt-PT"
+          },
+          "lib/netstandard2.0/pt/Hangfire.Core.resources.dll": {
+            "locale": "pt"
+          },
+          "lib/netstandard2.0/sv/Hangfire.Core.resources.dll": {
+            "locale": "sv"
+          },
+          "lib/netstandard2.0/tr-TR/Hangfire.Core.resources.dll": {
+            "locale": "tr-TR"
+          },
+          "lib/netstandard2.0/zh-TW/Hangfire.Core.resources.dll": {
+            "locale": "zh-TW"
+          },
+          "lib/netstandard2.0/zh/Hangfire.Core.resources.dll": {
+            "locale": "zh"
           }
         }
       },
@@ -1715,6 +1771,13 @@
       "sha512": "sha512-tYu4jDM+OjRzx/6A5nQG/v+hAeOudTljDC3sxPx8/OFRO8deZvhO2KECafxv6t8W8xSC4dhk4iH+HCwTpC7n/Q==",
       "path": "epplus/5.8.6",
       "hashPath": "epplus.5.8.6.nupkg.sha512"
+    },
+    "Hangfire.Core/1.8.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-EP2JbfDiOAo6Jo3VmQAbRm7Cq6tcldiI2V/xYYjilIGutWuhgxM7aP+uJW6sE5LAnrLL54ahYfBISJLdE1VimQ==",
+      "path": "hangfire.core/1.8.12",
+      "hashPath": "hangfire.core.1.8.12.nupkg.sha512"
     },
     "Humanizer.Core/2.14.1": {
       "type": "package",

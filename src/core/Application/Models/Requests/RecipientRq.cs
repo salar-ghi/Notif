@@ -3,5 +3,6 @@
 public record RecipientRq
 {
     public string UserId { get; set; }
-    public long NotifId { get; set; }
+    public string nameofDevice { get; set; }
+    //public long NotifId { get; set; }
 }

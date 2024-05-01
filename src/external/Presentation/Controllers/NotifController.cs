@@ -33,9 +33,9 @@ public class NotifController : ControllerBase
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> SendNotifAsync([FromBody] CreateNotifRq notifRq, CancellationToken cancellationToken = default)
     {
-        //BackgroundJob.Enqueue(() => Console.WriteLine("Hangfire Triggered ????????????????????????????????????*********************** / How are you "));
+        var notif = await _notifService.SaveNotifAsync(notifRq, cancellationToken);
 
-        var notifs = await _notifService.CreateNotifAsync(notifRq, cancellationToken);
+        await _notifService.ScheduleNotificationAsync(notif, cancellationToken);
 
         return Ok("hello everyone");
     }

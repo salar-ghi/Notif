@@ -13,6 +13,11 @@ public static class DIServiceRegistration
         //services.AddScoped();
         services.AddScoped<INotifService, NotifService>();
 
+        //services.AddScoped<INotifSender,>()
+
+        services.AddScoped<INotifSender, EmailNotifSender>();
+        services.AddScoped<INotifSender, SmsNotifSender>();
+        services.AddScoped<INotifSender, MessageBrokerNotifSender>();
 
         // Singleton
         //services.AddSingleton();

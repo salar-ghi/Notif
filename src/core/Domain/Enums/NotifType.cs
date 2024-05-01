@@ -3,17 +3,20 @@
 public enum NotifType : byte
 {
     [Description("پیامک")]
-    SMS = 0,
+    SMS = 1,
 
     [Description("ایمیل")]
-    Email = 1,
+    Email = 2,
 
     [Description("نوتیف درون برنامه")]
-    Signal = 2,
+    Signal = 3,
+
+    [Description("")]
+    MessageBrocker = 4,
 
     [Description("تلگرام")]
-    Telegram = 3,
+    Telegram = 5,
 
     [Description("واتسآپ")]
-    Whatsapp = 4,
+    Whatsapp = 6,
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+﻿using Hangfire;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 
 namespace Infrastructure.Services.EntityFramework;
 
@@ -48,34 +49,55 @@ public class NotifService : INotifService
     }
 
 
-    public async Task<Notif> CreateNotifAsync(CreateNotifRq notifEntity, CancellationToken ct = default(CancellationToken))
+    public async Task<Notif> SaveNotifAsync(CreateNotifRq entity, CancellationToken ct = default(CancellationToken))
     {
-        var notif  = _mapper.Map<Notif>(notifEntity);
-
-        var items = await _context.Notifs.AddAsync(notif, ct);
-        await _context.SaveChangesAsync();
-
-        return notif;
-
-        ////foreach (var child in notifEntity.Recipients)
-        ////{
-        ////    child.NotifId = notif.Id;
-        ////}
-        ////var recipList = notifEntity.Recipients;
-        ////var recip = _mapper.Map<ICollection<Recipient>?>(recipList);
-
-        ////await _context.Recipients?.AddRangeAsync(recip, ct);
-        ////await _context.SaveChangesAsync();
-
-        //return items.Entity;
+        try
+        {
+            var notif = _mapper.Map<Notif>(entity);
+            var items = await _context.Notifs.AddAsync(notif, ct);
+            await _context.SaveChangesAsync();
+            return notif;
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
     }
 
-    public async Task CreateNotifAsync(IEnumerable<CreateNotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task SaveNotifAsync(IEnumerable<CreateNotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
     {
         await _context.AddRangeAsync(entities);
         await _context.SaveChangesAsync();
+    }
+
+    public async Task ScheduleNotificationAsync(Notif entity, CancellationToken ct)
+    {
+        try
+        {
+            var job = BackgroundJob.Enqueue(() => SendNotificationAsync(entity));
+        }
+        catch (Exception ex)
+        {
+            throw ex;
+        }
+        //BackgroundJob.Enqueue(() => Console.WriteLine("Hangfire Triggered ????????????????????????????????????*********************** / How are you "));
 
     }
+
+    private async Task SendNotificationAsync(Notif message)
+    {
+        // Code to send the notification to the recipient
+        // ...
+
+
+
+    }
+
+
+
+
+
+
 
     public Task<Notif> UpdateNotifAsync(Notif entity)
     {
