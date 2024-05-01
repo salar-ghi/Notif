@@ -8,6 +8,8 @@ public class Provider : EntityBase
     public bool IsEnabled { get; set; }
     public string JsonConfig { get; set; } = default!;
     //public NotifType Type { get; set; } // e.g., SMS, Email, RabbitMQ
+    public virtual NotifLog NotifLog { get; set; }
+
 
     //.... Another Properties and Configurations
     //public List<ProviderSetting> config { get; set; } = new List<ProviderSetting>();

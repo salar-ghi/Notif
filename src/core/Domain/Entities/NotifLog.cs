@@ -3,7 +3,8 @@
 public class NotifLog : EntityBase
 {
     public int Id { get; set; }
-    public int NotifId { get; set; }
+
+    public long NotifId { get; set; }
     public virtual Notif Notif { get; set; }
     
     public DateTime SentAt { get; set; }
@@ -11,6 +12,8 @@ public class NotifLog : EntityBase
     //public string ErrorMessage { get; set; }
     public string FailureReason { get; set; }
 
+    public int ProviderId { get; set; }
+    public virtual Provider Provider { get; set; }
 
 
     //...?? provider

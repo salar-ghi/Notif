@@ -7,5 +7,6 @@ public class BlackListConfiguration : IEntityTypeConfiguration<BlackList>
         BaseConfiguration<BlackList>.Configure(builder);
 
         builder.HasKey(x => x.Id);
+        builder.Property(x => x.UserId).IsRequired();
     }
 }

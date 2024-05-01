@@ -20,10 +20,6 @@ public partial class NotifContext : DbContext
     {
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-        //modelBuilder.Entity<Notif>()
-        //    .HasDiscriminator<string>("NotifType")
-        //    .HasValue<SmsNotif>("SMS");
-
         //modelBuilder.Entity<Provider>()
         //    .HasDiscriminator<string>("ProviderType")
         //    .HasValue<SmsProvider>("SMS")
@@ -31,12 +27,23 @@ public partial class NotifContext : DbContext
         //    .HasValue<RabbitMqProvider>("RabbitMQ");
 
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.ApplyConfiguration(new NotifConfiguration());
+        modelBuilder.ApplyConfiguration(new BlackListConfiguration());
+        modelBuilder.ApplyConfiguration(new NotifLogConfiguration());
+        modelBuilder.ApplyConfiguration(new ProviderConfiguration());        
+        //modelBuilder.Entity<Recipient>().HasNoKey();
+        modelBuilder.ApplyConfiguration(new  RecipientConfiguration());
+
+
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.EnableSensitiveDataLogging();
         optionsBuilder.EnableDetailedErrors();
+        optionsBuilder.UseLazyLoadingProxies(true);
+        //optionsBuilder.UseChangeTrackingProxies();
 
         base.OnConfiguring(optionsBuilder);
     }

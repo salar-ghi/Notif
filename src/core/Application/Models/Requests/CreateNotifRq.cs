@@ -12,7 +12,9 @@ public record CreateNotifRq
     public int SenderId { get; set; }
     public DateTime SendDate { get; set; }
     public long CreatedById { get; set; }
+    public string HangfireJobId { get; set; } = default!;
 
-    public ICollection<RecipientRq> Recipients { get; set; }
+
+    public ICollection<RecipientRq> Recipients { get; set; } = new List<RecipientRq>();
 
 }

@@ -1,12 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "7U7rquPp6xe0pzDUopl7vlRHOsntR8V4oI0QGxg8nMtjhZdNhu9plWtVIY2LFp9/rFBDccVmB/Noi77BcIjj7Q==",
+  "dgSpecHash": "GY0Eh06Gh1jiWhA8m8ZZarFTTYwoqp0Y55bu8s3RfItko3AeFzzWJwtNEVVEGPdeBXlPRlH7tVhAI10xCBbEJQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Presentation\\Presentation.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
+    "C:\\Users\\s.ghahremani\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
+    "C:\\Users\\s.ghahremani\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\elasticsearch.net\\7.17.5\\elasticsearch.net.7.17.5.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\epplus\\5.8.6\\epplus.5.8.6.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
@@ -50,6 +52,7 @@
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.4\\microsoft.entityframeworkcore.abstractions.8.0.4.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\8.0.4\\microsoft.entityframeworkcore.analyzers.8.0.4.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\microsoft.entityframeworkcore.design\\8.0.4\\microsoft.entityframeworkcore.design.8.0.4.nupkg.sha512",
+    "C:\\Users\\s.ghahremani\\.nuget\\packages\\microsoft.entityframeworkcore.proxies\\8.0.4\\microsoft.entityframeworkcore.proxies.8.0.4.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\8.0.4\\microsoft.entityframeworkcore.relational.8.0.4.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\8.0.4\\microsoft.entityframeworkcore.sqlserver.8.0.4.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",

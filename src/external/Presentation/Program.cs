@@ -1,5 +1,7 @@
+using Infrastructure.Mapping.AutoMapper;
 using Microsoft.Identity.Client.Extensions.Msal;
 using Presentation.Extensions;
+using Microsoft.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,11 +32,10 @@ builder.Services.AddDbContext<NotifContext>(options =>
     });
 }, ServiceLifetime.Scoped); //, ServiceLifetime.Transient  
 
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
+
 builder.Services.AddControllers();
-//builder.Services.AddEndpointsApiExplorer();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-//builder.Services.AddEndpointsApiExplorer();
-//builder.Services.AddSwaggerGen();
+
 builder.Services.AddServices(_applicationExtenderSetting);
 builder.Services.ConfigHangfire(configuration, "Nitro_Notif", builder.Environment);
 

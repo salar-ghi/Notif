@@ -7,6 +7,10 @@ public class RecipientConfiguration : IEntityTypeConfiguration<Recipient>
     {
         BaseConfiguration<Recipient>.Configure(builder);
 
+        builder.HasKey(x  => x.Id);
         builder.Property(x => x.UserId).IsRequired();
+
+
+        builder.HasOne(x => x.Notif).WithMany(e => e.Recipients).IsRequired().HasForeignKey(x => x.NotifId);
     }
 }

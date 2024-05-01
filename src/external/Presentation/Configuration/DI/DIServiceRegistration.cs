@@ -1,4 +1,5 @@
-﻿namespace Presentation.Configuration.DI;
+﻿using Microsoft.Extensions.DependencyInjection;
+namespace Presentation.Configuration.DI;
 
 public static class DIServiceRegistration
 {
@@ -17,6 +18,7 @@ public static class DIServiceRegistration
         //services.AddSingleton();
 
         services.AddBaseServices(applicationSetting);
+
         return services;
     }
 }

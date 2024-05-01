@@ -3,4 +3,5 @@
 public record RecipientRq
 {
     public string UserId { get; set; }
+    public long NotifId { get; set; }
 }

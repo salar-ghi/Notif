@@ -7,9 +7,11 @@ public class NotifService : INotifService
     #region Definition & Ctor
 
     private readonly NotifContext _context;
-    public NotifService(NotifContext context)
+    private readonly IMapper _mapper;
+    public NotifService(NotifContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
     #endregion
@@ -46,25 +48,26 @@ public class NotifService : INotifService
     }
 
 
-    public async Task<Notif> CreateNotifAsync(CreateNotifRq entity, CancellationToken ct = default(CancellationToken))
+    public async Task<Notif> CreateNotifAsync(CreateNotifRq notifEntity, CancellationToken ct = default(CancellationToken))
     {
-        //Convert model to notif  ??????????????????
-        ////////var items = await _context.Notifs.AddAsync(entity, ct);
-        ////////await _context.SaveChangesAsync();
+        var notif  = _mapper.Map<Notif>(notifEntity);
 
-        ////////var res = await _context.Recipients.AddRangeAsync(entity.Recipients);
+        var items = await _context.Notifs.AddAsync(notif, ct);
+        await _context.SaveChangesAsync();
 
-        //foreach (var Recipient in entity.Recipients)
-        //{
+        return notif;
 
-        //    var res = await _context.AddAsync(, ct);
-        //}
+        ////foreach (var child in notifEntity.Recipients)
+        ////{
+        ////    child.NotifId = notif.Id;
+        ////}
+        ////var recipList = notifEntity.Recipients;
+        ////var recip = _mapper.Map<ICollection<Recipient>?>(recipList);
 
-        //var itemId = items
+        ////await _context.Recipients?.AddRangeAsync(recip, ct);
+        ////await _context.SaveChangesAsync();
+
         //return items.Entity;
-        throw new NotImplementedException();
-
-
     }
 
     public async Task CreateNotifAsync(IEnumerable<CreateNotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
