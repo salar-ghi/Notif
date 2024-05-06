@@ -32,6 +32,11 @@ public class NotifService : INotifService
             saveFailed = false;
             try
             {
+                Parallel.ForEach(notifs, notif =>
+                {
+                    var @event = _context.Notifs.FindAsync(notif.Id);
+                });
+                    
                 await _context.SaveChangesAsync();
             }
             //catch (Exception ex)

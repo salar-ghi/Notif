@@ -11,9 +11,6 @@ public enum NotifStatus : byte
     [Description("")]
     failed_waiting = 3,
 
-    //[Description("")]
-    //waiting_ = 4,
-
     [Description("")]
-    failed= 5,
+    failed= 4,
 }
