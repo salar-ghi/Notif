@@ -2,14 +2,15 @@
 
 public class SmsNotifSender : ISmsProvider, INotifSender
 {
-
-
     
     
     
     
     public Task SendNotificationAsync(string message)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Sending SMS notification: {message}");
+        return Task.CompletedTask;
     }
+
+
 }

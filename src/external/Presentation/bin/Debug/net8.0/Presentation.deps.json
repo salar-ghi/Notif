@@ -2345,7 +2345,8 @@
           "Hangfire.Core": "1.8.12",
           "Microsoft.EntityFrameworkCore": "8.0.4",
           "Microsoft.EntityFrameworkCore.Proxies": "8.0.4",
-          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.4"
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.4",
+          "RabbitMQ.Client": "6.8.1"
         },
         "runtime": {
           "Infrastructure.dll": {}

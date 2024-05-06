@@ -4,6 +4,7 @@ public class EmailNotifSender : IEmailProvider, INotifSender
 {
     public Task SendNotificationAsync(string message)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Sending Email notification: {message}");
+        return Task.CompletedTask;
     }
 }

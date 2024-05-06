@@ -4,6 +4,7 @@ public class MessageBrokerNotifSender : IMessageBrockerProvider, INotifSender
 {
     public Task SendNotificationAsync(string message)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Sending Message Brocker notification: {message}");
+        return Task.CompletedTask;
     }
 }

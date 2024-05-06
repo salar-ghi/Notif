@@ -1,5 +1,6 @@
 ﻿using Hangfire;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Infrastructure.Services.EntityFramework;
 
@@ -53,6 +54,28 @@ public class NotifService : INotifService
     {
         try
         {
+            // 1- first of all save messages to InMemoryCache or redis
+
+            // 2- and simultanouesly do all actions that affacet on performance
+            // such as cuncurrency and parall processing and asynchronous programming ????????????????
+
+            // 3- then run a background job that save all messages from InMemoryCache or redis to sql server
+
+            // 3- then hangfire run a job that Delete all messages that were saved into sql server
+
+            // 4- hangfire run a job that check database that when would send notifications
+            
+            
+            // 5- Then call all those notifications and check by which method should Send (strategy design pattern)
+            
+            // 6- call type of provider then attemp to send notifs. (SMS / Email / Message Brocker -> rabbitmq, redisBus, kafka)
+
+            // 7- do some actions for message persistency
+
+            // 8- report the result of sending notifications.
+
+            // 9- communication of project with other services and projects (rest- > sync / message brocker -> async)
+
             var notif = _mapper.Map<Notif>(entity);
             var items = await _context.Notifs.AddAsync(notif, ct);
             await _context.SaveChangesAsync();
@@ -88,9 +111,22 @@ public class NotifService : INotifService
     {
         // Code to send the notification to the recipient
         // ...
+        
+        switch(message.Type)
+        {
+            case NotifType.SMS:
+                break;
+            case NotifType.Email:
+                break;
+            case NotifType.MessageBrocker:
+                break;
+            case NotifType.Signal:
+                break;
+            default:
+                break;
+        }
 
-
-
+        await Task.CompletedTask;
     }
 
 
@@ -108,8 +144,6 @@ public class NotifService : INotifService
     {
         throw new NotImplementedException();
     }
-
-
 
 
     #endregion

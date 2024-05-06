@@ -33,17 +33,17 @@ public class NotifController : ControllerBase
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> SendNotifAsync([FromBody] CreateNotifRq notifRq, CancellationToken cancellationToken = default)
     {
+
+
         var notif = await _notifService.SaveNotifAsync(notifRq, cancellationToken);
 
-        await _notifService.ScheduleNotificationAsync(notif, cancellationToken);
+        //await _notifService.ScheduleNotificationAsync(notif, cancellationToken);
 
         return Ok("hello everyone");
     }
 
 
     [HttpGet("Send")]
-    //[ProducesResponseType(typeof(NotOkResultDto), StatusCodes.Status500InternalServerError)]
-    //[ProducesResponseType(typeof(OkListResult<CancelledFundRs>), StatusCodes.Status200OK)]
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> SendAsync()
     {

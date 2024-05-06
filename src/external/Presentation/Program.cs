@@ -39,6 +39,9 @@ builder.Services.AddControllers();
 builder.Services.AddServices(_applicationExtenderSetting);
 builder.Services.ConfigHangfire(configuration, "Nitro_Notif", builder.Environment);
 
+
+
+
 //builder.Services.AddHangfire((sp, config) =>
 //{
 //    var connection = sp.GetRequiredService<IConfiguration>().GetConnectionString("HangFireConnection");
