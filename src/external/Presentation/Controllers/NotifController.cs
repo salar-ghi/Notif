@@ -1,6 +1,7 @@
 ﻿using Application.Models;
 using Application.Models.Requests;
 using Hangfire;
+using Microsoft.Extensions.Caching.Memory;
 using WebCore.Controllers;
 
 namespace Presentation.Controllers;
@@ -13,9 +14,14 @@ public class NotifController : ControllerBase
     //BaseController<NotifController, ApplicationSettingExtenderModel>
 {
     private readonly INotifService _notifService;
-    public NotifController(INotifService notifService)
+    private readonly IMemoryCache _memoryCache;
+    private readonly string MessageCollectionKey = "messagesCollectionKey";
+
+    public NotifController(INotifService notifService, IMemoryCache memoryCache)
     {
         _notifService = notifService;
+        _memoryCache = memoryCache;
+
     }
 
     [HttpGet("Index")]
@@ -31,13 +37,16 @@ public class NotifController : ControllerBase
     [ProducesResponseType(typeof(NotOkResultDto), StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(typeof(OkListResult<>), StatusCodes.Status200OK)]
     [MapToApiVersion("1.0")]
-    public async Task<IActionResult> SendNotifAsync([FromBody] CreateNotifRq notifRq, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> SendNotifAsync([FromBody] IEnumerable<CreateNotifRq> notifRq, CancellationToken cancellationToken = default)
     {
 
-
-        var notif = await _notifService.SaveNotifAsync(notifRq, cancellationToken);
+        //var notif =
+        await _notifService.SaveNotifAsync(notifRq, cancellationToken);
 
         //await _notifService.ScheduleNotificationAsync(notif, cancellationToken);
+
+        await _notifService.SendNotificationAsync(notifRq);
+
 
         return Ok("hello everyone");
     }

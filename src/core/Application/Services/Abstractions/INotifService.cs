@@ -8,6 +8,9 @@ public interface INotifService
     Task ScheduleNotificationAsync(Notif entity, CancellationToken ct);
 
 
+
+    Task SendNotificationAsync(IEnumerable<CreateNotifRq> messages);
+
     Task<Notif> UpdateNotifAsync(Notif entity);
     Task UpdateNotifAsync(IEnumerable<Notif> entities);
 }

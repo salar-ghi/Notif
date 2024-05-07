@@ -7,6 +7,7 @@ global using Application.Models.Requests;
 global using Microsoft.Extensions.Logging;
 global using Microsoft.EntityFrameworkCore;
 global using Application.Services.Abstractions;
+global using Microsoft.Extensions.Caching.Memory;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Infrastructure.Persistence.Providers.EntityFramework.Context;
 global using Infrastructure.Persistence.Providers.EntityFramework.Configurations;

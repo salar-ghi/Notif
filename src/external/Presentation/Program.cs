@@ -2,6 +2,7 @@ using Infrastructure.Mapping.AutoMapper;
 using Microsoft.Identity.Client.Extensions.Msal;
 using Presentation.Extensions;
 using Microsoft.Extensions.DependencyInjection;
+using MassTransit;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,9 @@ builder.Services.AddDbContext<NotifContext>(options =>
         errorNumbersToAdd: null);
     });
 }, ServiceLifetime.Scoped); //, ServiceLifetime.Transient  
+
+builder.Services.AddMemoryCache();
+//builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 

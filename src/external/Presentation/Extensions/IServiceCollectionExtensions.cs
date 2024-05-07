@@ -12,8 +12,11 @@ public static class IServiceCollectionExtensions
         var sqlServerOptions = new SqlServerStorageOptions
         {
             PrepareSchemaIfNecessary = true,
-            SlidingInvisibilityTimeout = TimeSpan.FromSeconds(30),
+            //CommandBatchMaxTimeout = TimeSpan.FromSeconds(15),
+            SlidingInvisibilityTimeout = TimeSpan.FromSeconds(15),
             QueuePollInterval = TimeSpan.Zero,
+            //UseRecommendedIsolationLevel = true,
+            //DisableGlobalLocks = true
         };
         GlobalConfiguration.Configuration
             .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
@@ -26,7 +29,7 @@ public static class IServiceCollectionExtensions
         services.AddHangfireServer(x =>
         {
             x.Queues = new[] { appName.ToLower() };
-            x.StopTimeout = TimeSpan.FromSeconds(30);
+            x.StopTimeout = TimeSpan.FromSeconds(3);
             x.MaxDegreeOfParallelismForSchedulers = 10;
             x.SchedulePollingInterval = TimeSpan.FromMinutes(3);
         });

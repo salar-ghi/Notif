@@ -7,6 +7,8 @@ public class Provider : EntityBase
     public string Description { get; set; } = default!;
     public bool IsEnabled { get; set; }
     public string JsonConfig { get; set; } = default!;
+    public ProviderType Type { get; set; }
+    public byte Priority { get; set; }
     //public NotifType Type { get; set; } // e.g., SMS, Email, RabbitMQ
     public virtual NotifLog NotifLog { get; set; }
 

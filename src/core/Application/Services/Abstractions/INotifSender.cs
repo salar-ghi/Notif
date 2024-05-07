@@ -2,6 +2,6 @@
 
 public interface INotifSender
 {
-    Task SendNotificationAsync(string message);
+    Task SendNotificationAsync(Notif notif, string providerName);
 
 }
