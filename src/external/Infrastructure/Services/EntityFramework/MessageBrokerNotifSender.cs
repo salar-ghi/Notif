@@ -1,7 +1,7 @@
 ﻿
 namespace Infrastructure.Services.EntityFramework;
 
-public class MessageBrokerNotifSender : IMessageBrockerProvider, INotifSender
+public class MessageBrokerNotifSender : IMessageBrockerProvider //, INotifSender
 {
     public Task SendNotificationAsync(Notif notif, string providerName)
     {

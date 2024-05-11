@@ -3,9 +3,9 @@ C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.AssemblyInfoInputs.cache
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.AssemblyInfo.cs
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.csproj.CoreCompileInputs.cache
-C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.sourcelink.json
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\appsettings.json
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Presentation.exe
@@ -50,7 +50,10 @@ C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.SqlServer.dll
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Microsoft.Extensions.Caching.StackExchangeRedis.dll
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Microsoft.Extensions.Logging.Abstractions.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Microsoft.Extensions.Options.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Microsoft.Identity.Client.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Microsoft.Identity.Client.Extensions.Msal.dll
@@ -77,6 +80,7 @@ C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\NSwag.Core.Yaml.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\NSwag.Generation.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\NSwag.Generation.AspNetCore.dll
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Pluralize.NET.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Prometheus.NetCore.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Prometheus.NetStandard.dll
@@ -96,6 +100,7 @@ C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Serilog.Sinks.Elasticsearch.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Serilog.Sinks.File.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Serilog.Sinks.PeriodicBatching.dll
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\StackExchange.Redis.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Swashbuckle.AspNetCore.Annotations.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll

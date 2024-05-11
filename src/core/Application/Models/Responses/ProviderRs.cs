@@ -1,6 +1,6 @@
 ﻿namespace Application.Models.Responses;
 
-public class ProviderRs
+public record ProviderRs
 {
     public int Id { get; set; }
     public string Name { get; set; }

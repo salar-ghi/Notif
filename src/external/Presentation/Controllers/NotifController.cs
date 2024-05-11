@@ -14,13 +14,12 @@ public class NotifController : ControllerBase
     //BaseController<NotifController, ApplicationSettingExtenderModel>
 {
     private readonly INotifService _notifService;
-    private readonly IMemoryCache _memoryCache;
-    private readonly string MessageCollectionKey = "messagesCollectionKey";
+    //private readonly IMemoryCache _memoryCache;
+    //private readonly string MessageCollectionKey = "messagesCollectionKey";
 
-    public NotifController(INotifService notifService, IMemoryCache memoryCache)
+    public NotifController(INotifService notifService)
     {
-        _notifService = notifService;
-        _memoryCache = memoryCache;
+        _notifService = notifService;     
 
     }
 
@@ -41,7 +40,7 @@ public class NotifController : ControllerBase
     {
 
         //var notif =
-        await _notifService.SaveNotifAsync(notifRq, cancellationToken);
+        //await _notifService.SaveNotifAsync(notifRq, cancellationToken);
 
         //await _notifService.ScheduleNotificationAsync(notif, cancellationToken);
 
@@ -53,7 +52,7 @@ public class NotifController : ControllerBase
 
 
     [HttpGet("Send")]
-    [MapToApiVersion("1.0")]
+    [MapToApiVersion("1.0")]    
     public async Task<IActionResult> SendAsync()
     {
         string item = "hello every body and how are you ";

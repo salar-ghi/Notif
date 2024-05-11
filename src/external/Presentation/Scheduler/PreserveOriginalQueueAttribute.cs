@@ -14,9 +14,7 @@ public class PreserveOriginalQueueAttribute : JobFilterAttribute, IApplyStateFil
         if (enqueuedState != null)
         {
             // Checking if an original queue is already set
-            var originalQueue = JobHelper.FromJson<string>(context.Connection.GetJobParameter(
-                context.BackgroundJob.Id,
-                "OriginalQueue"));
+            var originalQueue = JobHelper.FromJson<string>(context.Connection.GetJobParameter(context.BackgroundJob.Id, "OriginalQueue"));
 
             if (originalQueue != null)
             {
@@ -26,10 +24,7 @@ public class PreserveOriginalQueueAttribute : JobFilterAttribute, IApplyStateFil
             else
             {
                 // Queueing for the first time, we should set the original queue
-                context.Connection.SetJobParameter(
-                    context.BackgroundJob.Id,
-                    "OriginalQueue",
-                    JobHelper.ToJson(enqueuedState.Queue));
+                context.Connection.SetJobParameter(context.BackgroundJob.Id, "OriginalQueue", JobHelper.ToJson(enqueuedState.Queue));
             }
         }
     }

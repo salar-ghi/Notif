@@ -10,88 +10,115 @@ public class SmsNotifSender : ISmsProvider, INotifSender
     private readonly NotifContext _context;
     private readonly IMapper _mapper;
 
-    public SmsNotifSender()
+    public SmsNotifSender(NotifContext context, IMapper mapper)
     {
-        _context = new NotifContext();
-        //_mapper = mapper;
+        _context = context;
+        _mapper = mapper;
     }
 
 
-    public async Task<IEnumerable<Provider>> GetSmsProviders()
+    public async Task<IEnumerable<ProviderRs>> GetSmsProviders()
     {
         // ************############## Create Provider Response Model  ????????????????????????????????????
-        IEnumerable<ProviderRs> ProviderRs = new List<ProviderRs>();
         var provider = await _context.Providers
             .Where(z => z.Type == ProviderType.Mobile && z.IsEnabled == true)
-            .Select(x => new { 
-                x.Name, 
-                x.Description,
-                x.JsonConfig, 
-                x.Type})
+            .Select(x => new ProviderRs 
+            { 
+                Name = x.Name, 
+                Type = x.Type,
+                JsonConfig = x.JsonConfig,
+                Description = x.Description,
+            })
             .AsNoTracking()
             .ToListAsync();
 
-
         return provider;
     }
 
-    public async Task<Provider> GetRandomSmsProvider()
-    {
-        var providerNum = await _context.Providers
-            .Where(z => z.Type == ProviderType.Mobile && z.IsEnabled == true)
-            .AsNoTracking()
-            .CountAsync();
-        
-        var randomNum = Random.Shared.Next(0, providerNum);
+    //public async Task<ProviderRs> GetRandomSmsProvider()
+    //{
+    //    var providerNum = await _context.Providers
+    //        .Where(z => z.Type == ProviderType.Mobile && z.IsEnabled == true)
+    //        .AsNoTracking()
+    //        .CountAsync();
 
-        var randomProvider = await _context.Providers
+    //    var randomNum = Random.Shared.Next(0, providerNum);
+
+    //    var randomProvider = await _context.Providers
+    //        .Where(z => z.Type == ProviderType.Mobile && z.IsEnabled == true)
+    //        .OrderBy(x => x.Priority)
+    //        //.Skip(randomNum)
+    //        //.Take(1)
+    //        .Select(x => new
+    //        {
+    //            x.Name,
+    //            x.JsonConfig
+    //        })
+    //        .AsNoTracking()
+    //        .FirstOrDefaultAsync();
+
+    //    return randomProvider;
+    //}
+
+
+
+    public async Task<ProviderRs> GetRandomSmsProvider()
+    {
+        var provider = await _context.Providers
             .Where(z => z.Type == ProviderType.Mobile && z.IsEnabled == true)
             .OrderBy(x => x.Priority)
-            //.Skip(randomNum)
-            //.Take(1)
-            .Select (x => new
+            .Select(x => new ProviderRs
             {
-                x.Name,
-                x.JsonConfig
+                Name = x.Name,
+                Type = x.Type,
+                JsonConfig = x.JsonConfig
             })
             .AsNoTracking()
             .FirstOrDefaultAsync();
 
-        return randomProvider;
-    }
-
-
-    public async Task<Provider> GetSmsProvider(string name)
-    {
-        // ************############## Create Provider Response Model  ????????????????????????????????????
-        var provider = await _context.Providers
-            .Where(z => z.Type == ProviderType.Mobile && z.IsEnabled == true && z.Name.Equals(name))
-            .Select(x => new
-            {
-                x.Name,
-                x.JsonConfig,
-                x.Type
-            })
-            .AsNoTracking()
-            .FirstOrDefaultAsync();
         return provider;
     }
 
-    public async Task SendNotificationAsync(Notif notif, string providerName)
+    public async Task<ProviderRs> GetSmsProvider(string name)
     {
+        // ************############## Create Provider Response Model  ????????????????????????????????????
+        //var provider = await _context.Providers
+        //    .Where(z => z.Type == ProviderType.Mobile && z.IsEnabled == true && z.Name == name)
+        //    .Select(x => new ProviderRs
+        //    {
+        //        Name = x.Name,
+        //        Type = x.Type,
+        //        JsonConfig = x.JsonConfig,
+        //    })
+        //    .AsNoTracking().SingleOrDefaultAsync().ConfigureAwait(false);
 
+        var provider =  await _context.Providers.Where(z => z.Name == name && z.IsEnabled == true).FirstOrDefaultAsync();
+
+        ProviderRs prv = new ProviderRs()
+        {
+            Name = provider.Name,
+            Type = provider.Type,
+            JsonConfig = provider.JsonConfig,
+        };
+
+        return prv;
+    }
+
+    public async Task<ProviderRs> SendNotificationAsync(Notif notif, string providerName)
+    {
+        var provider = new ProviderRs();
         if (!string.IsNullOrEmpty(providerName))
         {
             // enter name of sms provider
-            var provider = await GetSmsProvider(providerName);
+            provider = await GetSmsProvider(providerName);
         }
         else
         {
-            var provider = await GetRandomSmsProvider();
+            provider = await GetRandomSmsProvider();
         }
 
         Console.WriteLine($"Sending SMS notification: {notif.Message}");
-        await Task.CompletedTask;
+        return provider;
     }
 
 

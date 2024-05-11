@@ -1,9 +1,3 @@
-using Infrastructure.Mapping.AutoMapper;
-using Microsoft.Identity.Client.Extensions.Msal;
-using Presentation.Extensions;
-using Microsoft.Extensions.DependencyInjection;
-using MassTransit;
-
 var builder = WebApplication.CreateBuilder(args);
 
 var _applicationExtenderSetting = new ApplicationSettingExtenderModel();
@@ -34,6 +28,12 @@ builder.Services.AddDbContext<NotifContext>(options =>
 }, ServiceLifetime.Scoped); //, ServiceLifetime.Transient  
 
 builder.Services.AddMemoryCache();
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = "loclahost:6379";
+    options.InstanceName = "Notification";
+});
+
 //builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
@@ -42,7 +42,6 @@ builder.Services.AddControllers();
 
 builder.Services.AddServices(_applicationExtenderSetting);
 builder.Services.ConfigHangfire(configuration, "Nitro_Notif", builder.Environment);
-
 
 
 
@@ -91,5 +90,6 @@ app.UseHangfireDashboard("/hangfire", new DashboardOptions
     }
 
 });
+RecurringJob.AddOrUpdate<ICacheMessage>("Notif-job", x => x.GetAllMessages(), "*/2 * * * * *");
 
 app.Run();

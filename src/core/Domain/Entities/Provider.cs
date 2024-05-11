@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-public class Provider : EntityBase
+public class Provider : EntityBase , IValidate, ITrackable
 {
     public int Id { get; set; }
     public string Name { get; set; } = default!;
@@ -11,6 +11,15 @@ public class Provider : EntityBase
     public byte Priority { get; set; }
     //public NotifType Type { get; set; } // e.g., SMS, Email, RabbitMQ
     public virtual NotifLog NotifLog { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+    public long CreatedById { get; set; }
+    public DateTime? ModifiedAt { get; set; }
+
+    public void Validate()
+    {
+        throw new NotImplementedException();
+    }
 
 
     //.... Another Properties and Configurations

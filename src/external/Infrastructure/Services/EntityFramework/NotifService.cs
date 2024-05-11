@@ -14,8 +14,10 @@ public class NotifService : INotifService
     private readonly NotifContext _context;
     private readonly IMapper _mapper;
     private readonly INotifSender _sender;
-    private readonly IMemoryCache _cache;
-    public NotifService(NotifContext context, IMapper mapper, INotifSender sender, IMemoryCache cache)
+    //private readonly IMemoryCache _cache;
+
+    private readonly ICacheMessage _cache;
+    public NotifService(NotifContext context, IMapper mapper, INotifSender sender, ICacheMessage cache)
     {
         _context = context;
         _mapper = mapper;
@@ -88,8 +90,7 @@ public class NotifService : INotifService
 
             var notif = _mapper.Map<Notif>(entity);
 
-            string key = Guid.NewGuid().ToString(); // Generate unique key
-            _cache.Set(key, notif, TimeSpan.FromMinutes(5));
+
 
 
             //???????????????????????????
@@ -105,8 +106,11 @@ public class NotifService : INotifService
 
     public async Task SaveNotifAsync(IEnumerable<CreateNotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
     {
-        await _context.AddRangeAsync(entities);
-        await _context.SaveChangesAsync();
+        var notif = _mapper.Map<IEnumerable<Notif>>(entities);
+        _cache.AddMessage(notif);
+
+        //await _context.AddRangeAsync(entities);
+        //await _context.SaveChangesAsync();
     }
 
     public async Task ScheduleNotificationAsync(Notif entity, CancellationToken ct)
@@ -127,15 +131,18 @@ public class NotifService : INotifService
     public async Task SendNotificationAsync(IEnumerable<CreateNotifRq> messages)
     {
         // Code to send the notification to the recipient
-        // ...
+        // ...        
+        var provider = await _context.Providers.Where(z => z.IsEnabled == true).FirstOrDefaultAsync();
+
         Parallel.ForEach(messages, async message =>
         {
             var notif = _mapper.Map<Notif>(message);
             switch (message.Type)
             {
                 case NotifType.SMS:
-                    var result = new SmsNotifSender();
-                    var resItem = result.SendNotificationAsync(notif, message.ProviderName);
+                    //var provider = await _context.Providers.Where(z => z.IsEnabled == true).FirstOrDefaultAsync();
+
+                    var resItem = await _sender.SendNotificationAsync(notif, message.ProviderName);
                     //_sender.SendNotificationAsync(message);
                     var @event = await _context.Notifs.FindAsync(notif.Id);
                     @event.status = NotifStatus.Delivered;

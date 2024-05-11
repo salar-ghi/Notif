@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Infrastructure.Services;
+using Microsoft.Extensions.DependencyInjection;
 namespace Presentation.Configuration.DI;
 
 public static class DIServiceRegistration
@@ -15,9 +16,15 @@ public static class DIServiceRegistration
 
         //services.AddScoped<INotifSender,>()
 
-        services.AddScoped<INotifSender, EmailNotifSender>();
+        //services.AddScoped<INotifSender, EmailNotifSender>();
+        services.AddScoped<ISmsProvider, SmsNotifSender >();
         services.AddScoped<INotifSender, SmsNotifSender>();
-        services.AddScoped<INotifSender, MessageBrokerNotifSender>();
+        //services.AddScoped<INotifSender, MessageBrokerNotifSender>();
+
+        services.AddScoped<ICacheMessage, InMemoryCacheRepository>();
+        //RecurringJob.AddOrUpdate<ICacheMessage>("Notif-job", x => x.GetAllMessages(), "*/2 * * * * *");
+        //BackgroundJob.Schedule<ICacheMessage>(x => x.GetAllMessages(), TimeSpan.FromSeconds(2));
+
 
         // Singleton
         //services.AddSingleton();

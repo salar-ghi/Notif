@@ -1,7 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
-
-namespace Domain.Entities;
+﻿namespace Domain.Entities;
 
 public class Notif : EntityBase, IValidate, ITrackable
 {

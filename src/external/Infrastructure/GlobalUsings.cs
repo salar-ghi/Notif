@@ -1,6 +1,7 @@
 ﻿global using AutoMapper;
 global using Domain.Enums;
 global using Domain.Entities;
+global using System.Text.Json;
 global using System.Reflection;
 global using Domain.Entities.Base;
 global using Application.Models.Requests;
@@ -8,6 +9,10 @@ global using Microsoft.Extensions.Logging;
 global using Microsoft.EntityFrameworkCore;
 global using Application.Services.Abstractions;
 global using Microsoft.Extensions.Caching.Memory;
+//global using StackExchange.Redis;
+global using Microsoft.Extensions.Caching.Distributed;
+global using Microsoft.Extensions.Caching.StackExchangeRedis;
+//global using Microsoft.EntityFrameworkCore.Storage;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Infrastructure.Persistence.Providers.EntityFramework.Context;
 global using Infrastructure.Persistence.Providers.EntityFramework.Configurations;

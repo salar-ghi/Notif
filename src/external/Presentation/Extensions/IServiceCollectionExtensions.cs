@@ -12,11 +12,13 @@ public static class IServiceCollectionExtensions
         var sqlServerOptions = new SqlServerStorageOptions
         {
             PrepareSchemaIfNecessary = true,
-            //CommandBatchMaxTimeout = TimeSpan.FromSeconds(15),
+
+            CommandBatchMaxTimeout = TimeSpan.FromSeconds(15),
             SlidingInvisibilityTimeout = TimeSpan.FromSeconds(15),
             QueuePollInterval = TimeSpan.Zero,
-            //UseRecommendedIsolationLevel = true,
-            //DisableGlobalLocks = true
+            UseRecommendedIsolationLevel = true,
+            DisableGlobalLocks = true,
+            
         };
         GlobalConfiguration.Configuration
             .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
@@ -31,12 +33,11 @@ public static class IServiceCollectionExtensions
             x.Queues = new[] { appName.ToLower() };
             x.StopTimeout = TimeSpan.FromSeconds(3);
             x.MaxDegreeOfParallelismForSchedulers = 10;
-            x.SchedulePollingInterval = TimeSpan.FromMinutes(3);
+            x.SchedulePollingInterval = TimeSpan.FromSeconds(1);
         });
         //GlobalJobFilters.Filters.Add(new Delete)
         GlobalJobFilters.Filters.Add(new PreserveOriginalQueueAttribute());
         GlobalJobFilters.Filters.Add(new DeleteConcurrentExecutionAttribute());
         GlobalJobFilters.Filters.Add(new DisableConcurrentExecutionAttribute(15));
-
     }
 }

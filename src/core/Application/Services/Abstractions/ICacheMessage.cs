@@ -2,6 +2,13 @@
 
 public interface ICacheMessage
 {
-    Task AddMessage(Notif message);
-    Task<IEnumerable<Notif>> GetMessages();
+    void AddMessage(string? InputKey, Notif message, TimeSpan? slidingExpiration = null);
+    void AddMessage(IDictionary<string, Notif> messages, TimeSpan? slidingExpiration = null);
+    void AddMessage(IEnumerable<Notif> messages, TimeSpan? slidingExpiration = null);
+
+
+    Task<Notif> GetMessages();
+    Task<IEnumerable<KeyValuePair<string, Notif>>> GetKeyValueMessages();
+    Task<IEnumerable<Notif>> GetAllMessages();
+
 }
