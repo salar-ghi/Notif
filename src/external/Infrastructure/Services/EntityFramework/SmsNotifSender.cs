@@ -1,9 +1,4 @@
-﻿using Application.Models.Responses;
-using AutoMapper;
-using Domain.Entities;
-using System.Data.Common;
-
-namespace Infrastructure.Services.EntityFramework;
+﻿namespace Infrastructure.Services.EntityFramework;
 
 public class SmsNotifSender : ISmsProvider, INotifSender
 {

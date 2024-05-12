@@ -34,6 +34,7 @@ public class Notif : EntityBase, IValidate, ITrackable
     public DateTime CreatedAt { get; set; }
     public long CreatedById { get; set; }
     public DateTime? ModifiedAt { get; set; }
+    public long? ModifiedById { get; set; }
 
     public virtual ICollection<Recipient> Recipients { get; set; }
     //private ICollection<Recipient> _recipients;
@@ -43,6 +44,7 @@ public class Notif : EntityBase, IValidate, ITrackable
     //    set => _recipients = value; 
     //}
     public virtual NotifLog NotifLog { get; set; }
+
     public void Validate()
     {
         #region Message

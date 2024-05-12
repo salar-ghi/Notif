@@ -1,25 +1,14 @@
-﻿using Domain.Entities;
-using Hangfire;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using Microsoft.Extensions.Caching.Memory;
-using System.Reflection.Metadata.Ecma335;
+﻿namespace Infrastructure.Services.EntityFramework;
 
-namespace Infrastructure.Services.EntityFramework;
-
-public class NotifService : INotifService
+public class NotifService : CRUDService<Notif>, INotifService
 {
     #region Definition & Ctor
 
-    private readonly NotifContext _context;
     private readonly IMapper _mapper;
     private readonly INotifSender _sender;
-    //private readonly IMemoryCache _cache;
-
     private readonly ICacheMessage _cache;
-    public NotifService(NotifContext context, IMapper mapper, INotifSender sender, ICacheMessage cache)
+    public NotifService(IMapper mapper, INotifSender sender, ICacheMessage cache)
     {
-        _context = context;
         _mapper = mapper;
         _sender = sender;
         _cache = cache;
@@ -29,13 +18,14 @@ public class NotifService : INotifService
 
     #region Methods
 
-    public async Task MarkNotificationsAsReadAsync(List<Notif> notifs)
+    public async Task MarkNotificationsAsReadAsync(List<Notif> notifs, CancellationToken cancellationToken)
     {
         Parallel.ForEach(notifs, async notif =>
         {
-            var @event = await _context.Notifs.FindAsync(notif.Id);
+            //var @event = await _unitOfWork.DbContext.Notifs.FindAsync(notif.Id);
+            var @event = await base.Update(notif);
             @event.status = NotifStatus.Delivered;
-            await _context.SaveChangesAsync();
+            await _unitOfWork.SaveChanges(cancellationToken);
         });
         bool saveFailed;
         do
@@ -44,7 +34,7 @@ public class NotifService : INotifService
             try
             {
                     
-                await _context.SaveChangesAsync();
+                await _unitOfWork.SaveChanges(cancellationToken);
             }
             //catch (Exception ex)
             catch (DbUpdateConcurrencyException ex)
@@ -62,7 +52,7 @@ public class NotifService : INotifService
     }
 
 
-    public async Task<Notif> SaveNotifAsync(CreateNotifRq entity, CancellationToken ct = default(CancellationToken))
+    public async Task<Notif> SaveNotifAsync(NotifRq entity, CancellationToken ct = default(CancellationToken))
     {
         try
         {
@@ -104,10 +94,11 @@ public class NotifService : INotifService
         }
     }
 
-    public async Task SaveNotifAsync(IEnumerable<CreateNotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task SaveNotifAsync(IEnumerable<NotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
     {
+        var cache = await _cache.AddMessage(entities);
+
         var notif = _mapper.Map<IEnumerable<Notif>>(entities);
-        _cache.AddMessage(notif);
 
         //await _context.AddRangeAsync(entities);
         //await _context.SaveChangesAsync();
@@ -128,11 +119,11 @@ public class NotifService : INotifService
 
     }
 
-    public async Task SendNotificationAsync(IEnumerable<CreateNotifRq> messages)
+    public async Task SendNotificationAsync(IEnumerable<NotifRq> messages)
     {
         // Code to send the notification to the recipient
         // ...        
-        var provider = await _context.Providers.Where(z => z.IsEnabled == true).FirstOrDefaultAsync();
+        var provider = await _unitOfWork.DbContext.Providers.Where(z => z.IsEnabled == true).FirstOrDefaultAsync();
 
         Parallel.ForEach(messages, async message =>
         {
@@ -144,7 +135,7 @@ public class NotifService : INotifService
 
                     var resItem = await _sender.SendNotificationAsync(notif, message.ProviderName);
                     //_sender.SendNotificationAsync(message);
-                    var @event = await _context.Notifs.FindAsync(notif.Id);
+                    var @event = await _unitOfWork.DbContext.Notifs.FindAsync(notif.Id);
                     @event.status = NotifStatus.Delivered;
                     break;
                 case NotifType.Email:
@@ -165,25 +156,35 @@ public class NotifService : INotifService
 
     public async Task<IEnumerable<Notif>> GetUnDeliveredAsync()
     {
-        return await _context.Notifs.Where(e => e.status != NotifStatus.Delivered).ToListAsync();
+        return await _unitOfWork.DbContext.Notifs.Where(e => e.status != NotifStatus.Delivered).ToListAsync();
     }
 
-
-
-
-
-
-
-    public Task<Notif> UpdateNotifAsync(Notif entity)
-    {
-        throw new NotImplementedException();
-    }
-
-    public Task UpdateNotifAsync(IEnumerable<Notif> entities)
-    {
-        throw new NotImplementedException();
-    }
 
 
     #endregion
+
+
+    #region Cache
+
+    public async Task<bool> CacheNotifAsync(IEnumerable<NotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
+    {
+        var result = await _cache.AddMessage(entities);
+        return result;
+    }
+
+    public async Task<IEnumerable<NotifRs>> GetAllNotifAsync(CancellationToken cancellationToken = default(CancellationToken))
+    {
+        var notif = await _cache.GetAllMessages();
+        //var notifResponse = _mapper.Map<IEnumerable<NotifRs>>(notif);
+        return notif;
+    }
+
+    #endregion
+
+
+
+
+
+
+    // **********************************?????????????????????
 }

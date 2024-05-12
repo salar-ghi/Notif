@@ -3,28 +3,54 @@
 public class InMemoryCacheRepository : ICacheMessage
 {
     private readonly IMemoryCache _cache;
-
+    private readonly string _cacheKey = "messages_cache";
     public InMemoryCacheRepository(IMemoryCache cache) => _cache = cache;
 
 
-    public void AddMessage(string? InputKey, Notif message, TimeSpan? slidingExpiration = null)
+    public async Task<bool> AddMessage(string? InputKey, NotifRq message, TimeSpan? slidingExpiration = null)
     {
-        string key = InputKey ?? Guid.NewGuid().ToString(); // Generate unique key
-        _cache.Set(key, message, slidingExpiration ?? TimeSpan.FromMinutes(15));
-    }
-
-    public void AddMessage(IDictionary<string, Notif> messages, TimeSpan? slidingExpiration = null)
-    {
-        foreach (var item in messages)
+        try
         {
-            AddMessage(item.Key, item.Value, slidingExpiration);
+            string key = InputKey ?? Guid.NewGuid().ToString(); // Generate unique key
+            //_cache.Set(key, message, slidingExpiration ?? TimeSpan.FromMinutes(15));
+            _cache.Set(key, message);
+            return true;
+        }
+        catch
+        {
+            return false;
         }
     }
 
-    public void AddMessage(IEnumerable<Notif> messages, TimeSpan? slidingExpiration = null)
+    public async Task<bool> AddMessage(IDictionary<string, NotifRq> messages, TimeSpan? slidingExpiration = null)
     {
-        string key = Guid.NewGuid().ToString(); // Generate unique key
-        _cache.Set(key, messages.ToList(), slidingExpiration ?? TimeSpan.FromMinutes(15));
+        try
+        {
+            foreach (var item in messages)
+            {
+                await AddMessage(item.Key, item.Value, slidingExpiration);
+            }
+            return true;
+        }
+        catch (Exception)
+        {
+            return false;
+        }
+
+    }
+
+    public async Task<bool> AddMessage(IEnumerable<NotifRq> messages)
+    {
+        try
+        {
+            string key = Guid.NewGuid().ToString(); // Generate unique key
+            _cache.Set(_cacheKey, messages.ToList());
+            return true;
+        }
+        catch
+        {
+            return false;
+        }
     }
 
 
@@ -42,12 +68,31 @@ public class InMemoryCacheRepository : ICacheMessage
         return Task.FromResult(messages);
     }
 
-    public Task<IEnumerable<Notif>> GetAllMessages()
+    public async Task<IEnumerable<NotifRs>> GetAllMessages()
     {
-        var currentDateTime = DateTime.Now.ToString("HH:mm:ss");
-        //string formattedDateTime = currentDateTime.ToString("HH:mm:ss")
-        var messages = _cache.Get<IEnumerable<Notif>>("__AllKeys__") ?? Enumerable.Empty<Notif>();
-        Console.WriteLine("Doing GetAllMessages background job at {0}", currentDateTime);
-        return Task.FromResult(messages);
+        var ded = _cache.GetType().GetProperty("key");
+        var ttte = _cache.Get(_cacheKey);
+        var tttttr = _cache.Get<IEnumerable<object>>(_cacheKey);
+
+        var tets = _cache.GetOrCreate(_cacheKey, entry =>
+        {
+            //entry.SlidingExpiration = TimeSpan.FromMinutes(30);
+            return new List<string>();
+        });
+        var ttt = _cache.TryGetValue(_cacheKey, out var calue);
+
+        var messages = _cache.GetOrCreate(_cacheKey, entry =>
+        {
+            //entry.SlidingExpiration = TimeSpan.FromMinutes(30);
+            return new List<NotifRs>();
+        });
+        
+
+        //var messages = _cache.Get<IEnumerable<NotifRs>>("__AllKeys__") ?? Enumerable.Empty<NotifRs>();
+        
+        //var currentDateTime = DateTime.Now.ToString("HH:mm:ss");
+        //Console.WriteLine("Doing GetAllMessages background job at {0}", currentDateTime);
+
+        return messages;
     }
 }

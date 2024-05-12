@@ -1,14 +1,17 @@
-﻿namespace Application.Services.Abstractions;
+﻿using Application.Models.Responses;
+
+namespace Application.Services.Abstractions;
 
 public interface ICacheMessage
 {
-    void AddMessage(string? InputKey, Notif message, TimeSpan? slidingExpiration = null);
-    void AddMessage(IDictionary<string, Notif> messages, TimeSpan? slidingExpiration = null);
-    void AddMessage(IEnumerable<Notif> messages, TimeSpan? slidingExpiration = null);
+    //void AddMessage(string? InputKey, Notif message, TimeSpan? slidingExpiration = null);
+    Task<bool> AddMessage(string? InputKey, NotifRq message, TimeSpan? slidingExpiration = null);
+    Task<bool> AddMessage(IDictionary<string, NotifRq> messages, TimeSpan? slidingExpiration =null);
+    Task<bool> AddMessage(IEnumerable<NotifRq> messages);
 
 
     Task<Notif> GetMessages();
     Task<IEnumerable<KeyValuePair<string, Notif>>> GetKeyValueMessages();
-    Task<IEnumerable<Notif>> GetAllMessages();
+    Task<IEnumerable<NotifRs>> GetAllMessages();
 
 }

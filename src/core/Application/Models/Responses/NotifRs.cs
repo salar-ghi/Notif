@@ -1,8 +1,7 @@
-﻿namespace Application.Models.Requests;
+﻿namespace Application.Models.Responses;
 
-public record CreateNotifRq
+public record NotifRs
 {
-    [Required]
     public string Title { get; set; }
     //public MessageType MessageType { get; set; }
     [Required]
@@ -17,5 +16,4 @@ public record CreateNotifRq
 
 
     public ICollection<RecipientRq> Recipients { get; set; } = new List<RecipientRq>();
-
 }

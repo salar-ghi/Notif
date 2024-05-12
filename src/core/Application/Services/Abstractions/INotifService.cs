@@ -1,16 +1,15 @@
-﻿namespace Application.Services.Abstractions;
+﻿using Application.Models.Responses;
 
-public interface INotifService
+namespace Application.Services.Abstractions;
+
+public interface INotifService : ICRUDService<Notif>
 {
-    Task<Notif> SaveNotifAsync(CreateNotifRq entity,  CancellationToken ct);
-    Task SaveNotifAsync(IEnumerable<CreateNotifRq> entities, CancellationToken ct);
-
+    Task<Notif> SaveNotifAsync(NotifRq entity,  CancellationToken ct);
+    Task SaveNotifAsync(IEnumerable<NotifRq> entities, CancellationToken ct);
     Task ScheduleNotificationAsync(Notif entity, CancellationToken ct);
 
+    Task SendNotificationAsync(IEnumerable<NotifRq> messages);
+    Task<bool> CacheNotifAsync(IEnumerable<NotifRq> entities, CancellationToken cancellationToken = default(CancellationToken));
+    Task<IEnumerable<NotifRs>> GetAllNotifAsync(CancellationToken cancellationToken = default(CancellationToken));
 
-
-    Task SendNotificationAsync(IEnumerable<CreateNotifRq> messages);
-
-    Task<Notif> UpdateNotifAsync(Notif entity);
-    Task UpdateNotifAsync(IEnumerable<Notif> entities);
 }

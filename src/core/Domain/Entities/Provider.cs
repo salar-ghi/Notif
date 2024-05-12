@@ -15,6 +15,7 @@ public class Provider : EntityBase , IValidate, ITrackable
     public DateTime CreatedAt { get; set; }
     public long CreatedById { get; set; }
     public DateTime? ModifiedAt { get; set; }
+    public long? ModifiedById { get; set; }
 
     public void Validate()
     {

@@ -33,9 +33,9 @@ public partial class NotifContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        //optionsBuilder.EnableSensitiveDataLogging();
-        //optionsBuilder.EnableDetailedErrors();
-        //optionsBuilder.UseLazyLoadingProxies(true);
+        optionsBuilder.EnableSensitiveDataLogging();
+        optionsBuilder.EnableDetailedErrors();
+        optionsBuilder.UseLazyLoadingProxies(true);
         //optionsBuilder.UseChangeTrackingProxies();
 
         base.OnConfiguring(optionsBuilder);
