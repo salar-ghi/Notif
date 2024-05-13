@@ -25,7 +25,7 @@ public class Notif : EntityBase, IValidate, ITrackable
 
     public string HangfireJobId { get; set; } = default!;
     public bool IsSent { get; set; } // for hangfire job
-    public DateTime NextTry { get; set; }
+    public DateTime NextTry { get; set; } = DateTime.UtcNow;
     [Timestamp]
     public byte[] RowVersion { get; set; } // ??? for cuncurrency
     #endregion

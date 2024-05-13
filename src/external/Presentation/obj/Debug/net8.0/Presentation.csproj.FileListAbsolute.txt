@@ -1,3 +1,4 @@
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\web.config
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\appsettings.json
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Presentation.exe
@@ -231,4 +232,3 @@ C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.pdb
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\Presentation.genruntimeconfig.cache
 C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\obj\Debug\net8.0\ref\Presentation.dll
-C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\web.config

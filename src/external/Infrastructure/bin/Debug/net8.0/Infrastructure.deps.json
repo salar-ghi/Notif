@@ -15,6 +15,8 @@
           "Microsoft.EntityFrameworkCore.Proxies": "8.0.4",
           "Microsoft.EntityFrameworkCore.SqlServer": "8.0.4",
           "Microsoft.EntityFrameworkCore.Tools": "8.0.4",
+          "Microsoft.Extensions.Caching.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Caching.Memory": "8.0.0",
           "Microsoft.Extensions.Caching.StackExchangeRedis": "8.0.4",
           "RabbitMQ.Client": "6.8.1",
           "StackExchange.Redis": "2.7.33"

@@ -1,17 +1,21 @@
-﻿namespace Infrastructure.Services.EntityFramework;
+﻿using StackExchange.Redis;
+
+namespace Infrastructure.Services.EntityFramework;
 
 public class NotifService : CRUDService<Notif>, INotifService
 {
     #region Definition & Ctor
 
+    private readonly ILogger<NotifService> _logger;
     private readonly IMapper _mapper;
     private readonly INotifSender _sender;
-    private readonly ICacheMessage _cache;
-    public NotifService(IMapper mapper, INotifSender sender, ICacheMessage cache)
+    //private readonly ICacheMessage _cache;
+    public NotifService(IMapper mapper, INotifSender sender, ILogger<NotifService> logger)
     {
         _mapper = mapper;
         _sender = sender;
-        _cache = cache;
+        //_cache = cache;
+        _logger = logger;
     }
 
     #endregion
@@ -96,13 +100,37 @@ public class NotifService : CRUDService<Notif>, INotifService
 
     public async Task SaveNotifAsync(IEnumerable<NotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
     {
-        var cache = await _cache.AddMessage(entities);
+        //var cache = await _cache.AddMessage(entities);
 
-        var notif = _mapper.Map<IEnumerable<Notif>>(entities);
-
-        //await _context.AddRangeAsync(entities);
-        //await _context.SaveChangesAsync();
+        var notif = _mapper.Map<ICollection<Notif>>(entities);
+        await base.Create(notif);
+        await _unitOfWork.DbContext.SaveChangesAsync();
     }
+
+    public async Task<List<ResultType>> CreateNotifAsync(IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default(CancellationToken))
+    {
+        var results = new List<ResultType>();
+        ICollection<NotifLog> notifLogCol = new HashSet<NotifLog>();
+
+        foreach (var entity in entities)
+        {
+            var notif = _mapper.Map<Notif>(entity);
+            var data = await base.Create(notif);
+            await _unitOfWork.DbContext.SaveChangesAsync();
+
+            //if(notif.)
+            var notifLog = new NotifLog
+            {
+                NotifId = data.Id,
+                ProviderId = entity.ProviderName, //??????????????????????????
+            };
+            notifLogCol.Add(notifLog);
+        }
+
+
+        return results;
+    }
+
 
     public async Task ScheduleNotificationAsync(Notif entity, CancellationToken ct)
     {
@@ -160,24 +188,22 @@ public class NotifService : CRUDService<Notif>, INotifService
     }
 
 
-
     #endregion
 
 
     #region Cache
 
-    public async Task<bool> CacheNotifAsync(IEnumerable<NotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
-    {
-        var result = await _cache.AddMessage(entities);
-        return result;
-    }
+    //public async Task<bool> CacheNotifAsync(IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default(CancellationToken))
+    //{
+    //    var result = await _cache.AddMessage(entities);
+    //    return result;
+    //}
 
-    public async Task<IEnumerable<NotifRs>> GetAllNotifAsync(CancellationToken cancellationToken = default(CancellationToken))
-    {
-        var notif = await _cache.GetAllMessages();
-        //var notifResponse = _mapper.Map<IEnumerable<NotifRs>>(notif);
-        return notif;
-    }
+    //public async Task<IEnumerable<NotifVM>> GetAllNotifAsync(CancellationToken cancellationToken = default(CancellationToken))
+    //{
+    //    var notif = await _cache.GetAllMessages();
+    //    return notif;
+    //}
 
     #endregion
 

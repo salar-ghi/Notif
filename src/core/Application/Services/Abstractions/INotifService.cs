@@ -1,6 +1,4 @@
-﻿using Application.Models.Responses;
-
-namespace Application.Services.Abstractions;
+﻿namespace Application.Services.Abstractions;
 
 public interface INotifService : ICRUDService<Notif>
 {
@@ -9,7 +7,10 @@ public interface INotifService : ICRUDService<Notif>
     Task ScheduleNotificationAsync(Notif entity, CancellationToken ct);
 
     Task SendNotificationAsync(IEnumerable<NotifRq> messages);
-    Task<bool> CacheNotifAsync(IEnumerable<NotifRq> entities, CancellationToken cancellationToken = default(CancellationToken));
-    Task<IEnumerable<NotifRs>> GetAllNotifAsync(CancellationToken cancellationToken = default(CancellationToken));
 
+    //#region Cache
+    //Task<bool> CacheNotifAsync(IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default(CancellationToken));
+    //Task<IEnumerable<NotifVM>> GetAllNotifAsync(CancellationToken cancellationToken = default(CancellationToken));
+
+    //#endregion
 }

@@ -31,7 +31,6 @@
 		<Folder Include="Dtos\" />
 		<Folder Include="Middlewares\" />
 		<Folder Include="HttpClients\" />
-		<Folder Include="Jobs\" />
 		<Folder Include="logs\" />
 	</ItemGroup>
 

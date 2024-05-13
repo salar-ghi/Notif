@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Mapping.AutoMapper;
+﻿using Application.Models;
+
+namespace Infrastructure.Mapping.AutoMapper;
 
 public class AutoMapperProfile : Profile
 {
@@ -6,6 +8,12 @@ public class AutoMapperProfile : Profile
     {
         CreateMap<Notif, NotifRq>().ReverseMap();
         CreateMap<Recipient, RecipientRq>().ReverseMap();
+
+        CreateMap<Notif, NotifVM>()
+            .ForMember(dest => dest.SendDate, op => op.MapFrom(src => src.NextTry))
+            .ReverseMap();
+            ;
+        CreateMap<Recipient, RecipientVM>();
 
     }
     

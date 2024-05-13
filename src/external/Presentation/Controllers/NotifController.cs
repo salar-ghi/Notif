@@ -4,17 +4,17 @@ namespace Presentation.Controllers;
 
 
 [EnableCors(Constants.CorsPolicyName)]
-//[EnableCors("MyPolicy")]
-//[Route("api/v{version:apiVersion}/[controller]")]
 public class NotifController : BaseController<NotifController, ApplicationSettingExtenderModel>
 {
     private readonly INotifService _notifService;
     //private readonly IMemoryCache _memoryCache;
+    private readonly ICacheMessage _cache;
     //private readonly string MessageCollectionKey = "messagesCollectionKey";
 
-    public NotifController(INotifService notifService)
+    public NotifController(INotifService notifService, ICacheMessage cache)
     {
         _notifService = notifService;
+        _cache = cache;
     }
 
     [HttpGet("")]
@@ -28,16 +28,12 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
 
     [HttpPost("SendNotif")]
     [ProducesResponseType(typeof(NotOkResultDto), StatusCodes.Status500InternalServerError)]
-    //[ProducesResponseType(typeof(OkListResult<>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(OkListResult<NotifVM>), StatusCodes.Status200OK)]
     [MapToApiVersion("1.0")]
-    public async Task<IActionResult> SendNotifAsync([FromBody] IEnumerable<NotifRq> notifRq, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> SendNotifAsync([FromBody] IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default)
     {
-        var result = await _notifService.CacheNotifAsync(notifRq, cancellationToken);
+        var result = await _cache.AddMessage(entities);
         return Ok(result);
-
-        //await _notifService.ScheduleNotificationAsync(notif, cancellationToken);
-
-        //await _notifService.SendNotificationAsync(notifRq);
     }
 
     [HttpGet("AllCaches")]
@@ -45,8 +41,8 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> GetAllCacheNotifs(CancellationToken cancellation = default(CancellationToken))
     {
-        var items = await _notifService.GetAllNotifAsync(cancellation);
-        return Ok(items);
+        var notif = await _cache.GetAllMessages();
+        return Ok(notif.ToList());
     }
 
     [HttpGet("Send")]
