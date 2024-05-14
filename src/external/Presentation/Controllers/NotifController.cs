@@ -10,19 +10,22 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
     //private readonly IMemoryCache _memoryCache;
     private readonly ICacheMessage _cache;
     //private readonly string MessageCollectionKey = "messagesCollectionKey";
+    private readonly INotifManagementService _notifManagementService;
 
-    public NotifController(INotifService notifService, ICacheMessage cache)
+    public NotifController(INotifService notifService, ICacheMessage cache, INotifManagementService notifManagementService)
     {
         _notifService = notifService;
         _cache = cache;
+        _notifManagementService = notifManagementService;
     }
 
-    [HttpGet("")]
+    [HttpGet("Index")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> Index()
     {
         string item = "hello every body and how are you ";
+        await _notifManagementService.CheckCacheAndSaveToStorage();
         return Ok(item);
     }
 
@@ -43,6 +46,15 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
     {
         var notif = await _cache.GetAllMessages();
         return Ok(notif.ToList());
+    }
+
+    [HttpGet("")]
+    [ProducesResponseType( StatusCodes.Status200OK)]
+    [MapToApiVersion("1.0")]
+    public async Task<IActionResult> RunappAllCacheNotifs(CancellationToken cancellation = default(CancellationToken))
+    {
+        await _notifManagementService.CheckCacheAndSaveToStorage();
+        return Ok();
     }
 
     [HttpGet("Send")]

@@ -4,23 +4,23 @@ public class SaveNotifToStorageJob : ISaveNotifToStorageJob
 {
     private readonly ILogger<SaveNotifToStorageJob> _logger;
     private readonly ApplicationSettingExtenderModel _applicationSettings;
-    private readonly ICacheMessage _cache;
+    private readonly INotifManagementService _notifManagement;
 
     public SaveNotifToStorageJob(ILogger<SaveNotifToStorageJob> logger,
-         ApplicationSettingExtenderModel applicationSettings, ICacheMessage cache)
+         ApplicationSettingExtenderModel applicationSettings, INotifManagementService notifManagement)
     {
         _logger = logger;
         _applicationSettings = applicationSettings;
-        _cache = cache;
+        //_cache = cache;
+        _notifManagement = notifManagement;
     }
 
     public async Task Run()
     {
         try
         {
-            var notif = await _cache.GetAllMessages();
-            //if (notif != null)
-
+            
+            var notif  = await _notifManagement.CheckCacheAndSaveToStorage();
 
 
         }

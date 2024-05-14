@@ -18,6 +18,9 @@ namespace Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -54,13 +57,12 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 11, 14, 9, 15, 393, DateTimeKind.Utc).AddTicks(5310));
+                        .HasDefaultValue(new DateTime(2024, 5, 14, 11, 21, 0, 477, DateTimeKind.Utc).AddTicks(3836));
 
                     b.Property<long>("CreatedById")
                         .HasColumnType("bigint");
 
                     b.Property<string>("HangfireJobId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsSent")
@@ -76,6 +78,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedById")
+                        .HasColumnType("bigint");
 
                     b.Property<DateTime>("NextTry")
                         .HasColumnType("datetime2");
@@ -114,7 +119,6 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FailureReason")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("NotifId")
@@ -123,7 +127,7 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ProviderId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("SentAt")
+                    b.Property<DateTime?>("SentAt")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("Success")
@@ -167,6 +171,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<long?>("ModifiedById")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()

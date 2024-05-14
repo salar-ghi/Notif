@@ -73,9 +73,21 @@ public class InMemoryCacheRepository : ICacheMessage
     public async Task<IEnumerable<NotifVM>> GetAllMessages()
     {
         var cache = _cache.Get<IEnumerable<NotifVM>>(_cacheKey) ?? Enumerable.Empty<NotifVM>();
-
+        
+        //???????????????????
         var tttttr = _cache.Get<IEnumerable<object>>(_cacheKey);
 
         return cache;
+    }
+
+    public Task RemoveMessage(NotifVM entity)
+    {
+        throw new NotImplementedException();
+    }
+
+    public async Task RemoveMessage(ICollection<NotifVM> entity)
+    {
+        _cache.Remove(_cacheKey);
+        //throw new NotImplementedException();
     }
 }

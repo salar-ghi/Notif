@@ -13,7 +13,7 @@ public class NotifConfiguration : IEntityTypeConfiguration<Notif>
         builder.Property(n => n.status).IsRequired();
 
         builder.Property(n => n.CreatedAt).IsRequired().HasDefaultValue(DateTime.UtcNow);
-        //builder.Property(n => n.HangfireJobId).IsRequired().HasDefaultValue(Guid.Empty);
+        builder.Property(n => n.HangfireJobId).IsRequired(false);
         builder.Property(n => n.RowVersion).IsRowVersion();
 
         //builder.HasMany(x => x.Recipients).WithOne(e => e.Notif).IsRequired();

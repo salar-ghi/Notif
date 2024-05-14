@@ -19,4 +19,8 @@ public enum ProviderType : byte
     SocialMedia = 4,
 
 
+    [Description("")]
+    None = 10,
+
+
 }

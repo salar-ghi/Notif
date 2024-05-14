@@ -12,4 +12,7 @@ public interface ICacheMessage
     Task<IEnumerable<KeyValuePair<string, NotifVM>>> GetKeyValueMessages();
     Task<IEnumerable<NotifVM>> GetAllMessages();
 
+
+    Task RemoveMessage(NotifVM entity);
+    Task RemoveMessage(ICollection<NotifVM> entity);
 }

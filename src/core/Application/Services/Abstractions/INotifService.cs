@@ -2,7 +2,7 @@
 
 public interface INotifService : ICRUDService<Notif>
 {
-    Task<Notif> SaveNotifAsync(NotifRq entity,  CancellationToken ct);
+    Task<Notif> SaveNotifAsync(NotifVM entity,  CancellationToken ct);
     Task SaveNotifAsync(IEnumerable<NotifRq> entities, CancellationToken ct);
     Task ScheduleNotificationAsync(Notif entity, CancellationToken ct);
 

@@ -1,4 +1,6 @@
-﻿namespace Presentation;
+﻿using Presentation.Jobs;
+
+namespace Presentation;
 
 public class Startup
 {
@@ -150,5 +152,6 @@ public class Startup
 
         app.UseResponseCompression();
 
+        JobScheduler.ScheduleJobs(app, _applicationExtenderSetting);
     }
 }

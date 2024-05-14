@@ -16,5 +16,14 @@ public class JobScheduler
             });
 
 
+        //RecurringJob.AddOrUpdate<>($"{appName}.{nameof(SaveNotifToStorageJob)}",
+        //    j => j.Run(), Cron.Minutely, new RecurringJobOptions()
+        //    {
+        //        //QueueName = appName.ToLower(),
+        //        TimeZone = GlobalConstants.GetTehranTimeZoneInfo(),
+        //        //MisfireHandling = MisfireHandlingMode.Relaxed;
+        //    });
+
+
     }
 }

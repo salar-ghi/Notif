@@ -9,13 +9,18 @@ public class NotifService : CRUDService<Notif>, INotifService
     private readonly ILogger<NotifService> _logger;
     private readonly IMapper _mapper;
     private readonly INotifSender _sender;
-    //private readonly ICacheMessage _cache;
-    public NotifService(IMapper mapper, INotifSender sender, ILogger<NotifService> logger)
+
+
+    // ************* //
+    private readonly IProviderService _provider;
+    private readonly INotifLogService _notifLog;
+    public NotifService(IMapper mapper, INotifSender sender, ILogger<NotifService> logger, IProviderService provider, INotifLogService notifLog)
     {
         _mapper = mapper;
         _sender = sender;
-        //_cache = cache;
         _logger = logger;
+        _provider = provider;
+        _notifLog = notifLog;
     }
 
     #endregion
@@ -37,7 +42,7 @@ public class NotifService : CRUDService<Notif>, INotifService
             saveFailed = false;
             try
             {
-                    
+
                 await _unitOfWork.SaveChanges(cancellationToken);
             }
             //catch (Exception ex)
@@ -51,50 +56,25 @@ public class NotifService : CRUDService<Notif>, INotifService
                 // - Throw an exception or return a response indicating the conflict
                 entry.OriginalValues.SetValues(databaseValues);
             }
-        }while (saveFailed);
-        
+        } while (saveFailed);
+
     }
 
 
-    public async Task<Notif> SaveNotifAsync(NotifRq entity, CancellationToken ct = default(CancellationToken))
+    public async Task<Notif> SaveNotifAsync(NotifVM entity, CancellationToken ct = default(CancellationToken))
     {
         try
         {
-            // 1- first of all save messages to InMemoryCache or redis
-
-            // 2- and simultanouesly do all actions that affect on performance
-            // such as cuncurrency and parall processing and asynchronous programming ????????????????
-
-            // 3- then run a background job that save all messages from InMemoryCache or redis to sql server
-
-            // 3- then hangfire run a job that Delete all messages that were saved into sql server
-
-            // 4- hangfire run a job that check database that when would send notifications
-
-
-            // 5- Then call all those notifications and check by which method should Send (strategy design pattern)
-
-            // 6- call type of provider then attemp to send notifs. (SMS / Email / Message Brocker -> rabbitmq, redisBus, kafka)
-
-            // 7- do some actions for message persistency
-
-            // 8- report the result of sending notifications.
-
-            // 9- communication of project with other services and projects (rest- > sync / message brocker -> async)
-
             var notif = _mapper.Map<Notif>(entity);
 
-
-
-
-            //???????????????????????????
-            //var items = await _context.Notifs.AddAsync(notif, ct);
-            //await _context.SaveChangesAsync();
-            return notif;
+            var data = await base.Create(notif);
+            await _unitOfWork.DbContext.SaveChangesAsync();
+            return data;
         }
         catch (Exception ex)
         {
-            throw ex;
+            _logger.LogError(ex.Message, ex);           
+            throw;
         }
     }
 
@@ -107,29 +87,39 @@ public class NotifService : CRUDService<Notif>, INotifService
         await _unitOfWork.DbContext.SaveChangesAsync();
     }
 
-    public async Task<List<ResultType>> CreateNotifAsync(IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default(CancellationToken))
-    {
-        var results = new List<ResultType>();
-        ICollection<NotifLog> notifLogCol = new HashSet<NotifLog>();
+    //public async Task<List<bool>> CreateNotifAsync(IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default(CancellationToken))
+    //{
+    //    try
+    //    {
+    //        ICollection<NotifLog> notifLogCol = new HashSet<NotifLog>();
+    //        foreach (var entity in entities)
+    //        {
+    //            var notif = _mapper.Map<Notif>(entity);
 
-        foreach (var entity in entities)
-        {
-            var notif = _mapper.Map<Notif>(entity);
-            var data = await base.Create(notif);
-            await _unitOfWork.DbContext.SaveChangesAsync();
-
-            //if(notif.)
-            var notifLog = new NotifLog
-            {
-                NotifId = data.Id,
-                ProviderId = entity.ProviderName, //??????????????????????????
-            };
-            notifLogCol.Add(notifLog);
-        }
+    //            var data = await base.Create(notif);
+    //            await _unitOfWork.DbContext.SaveChangesAsync();
 
 
-        return results;
-    }
+    //            var provider = !string.IsNullOrEmpty(entity.ProviderName) ? _provider.GetSpecificProvider(entity.ProviderName) : _provider.GetRandomProvider(entity.ProviderName, entity.Type);
+    //            var notLog = new NotifLog
+    //            {
+    //                NotifId =  data.Id,
+    //                ProviderId = provider.Id,
+    //            };
+    //            notifLogCol.Add(notLog);
+    //            await _notifLog.SaveNotifLogAsync(notifLogCol, cancellationToken);
+    //        }
+    //        // ??????????????????? start to remove saved items to storage from cache ***********
+    //        // ??????????????????? start to remove saved items to storage from cache ***********
+    //        // ??????????????????? start to remove saved items to storage from cache ***********
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        _logger.LogError(ex.Message, ex);
+    //        throw;
+    //    }
+
+    //}
 
 
     public async Task ScheduleNotificationAsync(Notif entity, CancellationToken ct)
@@ -176,7 +166,7 @@ public class NotifService : CRUDService<Notif>, INotifService
                     break;
             }
         });
-        
+
 
         await Task.CompletedTask;
     }
