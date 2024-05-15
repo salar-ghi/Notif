@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(NotifContext))]
-    [Migration("20240514112100_hangfirejob")]
-    partial class hangfirejob
+    [Migration("20240515072346_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,7 +46,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BlackLists");
+                    b.ToTable("BlackList");
                 });
 
             modelBuilder.Entity("Domain.Entities.Notif", b =>
@@ -60,7 +60,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 14, 11, 21, 0, 477, DateTimeKind.Utc).AddTicks(3836));
+                        .HasDefaultValue(new DateTime(2024, 5, 15, 7, 23, 46, 446, DateTimeKind.Utc).AddTicks(6193));
 
                     b.Property<long>("CreatedById")
                         .HasColumnType("bigint");
@@ -141,10 +141,9 @@ namespace Infrastructure.Migrations
                     b.HasIndex("NotifId")
                         .IsUnique();
 
-                    b.HasIndex("ProviderId")
-                        .IsUnique();
+                    b.HasIndex("ProviderId");
 
-                    b.ToTable("NotifLogs");
+                    b.ToTable("NotifLog");
                 });
 
             modelBuilder.Entity("Domain.Entities.Provider", b =>
@@ -191,7 +190,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Providers");
+                    b.ToTable("Provider");
                 });
 
             modelBuilder.Entity("Domain.Entities.Recipient", b =>
@@ -213,7 +212,7 @@ namespace Infrastructure.Migrations
 
                     b.HasIndex("NotifId");
 
-                    b.ToTable("Recipients");
+                    b.ToTable("Recipient");
                 });
 
             modelBuilder.Entity("Domain.Entities.NotifLog", b =>
@@ -225,8 +224,8 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Provider", "Provider")
-                        .WithOne("NotifLog")
-                        .HasForeignKey("Domain.Entities.NotifLog", "ProviderId")
+                        .WithMany("NotifLog")
+                        .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -256,8 +255,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Provider", b =>
                 {
-                    b.Navigation("NotifLog")
-                        .IsRequired();
+                    b.Navigation("NotifLog");
                 });
 #pragma warning restore 612, 618
         }

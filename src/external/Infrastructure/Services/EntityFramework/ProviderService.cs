@@ -19,7 +19,7 @@ public class ProviderService : CRUDService<Provider>, IProviderService
     {
         try
         {
-            var provider = await _unitOfWork.DbContext.Providers
+            var provider = await _unitOfWork.DbContext.Provider
                 .Where(z => z.IsEnabled == true && z.Name == name)
                 .AsNoTracking()
                 .Select(j => new Provider { 
@@ -46,7 +46,7 @@ public class ProviderService : CRUDService<Provider>, IProviderService
             var providerType = _mapper.Map<ProviderType>(type);
             ProviderType prType = (ProviderType)Enum.Parse(typeof(ProviderType), providerType.ToString(), true);
 
-            var ranProvider = await _unitOfWork.DbContext.Providers
+            var ranProvider = await _unitOfWork.DbContext.Provider
                 //.AsParallel()
                 //.WithDegreeOfParallelism(Environment.ProcessorCount)
                 .Where(z => z.Type == prType && z.IsEnabled == true && z.Priority == 1)

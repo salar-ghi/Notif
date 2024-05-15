@@ -141,7 +141,7 @@ public class NotifService : CRUDService<Notif>, INotifService
     {
         // Code to send the notification to the recipient
         // ...        
-        var provider = await _unitOfWork.DbContext.Providers.Where(z => z.IsEnabled == true).FirstOrDefaultAsync();
+        var provider = await _unitOfWork.DbContext.Provider.Where(z => z.IsEnabled == true).FirstOrDefaultAsync();
 
         Parallel.ForEach(messages, async message =>
         {

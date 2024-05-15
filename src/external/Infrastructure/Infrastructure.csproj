@@ -10,7 +10,6 @@
     <Folder Include="Configuration\" />
     <Folder Include="Dtos\" />
     <Folder Include="Helpers\" />
-    <Folder Include="Migrations\" />
     <Folder Include="Models\" />
   </ItemGroup>
 

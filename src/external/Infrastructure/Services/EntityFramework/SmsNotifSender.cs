@@ -15,7 +15,7 @@ public class SmsNotifSender : ISmsProvider, INotifSender
     public async Task<IEnumerable<ProviderRs>> GetSmsProviders()
     {
         // ************############## Create Provider Response Model  ????????????????????????????????????
-        var provider = await _context.Providers
+        var provider = await _context.Provider
             .Where(z => z.Type == ProviderType.Mobile && z.IsEnabled == true)
             .Select(x => new ProviderRs 
             { 
@@ -59,7 +59,7 @@ public class SmsNotifSender : ISmsProvider, INotifSender
 
     public async Task<ProviderRs> GetRandomSmsProvider()
     {
-        var provider = await _context.Providers
+        var provider = await _context.Provider
             .Where(z => z.Type == ProviderType.Mobile && z.IsEnabled == true)
             .OrderBy(x => x.Priority)
             .Select(x => new ProviderRs
@@ -87,7 +87,7 @@ public class SmsNotifSender : ISmsProvider, INotifSender
         //    })
         //    .AsNoTracking().SingleOrDefaultAsync().ConfigureAwait(false);
 
-        var provider =  await _context.Providers.Where(z => z.Name == name && z.IsEnabled == true).FirstOrDefaultAsync();
+        var provider =  await _context.Provider.Where(z => z.Name == name && z.IsEnabled == true).FirstOrDefaultAsync();
 
         ProviderRs prv = new ProviderRs()
         {

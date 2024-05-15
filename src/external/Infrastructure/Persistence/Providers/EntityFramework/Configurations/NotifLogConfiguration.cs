@@ -11,6 +11,9 @@ public class NotifLogConfiguration : IEntityTypeConfiguration<NotifLog>
 
 
         builder.HasOne(x => x.Notif).WithOne(e => e.NotifLog).HasForeignKey<NotifLog>(x => x.NotifId);
-        builder.HasOne(x => x.Provider).WithOne(e => e.NotifLog).HasForeignKey<NotifLog>(x => x.ProviderId);
+
+        builder.HasOne<Provider>(x => x.Provider).WithMany(e => e.NotifLog).HasForeignKey(z => z.ProviderId);
+
+        builder.HasIndex(x => x.ProviderId).IsUnique(false);
     }
 }
