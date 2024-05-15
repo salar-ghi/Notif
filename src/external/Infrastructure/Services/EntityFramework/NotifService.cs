@@ -29,21 +29,20 @@ public class NotifService : CRUDService<Notif>, INotifService
 
     public async Task MarkNotificationsAsReadAsync(List<Notif> notifs, CancellationToken cancellationToken)
     {
-        Parallel.ForEach(notifs, async notif =>
-        {
-            //var @event = await _unitOfWork.DbContext.Notifs.FindAsync(notif.Id);
-            var @event = await base.Update(notif);
-            @event.status = NotifStatus.Delivered;
-            await _unitOfWork.SaveChanges(cancellationToken);
-        });
         bool saveFailed;
         do
         {
             saveFailed = false;
             try
             {
-
-                await _unitOfWork.SaveChanges(cancellationToken);
+                Parallel.ForEach(notifs, async notif =>
+                {
+                    //var @event = await _unitOfWork.DbContext.Notifs.FindAsync(notif.Id);
+                    var @event = await base.Update(notif);
+                    @event.status = NotifStatus.Delivered;
+                    await _unitOfWork.SaveChanges(cancellationToken);
+                });
+                //await _unitOfWork.SaveChanges(cancellationToken);
             }
             //catch (Exception ex)
             catch (DbUpdateConcurrencyException ex)
@@ -87,40 +86,6 @@ public class NotifService : CRUDService<Notif>, INotifService
         await _unitOfWork.DbContext.SaveChangesAsync();
     }
 
-    //public async Task<List<bool>> CreateNotifAsync(IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default(CancellationToken))
-    //{
-    //    try
-    //    {
-    //        ICollection<NotifLog> notifLogCol = new HashSet<NotifLog>();
-    //        foreach (var entity in entities)
-    //        {
-    //            var notif = _mapper.Map<Notif>(entity);
-
-    //            var data = await base.Create(notif);
-    //            await _unitOfWork.DbContext.SaveChangesAsync();
-
-
-    //            var provider = !string.IsNullOrEmpty(entity.ProviderName) ? _provider.GetSpecificProvider(entity.ProviderName) : _provider.GetRandomProvider(entity.ProviderName, entity.Type);
-    //            var notLog = new NotifLog
-    //            {
-    //                NotifId =  data.Id,
-    //                ProviderId = provider.Id,
-    //            };
-    //            notifLogCol.Add(notLog);
-    //            await _notifLog.SaveNotifLogAsync(notifLogCol, cancellationToken);
-    //        }
-    //        // ??????????????????? start to remove saved items to storage from cache ***********
-    //        // ??????????????????? start to remove saved items to storage from cache ***********
-    //        // ??????????????????? start to remove saved items to storage from cache ***********
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        _logger.LogError(ex.Message, ex);
-    //        throw;
-    //    }
-
-    //}
-
 
     public async Task ScheduleNotificationAsync(Notif entity, CancellationToken ct)
     {
@@ -151,7 +116,7 @@ public class NotifService : CRUDService<Notif>, INotifService
                 case NotifType.SMS:
                     //var provider = await _context.Providers.Where(z => z.IsEnabled == true).FirstOrDefaultAsync();
 
-                    var resItem = await _sender.SendNotificationAsync(notif, message.ProviderName);
+
                     //_sender.SendNotificationAsync(message);
                     var @event = await _unitOfWork.DbContext.Notifs.FindAsync(notif.Id);
                     @event.status = NotifStatus.Delivered;
@@ -174,26 +139,14 @@ public class NotifService : CRUDService<Notif>, INotifService
 
     public async Task<IEnumerable<Notif>> GetUnDeliveredAsync()
     {
-        return await _unitOfWork.DbContext.Notifs.Where(e => e.status != NotifStatus.Delivered).ToListAsync();
+        var undeliverNotifs = await base.GetQuery()
+            .Where(x => x.status == NotifStatus.waiting)
+            .ToListAsync();
+
+        //.Where(e => e.status != NotifStatus.Delivered && e.status != NotifStatus.failed).ToListAsync();
+        return undeliverNotifs;
     }
 
-
-    #endregion
-
-
-    #region Cache
-
-    //public async Task<bool> CacheNotifAsync(IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default(CancellationToken))
-    //{
-    //    var result = await _cache.AddMessage(entities);
-    //    return result;
-    //}
-
-    //public async Task<IEnumerable<NotifVM>> GetAllNotifAsync(CancellationToken cancellationToken = default(CancellationToken))
-    //{
-    //    var notif = await _cache.GetAllMessages();
-    //    return notif;
-    //}
 
     #endregion
 

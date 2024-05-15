@@ -2,4 +2,5 @@
 
 public interface ISmsProvider
 {
+    Task SendSmsAsync(Notif message);
 }

@@ -74,6 +74,33 @@ public class ProviderService : CRUDService<Provider>, IProviderService
         throw new NotImplementedException();
     }
 
+    public async Task<Provider> GetSpecificProvider(int Id)
+    {
+        try
+        {
+            var provider = await base.GetQuery()
+                .Where(z => z.Id == Id)
+                .AsNoTracking()
+                .Select(j => new Provider
+                {
+                    Id = j.Id,
+                    Name = j.Name,
+                    Type = j.Type,
+                    JsonConfig = j.JsonConfig
+                })
+                .SingleOrDefaultAsync()
+                .ConfigureAwait(false);
+            return provider;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            throw;
+        }
+    }
+
+
+
     //public async Task<Provider> GetProvider(string name)
     //{
     //    try
@@ -109,7 +136,6 @@ public class ProviderService : CRUDService<Provider>, IProviderService
     //        throw;
     //    }
     //}
-
 
 
 

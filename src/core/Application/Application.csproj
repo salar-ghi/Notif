@@ -14,7 +14,6 @@
     <Folder Include="Models\Responses\ThirdParties\" />
     <Folder Include="Persistence\" />
     <Folder Include="Services\Abstractions\HttpClients\" />
-    <Folder Include="Services\Abstractions\ThirdParties\" />
   </ItemGroup>
 
   <ItemGroup>

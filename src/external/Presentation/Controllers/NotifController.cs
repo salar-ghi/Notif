@@ -26,6 +26,7 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
     {
         string item = "hello every body and how are you ";
         await _notifManagementService.CheckCacheAndSaveToStorage();
+        //await _notifManagementService.SendNotif();
         return Ok(item);
     }
 
@@ -53,7 +54,7 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> RunappAllCacheNotifs(CancellationToken cancellation = default(CancellationToken))
     {
-        await _notifManagementService.CheckCacheAndSaveToStorage();
+        //await _notifManagementService.CheckCacheAndSaveToStorage();
         return Ok();
     }
 

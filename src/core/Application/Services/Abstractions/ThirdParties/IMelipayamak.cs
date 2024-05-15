@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services.Abstractions
+namespace Application.Services.Abstractions.ThirdParties
 {
-    internal interface IEmailProvider
+    internal interface IMelipayamak
     {
     }
 }

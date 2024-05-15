@@ -8,8 +8,8 @@ public enum NotifStatus : byte
     [Description("")]
     Delivered = 2,
 
-    [Description("")]
-    failed_waiting = 3,
+    //[Description("")]
+    //failed_waiting = 3,
 
     [Description("")]
     failed= 4,

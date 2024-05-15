@@ -19,10 +19,7 @@ public class SaveNotifToStorageJob : ISaveNotifToStorageJob
     {
         try
         {
-            
             var notif  = await _notifManagement.CheckCacheAndSaveToStorage();
-
-
         }
         catch (Exception ex)
         {

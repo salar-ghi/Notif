@@ -17,6 +17,8 @@ public class Notif : EntityBase, IValidate, ITrackable
     public string Title { get; set; } = default!;    
     public MessageType MessageType { get; set; }
     public string Message { get; set; } = default!;
+
+    [DefaultValue(NotifStatus.Delivered)]
     public NotifStatus status { get; set; } = default(NotifStatus);
 
 
@@ -25,6 +27,7 @@ public class Notif : EntityBase, IValidate, ITrackable
 
     public string? HangfireJobId { get; set; }
     public bool IsSent { get; set; } // for hangfire job
+    public int Attemp { get; set; }
     public DateTime NextTry { get; set; } = DateTime.UtcNow;
     [Timestamp]
     public byte[] RowVersion { get; set; } // ??? for cuncurrency

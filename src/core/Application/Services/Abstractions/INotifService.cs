@@ -7,10 +7,9 @@ public interface INotifService : ICRUDService<Notif>
     Task ScheduleNotificationAsync(Notif entity, CancellationToken ct);
 
     Task SendNotificationAsync(IEnumerable<NotifRq> messages);
+    Task<IEnumerable<Notif>> GetUnDeliveredAsync();
 
-    //#region Cache
-    //Task<bool> CacheNotifAsync(IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default(CancellationToken));
-    //Task<IEnumerable<NotifVM>> GetAllNotifAsync(CancellationToken cancellationToken = default(CancellationToken));
+    Task MarkNotificationsAsReadAsync(List<Notif> notifs, CancellationToken tc);
 
-    //#endregion
+
 }

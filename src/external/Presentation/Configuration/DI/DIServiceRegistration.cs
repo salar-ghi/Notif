@@ -1,4 +1,5 @@
-﻿using Presentation.Jobs;
+﻿using Infrastructure.Services.ThirdParties;
+using Presentation.Jobs;
 
 namespace Presentation.Configuration.DI;
 
@@ -9,7 +10,14 @@ public static class DIServiceRegistration
         // Transient
         //services.AddTransient();
         services.AddTransient<IUnitOfWork, UnitOfWork>();
-        services.AddTransient<INotifManagementService,NotifManagementService>();
+
+        services.AddTransient<Melipayamak>();
+        services.AddTransient<Idehpardazan>();
+
+        services.AddTransient<ISmsProvider, Idehpardazan>();
+        services.AddTransient<ISmsProvider, Melipayamak>();
+
+        services.AddTransient<INotifManagementService, NotifManagementService>();
 
         // Scoped
         //services.AddScoped();
@@ -17,11 +25,9 @@ public static class DIServiceRegistration
 
         services.AddScoped<INotifService, NotifService>();
 
-        services.AddScoped<INotifSender, SmsNotifSender>();
-        services.AddScoped<ISmsProvider, SmsNotifSender>();
 
-        //services.AddScoped<INotifSender, EmailNotifSender>();
-        //services.AddScoped<INotifSender, MessageBrokerNotifSender>();
+        services.AddScoped<INotifSender, NotifSenderService>();
+
 
         services.AddScoped<INotifLogService, NotifLogService>();
         services.AddScoped<IProviderService, ProviderService>();
