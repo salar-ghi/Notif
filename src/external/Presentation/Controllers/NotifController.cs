@@ -68,4 +68,17 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
     }
 
 
+    public async Task<IActionResult> CheckNotifs(CancellationToken ct = default(CancellationToken))
+    {
+        try
+        {
+            return Ok();
+        }
+        catch (Exception ex )
+        {
+            _logger.LogError(ex.Message, ex);
+            throw;
+        }
+    }
+
 }
