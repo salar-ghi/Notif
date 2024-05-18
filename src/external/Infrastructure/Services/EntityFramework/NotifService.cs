@@ -121,9 +121,6 @@ public class NotifService : CRUDService<Notif>, INotifService
         try
         {
             var notif = _mapper.Map<Notif>(entity);
-            //var attemp = _configuration.GetSection("Hangfire").GetSection("Attemp").Value;
-            notif.Attemp = AttempValue;
-
             var data = await base.Create(notif);
             await _unitOfWork.DbContext.SaveChangesAsync();
             return data;
