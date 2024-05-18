@@ -23,8 +23,11 @@ global using Microsoft.Extensions.Caching.StackExchangeRedis;
 global using Infrastructure.Abstractions.Persistence;
 global using Infrastructure.Persistence.Providers.EntityFramework;
 
+global using Infrastructure.Services.ThirdParties;
+global using Microsoft.Extensions.DependencyInjection;
 global using Infrastructure.Services;
 global using Application.Jobs.Abstractions;
+global using Application.Models.Responses;
 global using AutoMapper;
 global using Core;
 global using Core.Constants;

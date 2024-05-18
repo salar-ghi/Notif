@@ -1,15 +1,11 @@
-﻿using Application.Models.Responses;
-
-namespace Presentation.Controllers;
+﻿namespace Presentation.Controllers;
 
 
 [EnableCors(Constants.CorsPolicyName)]
 public class NotifController : BaseController<NotifController, ApplicationSettingExtenderModel>
 {
     private readonly INotifService _notifService;
-    //private readonly IMemoryCache _memoryCache;
     private readonly ICacheMessage _cache;
-    //private readonly string MessageCollectionKey = "messagesCollectionKey";
     private readonly INotifManagementService _notifManagementService;
 
     public NotifController(INotifService notifService, ICacheMessage cache, INotifManagementService notifManagementService)
@@ -24,10 +20,8 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> Index()
     {
-        string item = "hello every body and how are you ";
         await _notifManagementService.CheckCacheAndSaveToStorage();
-        //await _notifManagementService.SendNotif();
-        return Ok(item);
+        return Ok();
     }
 
     [HttpPost("SendNotif")]
@@ -58,20 +52,14 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
         return Ok();
     }
 
-    [HttpGet("Send")]
-    [MapToApiVersion("1.0")]    
-    public async Task<IActionResult> SendAsync()
-    {
-        string item = "hello every body and how are you ";
-        //return Ok(JsonContent(item));
-        return new JsonResult(item);
-    }
 
-
+    [HttpGet("Check")]
+    [MapToApiVersion("1.0")]
     public async Task<IActionResult> CheckNotifs(CancellationToken ct = default(CancellationToken))
     {
         try
         {
+            await _notifManagementService.SendNotif();
             return Ok();
         }
         catch (Exception ex )

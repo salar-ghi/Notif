@@ -1,7 +1,4 @@
-﻿using Infrastructure.Services.ThirdParties;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace Infrastructure.Services.EntityFramework;
+﻿namespace Infrastructure.Services.EntityFramework;
 
 public class NotifManagementService : INotifManagementService
 {

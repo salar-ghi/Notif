@@ -1,17 +1,14 @@
-﻿
-using Castle.Core.Smtp;
-
-namespace Infrastructure.Services.EntityFramework;
+﻿namespace Infrastructure.Services.EntityFramework;
 
 public class NotifSenderService : INotifSender
 {
     #region Definition & Ctor
     private readonly ISmsProvider _smsProvider;
-    private readonly IEmailSender _emailSender;
-    public NotifSenderService(ISmsProvider smsProvider, IEmailSender emailSender)
+    private readonly IEmailProvider _emailProvider;
+    public NotifSenderService(ISmsProvider smsProvider, IEmailProvider emailProvider)
     {
         _smsProvider = smsProvider;
-        _emailSender = emailSender;
+        _emailProvider = emailProvider;
     }
     #endregion
 

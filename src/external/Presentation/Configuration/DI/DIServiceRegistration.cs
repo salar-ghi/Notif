@@ -14,10 +14,13 @@ public static class DIServiceRegistration
         services.AddTransient<Melipayamak>();
         services.AddTransient<Idehpardazan>();
 
+
         services.AddTransient<ISmsProvider, Idehpardazan>();
         services.AddTransient<ISmsProvider, Melipayamak>();
+        services.AddTransient<IEmailProvider, EmailService>();
+        
 
-        services.AddTransient<INotifManagementService, NotifManagementService>();
+        services.AddScoped<INotifManagementService, NotifManagementService>();
 
         // Scoped
         //services.AddScoped();
