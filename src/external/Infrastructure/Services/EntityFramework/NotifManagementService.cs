@@ -37,31 +37,28 @@ public class NotifManagementService : INotifManagementService
         try
         {
             var entities = await _cache.GetAllMessages();
+            await _notif.SaveNotifAsync(entities, ct);
 
-            ICollection<NotifLog> notifLogCol = new HashSet<NotifLog>();
-            foreach (var entity in entities)
-            {
-                var provider = !string.IsNullOrEmpty(entity.ProviderName) ? await _provider.GetSpecificProvider(entity.ProviderName) : await _provider.GetRandomProvider(entity.ProviderName, entity.Type);
-                provider = provider ?? await _provider.GetRandomProvider(entity.ProviderName, entity.Type);
+            //ICollection<NotifLog> notifLogCol = new HashSet<NotifLog>();
+            //foreach (var entity in entities)
+            //{
+            //    var provider = !string.IsNullOrEmpty(entity.ProviderName) ? await _provider.GetSpecificProvider(entity.ProviderName) : await _provider.GetRandomProvider(entity.ProviderName, entity.Type);
+            //    provider = provider ?? await _provider.GetRandomProvider(entity.ProviderName, entity.Type);
 
-                var notif = await _notif.SaveNotifAsync(entity, ct);
-
-
-                var notLog = new NotifLog
-                {
-                    NotifId = notif.Id,
-                    ProviderId = provider.Id,
-                };
-                notifLogCol.Add(notLog);
-            };
-            await _notifLog.SaveNotifLogAsync(notifLogCol, ct);
+            //    var notif = await _notif.SaveNotifAsync(entity, ct);
 
 
-            // ??????????????????? start to remove saved items to storage from cache ***********
-            // ??????????????????? start to remove saved items to storage from cache ***********
-            // ??????????????????? start to remove saved items to storage from cache ***********
+            //    var notLog = new NotifLog
+            //    {
+            //        NotifId = notif.Id,
+            //        ProviderId = provider.Id,
+            //    };
+            //    notifLogCol.Add(notLog);
+            //};
+            //await _notifLog.SaveNotifLogAsync(notifLogCol, ct);
+
+
             await _cache.RemoveMessage(entities.ToList());
-
             return true;
         }
         catch (Exception ex)

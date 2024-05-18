@@ -19,13 +19,13 @@ public class Notif : EntityBase, IValidate, ITrackable
     public string Message { get; set; } = default!;
 
     [DefaultValue(NotifStatus.Delivered)]
-    public NotifStatus status { get; set; } = default(NotifStatus);
+    public NotifStatus status { get; set; }
 
 
     // hangfire
     #region Hangfire
 
-    public string? HangfireJobId { get; set; }
+    //public string? HangfireJobId { get; set; }
     public bool IsSent { get; set; } // for hangfire job
     public int Attemp { get; set; }
     public DateTime NextTry { get; set; } = DateTime.UtcNow;
@@ -38,7 +38,7 @@ public class Notif : EntityBase, IValidate, ITrackable
     public long CreatedById { get; set; }
     public DateTime? ModifiedAt { get; set; }
     public long? ModifiedById { get; set; }
-
+    public int ProviderID { get; set; }
     public virtual ICollection<Recipient> Recipients { get; set; }
     //private ICollection<Recipient> _recipients;
     //public virtual ICollection<Recipient> Recipients

@@ -135,13 +135,19 @@ public class NotifService : CRUDService<Notif>, INotifService
         }
     }
 
-    public async Task SaveNotifAsync(IEnumerable<NotifRq> entities, CancellationToken cancellationToken = default(CancellationToken))
+    public async Task SaveNotifAsync(IEnumerable<NotifVM> entities, CancellationToken ct = default(CancellationToken))
     {
-        //var cache = await _cache.AddMessage(entities);
-
-        var notif = _mapper.Map<ICollection<Notif>>(entities);
-        await base.Create(notif);
-        await _unitOfWork.DbContext.SaveChangesAsync();
+        try
+        {
+            var notif = _mapper.Map<ICollection<Notif>>(entities);
+            await base.Create(notif);
+            await _unitOfWork.DbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            throw;
+        }
     }
 
 
