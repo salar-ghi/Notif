@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Services.EntityFramework;
+﻿using Domain.Entities;
+
+namespace Infrastructure.Services.EntityFramework;
 
 public class NotifLogService : CRUDService<NotifLog>,  INotifLogService
 
@@ -48,8 +50,6 @@ public class NotifLogService : CRUDService<NotifLog>,  INotifLogService
         }
     }
 
-
-
     public async Task<NotifLog> GetNotifLog(long Id)
     {
         try
@@ -83,6 +83,39 @@ public class NotifLogService : CRUDService<NotifLog>,  INotifLogService
         }
     }
 
+
+    public async Task MarkNotifLogAsFailed(NotifLog log, CancellationToken ct)
+    {
+        try
+        {
+            log.SentAt = DateTime.UtcNow;
+            log.FailureReason = "failed to send notif";
+            var @event = await base.Update(log);
+            await _unitOfWork.SaveChanges(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            throw;
+        }
+    }
+
+
+    public async Task MarkNotifLogAsSuccess(NotifLog log, CancellationToken ct)
+    {
+        try
+        {
+            log.Success = true;
+            log.SentAt = DateTime.UtcNow;
+            var @event = await base.Update(log);
+            await _unitOfWork.SaveChanges(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            throw;
+        }
+    }
 
     #endregion
 

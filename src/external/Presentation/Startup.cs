@@ -1,4 +1,5 @@
-﻿using Presentation.Jobs;
+﻿using Microsoft.Extensions.Hosting;
+using Presentation.Jobs;
 
 namespace Presentation;
 
@@ -42,6 +43,7 @@ public class Startup
         }, ServiceLifetime.Scoped); //, ServiceLifetime.Transient
                                     //
 
+        services.AddHostedService<CheckStorageBackgroundService>();
         services.AddOptions();
         services.AddHttpContextAccessor();
         services.AddHealthChecks()

@@ -11,9 +11,11 @@ public class NotifManagementService : INotifManagementService
     private readonly INotifLogService _notifLog;
     private readonly ICacheMessage _cache;
     private readonly IServiceProvider _serviceProvider;
+    private readonly INotifSender _notifSender;
 
     public NotifManagementService(ILogger<NotifManagementService> logger, IMapper mapper,
-        INotifService notif, IProviderService provider, INotifLogService notifLog, ICacheMessage cache, IServiceProvider serviceProvider)
+        INotifService notif, IProviderService provider, INotifLogService notifLog, ICacheMessage cache, IServiceProvider serviceProvider,
+        INotifSender notifSender)
     {
         _logger = logger;
         _mapper = mapper;
@@ -24,7 +26,7 @@ public class NotifManagementService : INotifManagementService
 
         _cache = cache;
         _serviceProvider = serviceProvider;
-
+        _notifSender = notifSender;
     }
     #endregion
 
@@ -81,7 +83,7 @@ public class NotifManagementService : INotifManagementService
                 _ => throw new KeyNotFoundException("Provider not found.")
             };
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             _logger?.LogError(ex.Message, ex);
             throw;
@@ -93,32 +95,28 @@ public class NotifManagementService : INotifManagementService
         try
         {
             var notifs = await _notif.GetUnDeliveredAsync();
-            // call provider 
+            
             foreach (var item in notifs)
             {
-                var notifId = item.Id;
-                
-                var notifLog = await _notifLog.GetNotifLog(notifId);
+                var providerName = item.NotifLog.Provider.Name;
+                var NotifSender = await _notifSender.SendNotifAsync(providerName, item);
 
-                var provider = await _provider.GetSpecificProvider(notifLog.ProviderId);
+                //var smsService = GetService(provider.Name);
+                //var result = smsService.SendSmsAsync(provider.Name, item);
 
-                //var notiflog = 
+                //var providerService = _provider.GetSpecificProvider(notifLog.ProviderId) as INotifSender;
+                //await providerService.SendNotifAsync(provider.Name, item);
 
-                //get Notif log and provider
-                //???????
-
-                var smsService = GetService(provider.Name);
-                var result = smsService.SendSmsAsync(item);
-
-                //var providerService = _provider.GetSpecificProvider(notifType.ToString()) as INotifSender;
-                //await providerService.SendNotifAsync(item);
-                await _notif.MarkNotificationsAsReadAsync(notifs.ToList(), ct); //???????
-
-
-
-
-
-
+                if (NotifSender)
+                {
+                    await _notif.MarkNotificationsAsReadAsync(item, ct);
+                    await _notifLog.MarkNotifLogAsSuccess(item.NotifLog, ct);
+                }
+                else 
+                {
+                    await _notif.MarkNotificationAsFailedAttemp(item, ct);
+                    await _notifLog.MarkNotifLogAsFailed(item.NotifLog, ct);
+                }
             }
             return true;
         }

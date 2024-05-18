@@ -1,6 +1,6 @@
 ﻿namespace Presentation.Jobs;
 
-public class SendNotifJob : ISaveNotifToStorageJob
+public class SendNotifJob //: ISaveNotifToStorageJob
 {
     private readonly ILogger<SendNotifJob> _logger;
     private readonly ApplicationSettingExtenderModel _applicationSettings;

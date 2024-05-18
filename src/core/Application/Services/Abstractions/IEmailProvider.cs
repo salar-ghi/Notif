@@ -2,4 +2,5 @@
 
 public interface IEmailProvider
 {
+    Task SendEmailAsync(Notif message);
 }

@@ -1,7 +1,4 @@
-﻿using Infrastructure.Services.ThirdParties;
-using Presentation.Jobs;
-
-namespace Presentation.Configuration.DI;
+﻿namespace Presentation.Configuration.DI;
 
 public static class DIServiceRegistration
 {
@@ -15,10 +12,17 @@ public static class DIServiceRegistration
         services.AddTransient<Idehpardazan>();
 
 
-        services.AddTransient<ISmsProvider, Idehpardazan>();
-        services.AddTransient<ISmsProvider, Melipayamak>();
+        //services.AddTransient<ISmsProvider, Idehpardazan>();
+        //services.AddTransient<ISmsProvider, Melipayamak>();
+
+        services.AddTransient<ISmsProvider, SmsService>();
         services.AddTransient<IEmailProvider, EmailService>();
-        
+
+
+        services.AddScoped<IMelipayamak, Melipayamak>();
+        services.AddScoped<IIdehpardazan, Idehpardazan>();
+        services.AddScoped<ISendGridEmail, SendGridEmail>();
+
 
         services.AddScoped<INotifManagementService, NotifManagementService>();
 
@@ -37,6 +41,8 @@ public static class DIServiceRegistration
         
 
         services.AddScoped<ICacheMessage, InMemoryCacheRepository>();
+
+        //services.AddScoped<ISaveNotifToStorageJob, >();
         //services.AddScoped<ICacheMessage, RedisCacheRepository>();
         //RecurringJob.AddOrUpdate<ICacheMessage>("Notif-job", x => x.GetAllMessages(), "*/2 * * * * *");
         //BackgroundJob.Schedule<ICacheMessage>(x => x.GetAllMessages(), TimeSpan.FromSeconds(2));

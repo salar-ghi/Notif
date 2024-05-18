@@ -7,4 +7,7 @@ public interface INotifLogService : ICRUDService<NotifLog>
     Task<bool> SaveNotifLogAsync(ICollection<NotifLog> entity, CancellationToken ct);
 
     Task<NotifLog> GetNotifLog(long Id);
+
+    Task MarkNotifLogAsFailed(NotifLog log, CancellationToken ct);
+    Task MarkNotifLogAsSuccess(NotifLog log, CancellationToken ct);
 }

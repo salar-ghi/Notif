@@ -10,16 +10,11 @@ global using WebCore.Controllers;
 global using Presentation.Extensions;
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Cors;
-global using Application.Models.Requests;
 global using Presentation.Configuration.DI;
 global using Microsoft.EntityFrameworkCore;
-global using HangfireBasicAuthenticationFilter;
-global using Infrastructure.Mapping.AutoMapper;
 global using Application.Services.Abstractions;
 global using Infrastructure.Services.EntityFramework;
 global using Infrastructure.Persistence.Providers.EntityFramework.Context;
-global using Microsoft.Extensions.Caching.Distributed;
-global using Microsoft.Extensions.Caching.StackExchangeRedis;
 global using Infrastructure.Abstractions.Persistence;
 global using Infrastructure.Persistence.Providers.EntityFramework;
 
@@ -39,3 +34,6 @@ global using System.Text.Json;
 global using WebCore.Configuration;
 global using WebCore.Extensions;
 global using WebCore.Filters;
+
+global using Application.Services.Abstractions.ThirdParties;
+global using Presentation.Jobs;

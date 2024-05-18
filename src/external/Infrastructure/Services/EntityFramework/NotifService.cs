@@ -1,6 +1,4 @@
-﻿using StackExchange.Redis;
-
-namespace Infrastructure.Services.EntityFramework;
+﻿namespace Infrastructure.Services.EntityFramework;
 
 public class NotifService : CRUDService<Notif>, INotifService
 {
@@ -8,26 +6,82 @@ public class NotifService : CRUDService<Notif>, INotifService
 
     private readonly ILogger<NotifService> _logger;
     private readonly IMapper _mapper;
-    private readonly INotifSender _sender;
-
-
+    private readonly IConfiguration _configuration;
+    public int AttempValue { get; set; } = default(int);
     // ************* //
-    private readonly IProviderService _provider;
-    private readonly INotifLogService _notifLog;
-    public NotifService(IMapper mapper, INotifSender sender, ILogger<NotifService> logger, IProviderService provider, INotifLogService notifLog)
+    //private readonly IProviderService _provider;
+    //private readonly INotifLogService _notifLog;
+    //private readonly INotifSender _sender;
+
+
+    public NotifService(IMapper mapper, ILogger<NotifService> logger, IConfiguration configuration)
+        //IProviderService provider, INotifLogService notifLog, INotifSender sender)
     {
-        _mapper = mapper;
-        _sender = sender;
         _logger = logger;
-        _provider = provider;
-        _notifLog = notifLog;
+        _mapper = mapper;
+        _configuration = configuration;
+        //_sender = sender;
+        //_provider = provider;
+        //_notifLog = notifLog;
+        AttempValue = Int32.Parse(_configuration.GetSection("Hangfire").GetSection("Attemp").Value);
     }
 
     #endregion
 
     #region Methods
 
-    public async Task MarkNotificationsAsReadAsync(List<Notif> notifs, CancellationToken cancellationToken)
+    public async Task<bool> MarkNotificationsAsReadAsync(Notif notif, CancellationToken ct)
+    {
+        try
+        {
+            bool saveFailed;
+            do
+            {
+                saveFailed = false;
+                try
+                {
+                    notif.status = NotifStatus.Delivered;
+                    notif.Attemp = notif.Attemp + 1;
+                    notif.IsSent = true;
+                    var @event = await base.Update(notif);
+                    await _unitOfWork.SaveChanges(ct);
+                }
+                //catch (Exception ex)
+                catch (DbUpdateConcurrencyException ex)
+                {
+                    saveFailed = true;
+                    var entry = ex.Entries.SingleOrDefault();
+                    var databaseValues = entry.GetDatabaseValues();
+
+                    // - Update the original values with the database values and retry
+                    // - Throw an exception or return a response indicating the conflict
+                    entry.OriginalValues.SetValues(databaseValues);
+                }
+            } while (saveFailed);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            throw;
+        }
+    }
+
+    public async Task MarkNotificationAsFailedAttemp(Notif notif, CancellationToken ct)
+    {
+        try
+        {
+            notif.Attemp = notif.Attemp + 1;
+            var @event = await base.Update(notif);
+            await _unitOfWork.SaveChanges(ct);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            throw;
+        }
+    }
+    public async Task MarkNotificationsAsReadAsync(List<Notif> notifs, CancellationToken ct)
     {
         bool saveFailed;
         do
@@ -35,13 +89,15 @@ public class NotifService : CRUDService<Notif>, INotifService
             saveFailed = false;
             try
             {
-                Parallel.ForEach(notifs, async notif =>
+                await Parallel.ForEachAsync(notifs, async (notif, ct )=>
                 {
                     //var @event = await _unitOfWork.DbContext.Notifs.FindAsync(notif.Id);
+                    notif.status = NotifStatus.Delivered;
+                    notif.Attemp = notif.Attemp+1;
+                    notif.IsSent = true;
                     var @event = await base.Update(notif);
-                    @event.status = NotifStatus.Delivered;
-                    await _unitOfWork.SaveChanges(cancellationToken);
                 });
+                await _unitOfWork.SaveChanges(ct);
                 //await _unitOfWork.SaveChanges(cancellationToken);
             }
             //catch (Exception ex)
@@ -65,6 +121,8 @@ public class NotifService : CRUDService<Notif>, INotifService
         try
         {
             var notif = _mapper.Map<Notif>(entity);
+            //var attemp = _configuration.GetSection("Hangfire").GetSection("Attemp").Value;
+            notif.Attemp = AttempValue;
 
             var data = await base.Create(notif);
             await _unitOfWork.DbContext.SaveChangesAsync();
@@ -139,9 +197,12 @@ public class NotifService : CRUDService<Notif>, INotifService
 
     public async Task<IEnumerable<Notif>> GetUnDeliveredAsync()
     {
-        var undeliverNotifs = await base.GetQuery()
-            .Where(x => x.status == NotifStatus.waiting)
-            .ToListAsync();
+        var atte = AttempValue;
+        var undeliverNotifs = await base.GetQuery()            
+            .Where(x => x.status == NotifStatus.waiting && x.Attemp < AttempValue)
+            .AsNoTracking()
+            .ToListAsync()
+            .ConfigureAwait(false);
 
         //.Where(e => e.status != NotifStatus.Delivered && e.status != NotifStatus.failed).ToListAsync();
         return undeliverNotifs;
@@ -149,10 +210,6 @@ public class NotifService : CRUDService<Notif>, INotifService
 
 
     #endregion
-
-
-
-
 
 
     // **********************************?????????????????????
