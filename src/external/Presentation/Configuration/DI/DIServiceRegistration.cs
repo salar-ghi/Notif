@@ -28,9 +28,9 @@ public static class DIServiceRegistration
 
         // Scoped
         //services.AddScoped();
-        services.AddScoped<ISaveNotifToStorageJob, SaveNotifToStorageJob>();
+        services.AddTransient<ISaveNotifToStorageJob, SaveNotifToStorageJob>();
 
-        services.AddScoped<INotifService, NotifService>();
+        services.AddTransient<INotifService, NotifService>();
 
 
         services.AddScoped<INotifSender, NotifSenderService>();

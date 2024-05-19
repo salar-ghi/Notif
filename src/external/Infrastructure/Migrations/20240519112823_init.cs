@@ -36,15 +36,16 @@ namespace Infrastructure.Migrations
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     MessageType = table.Column<byte>(type: "tinyint", nullable: false),
                     Message = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    status = table.Column<byte>(type: "tinyint", nullable: false),
-                    HangfireJobId = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
                     IsSent = table.Column<bool>(type: "bit", nullable: false),
+                    Attemp = table.Column<int>(type: "int", nullable: false),
                     NextTry = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 15, 7, 23, 46, 446, DateTimeKind.Utc).AddTicks(6193)),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 19, 11, 28, 22, 754, DateTimeKind.Utc).AddTicks(9994)),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    ModifiedById = table.Column<long>(type: "bigint", nullable: true)
+                    ModifiedById = table.Column<long>(type: "bigint", nullable: true),
+                    ProviderID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +100,7 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NotifId = table.Column<long>(type: "bigint", nullable: false),
+                    NotifId = table.Column<long>(type: "bigint", unicode: false, nullable: false),
                     SentAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Success = table.Column<bool>(type: "bit", nullable: false),
                     FailureReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -125,8 +126,7 @@ namespace Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_NotifLog_NotifId",
                 table: "NotifLog",
-                column: "NotifId",
-                unique: true);
+                column: "NotifId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_NotifLog_ProviderId",

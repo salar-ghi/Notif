@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Presentation.Jobs;
 
 namespace Presentation;
@@ -32,7 +33,6 @@ public class Startup
         {
             //options.UseSqlServer(configuration.GetConnectionString("SqlConnection"),
             options.UseSqlServer(_configuration.GetConnectionString("SqlConnection"),
-            //options.EnableSensitiveDataLogging(),
             sqlServerOptionsAction: sqlOptions =>
             {
                 sqlOptions.EnableRetryOnFailure(
@@ -40,6 +40,7 @@ public class Startup
                 maxRetryDelay: TimeSpan.FromMilliseconds(10),
                 errorNumbersToAdd: null);
             });
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }, ServiceLifetime.Scoped); //, ServiceLifetime.Transient
                                     //
 
@@ -121,7 +122,7 @@ public class Startup
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
     {
         ServiceLocator.Configure(app.ApplicationServices, _applicationExtenderSetting);
-        if(env.IsDevelopment())
+        if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
             app.UseSwaggerConfig<Startup>(_applicationExtenderSetting);

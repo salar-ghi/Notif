@@ -1,4 +1,7 @@
-﻿namespace Infrastructure.Services.EntityFramework;
+﻿using Domain.Entities;
+using Hangfire.Logging;
+
+namespace Infrastructure.Services.EntityFramework;
 
 public class NotifManagementService : INotifManagementService
 {
@@ -13,17 +16,15 @@ public class NotifManagementService : INotifManagementService
     private readonly IServiceProvider _serviceProvider;
     private readonly INotifSender _notifSender;
 
-    public NotifManagementService(ILogger<NotifManagementService> logger, IMapper mapper,
-        INotifService notif, IProviderService provider, INotifLogService notifLog, ICacheMessage cache, IServiceProvider serviceProvider,
+    public NotifManagementService(ILogger<NotifManagementService> logger, IMapper mapper, IProviderService provider,
+        INotifService notif, INotifLogService notifLog, ICacheMessage cache, IServiceProvider serviceProvider, 
         INotifSender notifSender)
     {
         _logger = logger;
         _mapper = mapper;
-
         _notif = notif;
         _provider = provider;
         _notifLog = notifLog;
-
         _cache = cache;
         _serviceProvider = serviceProvider;
         _notifSender = notifSender;
@@ -68,7 +69,6 @@ public class NotifManagementService : INotifManagementService
         }
     }
 
-
     public ISmsProvider GetService(string ProviderName)
     {
         try
@@ -92,28 +92,38 @@ public class NotifManagementService : INotifManagementService
         try
         {
             var notifs = await _notif.GetUnDeliveredAsync();
-            
+            Provider provider = new Provider();
             foreach (var item in notifs)
             {
-                var providerName = item.NotifLog.Provider.Name;
-                var NotifSender = await _notifSender.SendNotifAsync(providerName, item);
-
-                //var smsService = GetService(provider.Name);
-                //var result = smsService.SendSmsAsync(provider.Name, item);
-
-                //var providerService = _provider.GetSpecificProvider(notifLog.ProviderId) as INotifSender;
-                //await providerService.SendNotifAsync(provider.Name, item);
-
-                if (NotifSender)
+                if (item.ProviderID > 0)
                 {
-                    await _notif.MarkNotificationsAsReadAsync(item, ct);
-                    await _notifLog.MarkNotifLogAsSuccess(item.NotifLog, ct);
+                    provider = await _provider.GetSpecificProvider(item.ProviderID, item.Type);
                 }
-                else 
+                else
                 {
-                    await _notif.MarkNotificationAsFailedAttemp(item, ct);
-                    await _notifLog.MarkNotifLogAsFailed(item.NotifLog, ct);
+                    provider = await _provider.GetRandomProvider(item.Type);
                 }
+
+                //var providerName = provider.Name;
+                //var NotifSender = await _notifSender.SendNotifAsync(providerName, item);
+                var NotifSender = await _notifSender.ManageNotif(provider, item, ct);
+
+                //var notLog = new NotifLog
+                //{
+                //    NotifId = item.Id,
+                //    ProviderId = provider.Id,
+                //    Success = NotifSender,
+                //    SentAt = DateTime.UtcNow,
+                //};
+                //if (NotifSender)
+                //{
+                //    await _notif.MarkNotificationsAsReadAsync(item, ct);
+                //}
+                //else
+                //{
+                //    await _notif.MarkNotificationAsFailedAttemp(item, ct);
+                //}
+                //await _notifLog.SaveNotifLogAsync(notLog, ct);
             }
             return true;
         }
@@ -122,6 +132,11 @@ public class NotifManagementService : INotifManagementService
             _logger.LogError(ex.Message, ex);
             throw;
         }
+        finally
+        {
+
+        }
+
     }
 
     #endregion

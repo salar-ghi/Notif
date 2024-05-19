@@ -23,26 +23,45 @@ public class SmsService : ISmsProvider
 
     #region Methods
 
+    //public async Task<bool> SendSmsAsync(string providerName, Notif message)
+    //{
+    //    try
+    //    {
+    //        var providerServie = GetService(providerName);
+    //        switch (providerName)
+    //        {
+    //            case "MeliPayamak":
+    //                var meli = providerServie as IMelipayamak;
+    //                await meli.SendMelipayamakSmsAsync(message);
+    //                break;
+    //            case "idehpardazan":
+    //                var ideh = providerServie as IIdehpardazan;
+    //                await ideh.SendIdehpardazSmsAsync(message);
+    //                break;
+    //        }
+    //        return true;
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        _logger?.LogError(ex.Message, ex);
+    //        return false;
+    //    }
+    //}
+
+
     public async Task<bool> SendSmsAsync(string providerName, Notif message)
     {
         try
         {
-            var providerServie = GetService(providerName);
-            //var provider = (dynamic)null;
             switch (providerName)
             {
                 case "MeliPayamak":
-                    var provider = providerServie as IMelipayamak;
-                    await provider.SendMelipayamakSmsAsync(message);
-                    //providersss = _serviceProvider.GetRequiredService<Melipayamak>() as IMelipayamak;
-                    
+                    await _melipayamak.SendMelipayamakSmsAsync(message);
                     break;
                 case "idehpardazan":
-
+                    await _idehpardazan.SendIdehpardazSmsAsync(message);
                     break;
             }
-            //var providerType = GetService(providerName);            
-            //await providerType.SendSmsAsync(providerName, message);
             return true;
         }
         catch (Exception ex)
@@ -51,6 +70,8 @@ public class SmsService : ISmsProvider
             return false;
         }
     }
+
+
 
     public ISmsProvider GetService(string ProviderName)
     {

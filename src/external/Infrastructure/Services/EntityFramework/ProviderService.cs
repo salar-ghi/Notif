@@ -15,7 +15,7 @@ public class ProviderService : CRUDService<Provider>, IProviderService
 
     #region Methods
 
-    public async Task<Provider> GetSpecificProvider(string name)
+    public async Task<Provider> GetSpecificProvider(string name, NotifType? type)
     {
         try
         {
@@ -38,17 +38,14 @@ public class ProviderService : CRUDService<Provider>, IProviderService
             throw;
         }
     }
-    public async Task<Provider> GetRandomProvider(string? name, NotifType? type)
+    public async Task<Provider> GetRandomProvider(NotifType? type)
     {
         try
         {
-            //var providername = _mapper.Map<ProviderType>(type.ToString());
             var providerType = _mapper.Map<ProviderType>(type);
             ProviderType prType = (ProviderType)Enum.Parse(typeof(ProviderType), providerType.ToString(), true);
 
             var ranProvider = await _unitOfWork.DbContext.Provider
-                //.AsParallel()
-                //.WithDegreeOfParallelism(Environment.ProcessorCount)
                 .Where(z => z.Type == prType && z.IsEnabled == true && z.Priority == 1)
                 .AsNoTracking()
                 .Select(j => new Provider
@@ -69,17 +66,12 @@ public class ProviderService : CRUDService<Provider>, IProviderService
         }
     }
 
-    public Task<Provider> GetProvider(string name)
-    {
-        throw new NotImplementedException();
-    }
-
-    public async Task<Provider> GetSpecificProvider(int Id)
+    public async Task<Provider> GetSpecificProvider(int Id, NotifType? type)
     {
         try
         {
             var provider = await base.GetQuery()
-                .Where(z => z.Id == Id)
+                .Where(z => z.Id == Id && z.IsEnabled == true)
                 .AsNoTracking()
                 .Select(j => new Provider
                 {
@@ -89,8 +81,12 @@ public class ProviderService : CRUDService<Provider>, IProviderService
                     JsonConfig = j.JsonConfig
                 })
                 .SingleOrDefaultAsync()
-                .ConfigureAwait(false);
-            return provider;
+                .ConfigureAwait(false);            
+            //if (provider == null)
+            //{
+            //    provider =  await GetRandomProvider(type);
+            //}
+            return provider ?? await GetRandomProvider(type); 
         }
         catch (Exception ex)
         {

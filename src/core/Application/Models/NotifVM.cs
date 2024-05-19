@@ -13,7 +13,7 @@ public record NotifVM
     public int SenderId { get; set; }
     public DateTime SendDate { get; set; }
     public long CreatedById { get; set; }
-    public string ProviderName { get; set; } = default!;
+    public int Provider { get; set; }
 
     
     public DateTime CreateDate { get; init; } = DateTime.UtcNow;

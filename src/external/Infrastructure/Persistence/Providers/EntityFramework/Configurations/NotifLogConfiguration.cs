@@ -7,13 +7,13 @@ public class NotifLogConfiguration : IEntityTypeConfiguration<NotifLog>
         BaseConfiguration<NotifLog>.Configure(builder);
 
         builder.HasKey(x => x.Id);
-        builder.Property(x => x.NotifId).IsRequired();
 
 
-        builder.HasOne(x => x.Notif).WithOne(e => e.NotifLog).HasForeignKey<NotifLog>(x => x.NotifId);
+        builder.HasOne<Notif>(x => x.Notif).WithMany(e => e.NotifLogs).HasForeignKey(x => x.NotifId);
 
         builder.HasOne<Provider>(x => x.Provider).WithMany(e => e.NotifLog).HasForeignKey(z => z.ProviderId);
 
+        builder.Property(x => x.NotifId).IsUnicode(false);
         builder.HasIndex(x => x.ProviderId).IsUnique(false);
     }
 }

@@ -2,12 +2,8 @@
 
 public class Notif : EntityBase, IValidate, ITrackable
 {
-    //public readonly ILazyLoader _lazyLoader;
-    //public Notif()
-    //{
-        
-    //}
-    public long Id { get; private set; } = default(long);
+    
+    public long Id { get; set; } = default(long);
 
     public NotifType Type { get; set; } = default(NotifType); // e.g., SMS, Email, RabbitMQ
     public int SenderId { get; set; } // ??????????
@@ -40,13 +36,8 @@ public class Notif : EntityBase, IValidate, ITrackable
     public long? ModifiedById { get; set; }
     public int ProviderID { get; set; }
     public virtual ICollection<Recipient> Recipients { get; set; }
-    //private ICollection<Recipient> _recipients;
-    //public virtual ICollection<Recipient> Recipients
-    //{ 
-    //    get => _lazyLoader?.Load(this, ref _recipients); 
-    //    set => _recipients = value; 
-    //}
-    public virtual NotifLog NotifLog { get; set; }
+    
+    public virtual ICollection<NotifLog> NotifLogs { get; set; }
 
     public void Validate()
     {

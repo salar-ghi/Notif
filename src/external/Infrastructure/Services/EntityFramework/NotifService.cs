@@ -1,4 +1,6 @@
-﻿namespace Infrastructure.Services.EntityFramework;
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace Infrastructure.Services.EntityFramework;
 
 public class NotifService : CRUDService<Notif>, INotifService
 {
@@ -9,21 +11,13 @@ public class NotifService : CRUDService<Notif>, INotifService
     private readonly IConfiguration _configuration;
     public int AttempValue { get; set; } = default(int);
     // ************* //
-    //private readonly IProviderService _provider;
-    //private readonly INotifLogService _notifLog;
-    //private readonly INotifSender _sender;
-
 
     public NotifService(IMapper mapper, ILogger<NotifService> logger, IConfiguration configuration)
-        //IProviderService provider, INotifLogService notifLog, INotifSender sender)
     {
         _logger = logger;
         _mapper = mapper;
         _configuration = configuration;
-        //_sender = sender;
-        //_provider = provider;
-        //_notifLog = notifLog;
-        AttempValue = Int32.Parse(_configuration.GetSection("Hangfire").GetSection("Attemp").Value);
+        AttempValue = Int32.Parse(_configuration.GetSection("Jobs").GetSection("Attemp").Value);
     }
 
     #endregion
@@ -40,22 +34,40 @@ public class NotifService : CRUDService<Notif>, INotifService
                 saveFailed = false;
                 try
                 {
-                    notif.status = NotifStatus.Delivered;
-                    notif.Attemp = notif.Attemp + 1;
-                    notif.IsSent = true;
-                    var @event = await base.Update(notif);
-                    await _unitOfWork.SaveChanges(ct);
+                    Notif note = new Notif
+                    {
+                        status = NotifStatus.Delivered,
+                        Attemp = notif.Attemp + 1,
+                        IsSent = true,
+                    };
+                    //_unitOfWork.DbContext.Notifs.Attach(notif);
+                    //await base.Update(notif);
+
+                    var testExecuteUpdate = _unitOfWork.DbContext.Notifs.Where(j => j.Id == notif.Id)
+                        .ExecuteUpdate(b => b.SetProperty(x => x.status, NotifStatus.Delivered).SetProperty(x => x.Attemp, notif.Attemp + 1));
+
+                    //_unitOfWork.DbContext.Notifs.Entry(notif).CurrentValues.SetValues(note);
+                    //_unitOfWork.DbContext.Notifs.Entry(notif).State = EntityState.Modified;
+
+                    await _unitOfWork.DbContext.SaveChangesAsync(ct).ConfigureAwait(false);
                 }
                 //catch (Exception ex)
                 catch (DbUpdateConcurrencyException ex)
                 {
-                    saveFailed = true;
-                    var entry = ex.Entries.SingleOrDefault();
-                    var databaseValues = entry.GetDatabaseValues();
+                    _unitOfWork.DbContext.Notifs.Entry(notif).Reload();
+                    Notif dto = new Notif
+                    {
+                        status = NotifStatus.Delivered,
+                        Attemp = notif.Attemp + 1,
+                        IsSent = true,
+                    };
+                    _unitOfWork.DbContext.Notifs.Entry(notif).CurrentValues.SetValues(dto);
+                    await _unitOfWork.DbContext.SaveChangesAsync(ct);
 
-                    // - Update the original values with the database values and retry
-                    // - Throw an exception or return a response indicating the conflict
-                    entry.OriginalValues.SetValues(databaseValues);
+                    //saveFailed = true;
+                    //var entry = ex.Entries.SingleOrDefault();
+                    //var databaseValues = entry.GetDatabaseValues();
+                    //entry.OriginalValues.SetValues(databaseValues);
                 }
             } while (saveFailed);
             return true;
@@ -200,10 +212,22 @@ public class NotifService : CRUDService<Notif>, INotifService
 
     public async Task<IEnumerable<Notif>> GetUnDeliveredAsync()
     {
-        var atte = AttempValue;
+        
         var undeliverNotifs = await base.GetQuery()            
             .Where(x => x.status == NotifStatus.waiting && x.Attemp < AttempValue)
             .AsNoTracking()
+            .Select(z => new Notif
+            {
+                Id = z.Id,
+                Title = z.Title,
+                Message = z.Message,
+                Type = z.Type,
+                MessageType = z.MessageType,
+                Attemp = z.Attemp,
+                ProviderID = z.ProviderID,
+                status = z.status,
+                Recipients = z.Recipients,
+            })
             .ToListAsync()
             .ConfigureAwait(false);
 
