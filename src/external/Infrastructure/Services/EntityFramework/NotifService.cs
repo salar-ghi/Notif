@@ -8,16 +8,15 @@ public class NotifService : CRUDService<Notif>, INotifService
 
     private readonly ILogger<NotifService> _logger;
     private readonly IMapper _mapper;
-    private readonly IConfiguration _configuration;
+    private readonly ApplicationSettingExtenderModel _configuration;
     public int AttempValue { get; set; } = default(int);
     // ************* //
 
-    public NotifService(IMapper mapper, ILogger<NotifService> logger, IConfiguration configuration)
+    public NotifService(IMapper mapper, ILogger<NotifService> logger, ApplicationSettingExtenderModel configuration)
     {
         _logger = logger;
         _mapper = mapper;
         _configuration = configuration;
-        AttempValue = Int32.Parse(_configuration.GetSection("Jobs").GetSection("Attemp").Value);
     }
 
     #endregion
@@ -212,7 +211,7 @@ public class NotifService : CRUDService<Notif>, INotifService
 
     public async Task<IEnumerable<Notif>> GetUnDeliveredAsync()
     {
-        
+        AttempValue = _configuration.Jobs.Attemp;
         var undeliverNotifs = await base.GetQuery()            
             .Where(x => x.status == NotifStatus.waiting && x.Attemp < AttempValue)
             .AsNoTracking()
