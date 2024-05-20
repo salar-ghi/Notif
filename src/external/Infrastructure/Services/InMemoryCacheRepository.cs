@@ -75,7 +75,7 @@ public class InMemoryCacheRepository : ICacheMessage
         var cache = _cache.Get<IEnumerable<NotifVM>>(_cacheKey) ?? Enumerable.Empty<NotifVM>();
         
         //???????????????????
-        var tttttr = _cache.Get<IEnumerable<object>>(_cacheKey).AsParallel();
+        //var tttttr = _cache.Get<IEnumerable<object>>(_cacheKey).AsParallel();
 
         return cache;
     }

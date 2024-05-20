@@ -1,4 +1,6 @@
-﻿namespace Presentation.Jobs;
+﻿using Domain.Entities;
+
+namespace Presentation.Jobs;
 
 public class JobScheduler
 {
@@ -6,23 +8,23 @@ public class JobScheduler
     {
         var appName = "nitro-Notif";
 
-
+        BackgroundJob.Enqueue<SaveNotifToStorageJob>(x => x.Run());
         RecurringJob.AddOrUpdate<ISaveNotifToStorageJob>($"{appName}.{nameof(SaveNotifToStorageJob)}",
-            j => j.Run(), Cron.Minutely, new RecurringJobOptions()
+            j => j.Run(), Cron.Minutely(), new RecurringJobOptions()
             {
                 //QueueName = appName.ToLower(),
                 TimeZone = GlobalConstants.GetTehranTimeZoneInfo(),
-                //MisfireHandling = MisfireHandlingMode.Relaxed;
-            });
+                //MisfireHandling = MisfireHandlingMode.Strict,
+    });
 
 
-        //RecurringJob.AddOrUpdate<>($"{appName}.{nameof(SaveNotifToStorageJob)}",
-        //    j => j.Run(), Cron.Minutely, new RecurringJobOptions()
-        //    {
-        //        //QueueName = appName.ToLower(),
-        //        TimeZone = GlobalConstants.GetTehranTimeZoneInfo(),
-        //        //MisfireHandling = MisfireHandlingMode.Relaxed;
-        //    });
+        RecurringJob.AddOrUpdate<ISendNotifJob>($"{appName}.{nameof(SendNotifJob)}",
+            j => j.Run(), Cron.Minutely() , new RecurringJobOptions()
+            {
+                //QueueName = appName.ToLower(),
+                TimeZone = GlobalConstants.GetTehranTimeZoneInfo(),
+                //MisfireHandling = MisfireHandlingMode.Strict,
+    });
 
 
     }

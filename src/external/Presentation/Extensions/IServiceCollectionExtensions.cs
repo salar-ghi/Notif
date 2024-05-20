@@ -13,9 +13,9 @@ public static class IServiceCollectionExtensions
         {
             PrepareSchemaIfNecessary = true,
 
-            CommandBatchMaxTimeout = TimeSpan.FromSeconds(15),
-            SlidingInvisibilityTimeout = TimeSpan.FromSeconds(15),
-            QueuePollInterval = TimeSpan.Zero,
+            CommandBatchMaxTimeout = TimeSpan.FromSeconds(2),
+            SlidingInvisibilityTimeout = TimeSpan.FromSeconds(2),
+            QueuePollInterval = TimeSpan.FromSeconds(30),
             UseRecommendedIsolationLevel = true,
             DisableGlobalLocks = true,
             
@@ -28,16 +28,17 @@ public static class IServiceCollectionExtensions
 
         services.AddHangfire(o => o.UseSqlServerStorage(hangfireConnectionString));
 
-        services.AddHangfireServer(x =>
-        {
-            x.Queues = new[] { appName.ToLower() };
-            x.StopTimeout = TimeSpan.FromSeconds(3);
-            x.MaxDegreeOfParallelismForSchedulers = 10;
-            x.SchedulePollingInterval = TimeSpan.FromSeconds(1);
-        });
+        services.AddHangfireServer();
+        //services.AddHangfireServer(x =>
+        //{
+        //    x.Queues = new[] { appName.ToLower() };
+        //    x.StopTimeout = TimeSpan.FromSeconds(2);
+        //    x.MaxDegreeOfParallelismForSchedulers = 20;
+        //    x.SchedulePollingInterval = TimeSpan.FromSeconds(2);
+        //});
         //GlobalJobFilters.Filters.Add(new Delete)
         GlobalJobFilters.Filters.Add(new PreserveOriginalQueueAttribute());
         GlobalJobFilters.Filters.Add(new DeleteConcurrentExecutionAttribute());
-        GlobalJobFilters.Filters.Add(new DisableConcurrentExecutionAttribute(15));
+        GlobalJobFilters.Filters.Add(new DisableConcurrentExecutionAttribute(5));
     }
 }

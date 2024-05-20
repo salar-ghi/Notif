@@ -1,32 +1,30 @@
-﻿namespace Presentation.Configuration;
+﻿using Presentation.Controllers;
 
-public class CheckStorageBackgroundService : BackgroundService
+namespace Presentation.Configuration;
+
+public class CheckStorageBackgroundService //: BackgroundService
 {
-    //private readonly IServiceScopeFactory _scopeFactory;
-    //private readonly INotifManagementService _saveNotifToStorageJob;
 
-    public CheckStorageBackgroundService()
+    private readonly INotifManagementService _notifManagement;
+    public CheckStorageBackgroundService(INotifManagementService notifManagement)
     {
-        //_scopeFactory = scopeFactory;
-        //_saveNotifToStorageJob = saveNotifToStorageJob;
+        _notifManagement = notifManagement;
     }
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+
+
+    [DisableConcurrentExecution(timeoutInSeconds: 10 * 60)]
+    //[AutomaticRetry(Attempts = 10, DelaysInSeconds = new int[] { 2 })]
+    public async Task ExecuteAsync()
     {
-        while (!stoppingToken.IsCancellationRequested)
+        CancellationToken ct = default(CancellationToken);
+        while (!ct.IsCancellationRequested)
         {
-            Console.WriteLine($"Running method 'CheckCache' at: {DateTime.Now}");
+            Console.WriteLine($"Running Execute Method() 'CheckCache' at: {DateTime.Now}");
+            await _notifManagement.CheckCacheAndSaveToStorage();
+            Console.WriteLine($"Running Execute Method() 'SendNotif' at: {DateTime.Now}");
+            var notif = await _notifManagement.SendNotif();
 
-            //using (var scope  = _scopeFactory.CreateScope())
-            //{
-            //    var scopedService = scope.ServiceProvider.GetRequiredService<INotifManagementService>();
-            //    Console.WriteLine($"Running method 'CheckCache' at: {DateTime.Now}");
-            //    //var item = scopedService.CheckCacheAndSaveToStorage();
-            //}
-
-            // Your method logic here
-            //await _saveNotifToStorageJob.CheckCacheAndSaveToStorage(stoppingToken);            
-
-            await Task.Delay(2000); // 2 seconds delay
+            await Task.Delay(2000);
         }
     }
 }

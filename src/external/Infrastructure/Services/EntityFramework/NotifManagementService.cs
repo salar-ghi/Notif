@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using Hangfire.Logging;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Services.EntityFramework;
 
@@ -17,7 +18,7 @@ public class NotifManagementService : INotifManagementService
     private readonly INotifSender _notifSender;
 
     public NotifManagementService(ILogger<NotifManagementService> logger, IMapper mapper, IProviderService provider,
-        INotifService notif, INotifLogService notifLog, ICacheMessage cache, IServiceProvider serviceProvider, 
+        INotifService notif, INotifLogService notifLog, ICacheMessage cache, IServiceProvider serviceProvider,
         INotifSender notifSender)
     {
         _logger = logger;
@@ -38,7 +39,11 @@ public class NotifManagementService : INotifManagementService
         try
         {
             var entities = await _cache.GetAllMessages();
-            await _notif.SaveNotifAsync(entities, ct);
+            if (!entities.IsNullOrEmpty())
+            {
+                await _notif.SaveNotifAsync(entities, ct);
+                await _cache.RemoveMessage(entities.ToList());
+            }
 
             //ICollection<NotifLog> notifLogCol = new HashSet<NotifLog>();
             //foreach (var entity in entities)
@@ -59,7 +64,7 @@ public class NotifManagementService : INotifManagementService
             //await _notifLog.SaveNotifLogAsync(notifLogCol, ct);
 
 
-            await _cache.RemoveMessage(entities.ToList());
+
             return true;
         }
         catch (Exception ex)
