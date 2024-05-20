@@ -1,7 +1,12 @@
 ﻿namespace Application.Services.Abstractions;
 
-public interface ISmsProvider
+public interface ISmsProvider: IProvider
 {
-    Task<bool> SendSmsAsync(string ProviderName, Notif message);
+
+}
+
+public interface IProvider 
+{
+    Task<bool> SendAsync(string ProviderName, Notif message);
 
 }

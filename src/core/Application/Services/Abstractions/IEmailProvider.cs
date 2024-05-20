@@ -1,6 +1,7 @@
 ﻿namespace Application.Services.Abstractions;
 
-public interface IEmailProvider
+public interface IEmailProvider: IProvider
 {
-    Task SendEmailAsync(Notif message);
+    Task BuyAsync();
+
 }
