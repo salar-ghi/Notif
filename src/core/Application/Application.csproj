@@ -11,7 +11,6 @@
     <Folder Include="Helpers\" />
     <Folder Include="Extensions\" />
     <Folder Include="Models\Requests\ThirdParties\" />
-    <Folder Include="Models\Responses\ThirdParties\" />
     <Folder Include="Persistence\" />
   </ItemGroup>
 

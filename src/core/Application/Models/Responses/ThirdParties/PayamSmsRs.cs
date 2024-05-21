@@ -1,0 +1,16 @@
+﻿namespace Application.Models.Responses.ThirdParties;
+
+public record PayamSmsRs
+{
+    public int code { get; set; }
+    public string message { get; set; }
+    public List<PayamSmsPerNotifRs> data { get; set; }
+}
+
+
+public record PayamSmsPerNotifRs
+{
+    public string serverId { get; set; }
+    public string customerId { get; set; }
+    public string Mobile { get; set; }
+}
