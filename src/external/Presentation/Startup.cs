@@ -78,6 +78,7 @@ public class Startup
         //});
 
         services.AddServices(_applicationExtenderSetting);
+        services.AddHttpClients(_applicationExtenderSetting);
 
         services.ConfigHangfire(_configuration, "Nitro_Notif", _environment);
         //services.AddHangfireServer(x =>
@@ -165,7 +166,8 @@ public class Startup
 
 
 
-        RecurringJob.AddOrUpdate<CheckStorageBackgroundService>("Save data to cache ", x => x.ExecuteAsync(), "*/2 * * * *");
+        //RecurringJob.AddOrUpdate<CheckStorageBackgroundService>("Save data to cache ", x => x.ExecuteAsync(), "*/2 * * * *");
+
         //RecurringJob.AddOrUpdate<SendNotifBackgroundService>("Send Notif", x => x.ExecuteAsync(), "*/2 * * * *");
     }
 }

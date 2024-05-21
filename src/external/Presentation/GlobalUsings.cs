@@ -34,6 +34,12 @@ global using System.Text.Json;
 global using WebCore.Configuration;
 global using WebCore.Extensions;
 global using WebCore.Filters;
-
 global using Application.Services.Abstractions.ThirdParties;
 global using Presentation.Jobs;
+global using Application.Services.Abstractions.HttpClients.ThirdParties;
+global using WebCore.Services.HttpClients;
+global using Polly;
+global using Polly.Retry;
+global using System.Net;
+global using Presentation.HttpClients.ThirdParties.Sms;
+global using WebCore.Services.HttpClients.DelegatingHandlers;

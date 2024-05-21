@@ -29,10 +29,10 @@ public class NotifSenderService : INotifSender
             switch (notif.Type)
             {
                 case NotifType.SMS:
-                    var result = await _smsProvider.SendSmsAsync(providerName, notif);
+                    var result = await _smsProvider.SendAsync(providerName, notif);
                     break;
                 case NotifType.Email:
-                    await _emailProvider.SendEmailAsync(notif);
+                    await _emailProvider.SendAsync(providerName, notif);
                     break;
                 case NotifType.Signal:
                     break;

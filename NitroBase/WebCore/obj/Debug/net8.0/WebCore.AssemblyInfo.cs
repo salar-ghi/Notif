@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WebCore")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+42f848207462b3ac3236b74f5ac875534c5c6348")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+50462aa7e7cbc4b1e3bc6ffb508d0b6cc357ef85")]
 [assembly: System.Reflection.AssemblyProductAttribute("WebCore")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WebCore")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

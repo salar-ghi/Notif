@@ -630,9 +630,17 @@
               "target": "Package",
               "version": "[8.0.4, )"
             },
+            "Microsoft.Extensions.Http.Resilience": {
+              "target": "Package",
+              "version": "[8.4.0, )"
+            },
             "NSwag.AspNetCore": {
               "target": "Package",
               "version": "[14.0.7, )"
+            },
+            "Polly": {
+              "target": "Package",
+              "version": "[8.4.0, )"
             },
             "StackExchange.Redis": {
               "target": "Package",

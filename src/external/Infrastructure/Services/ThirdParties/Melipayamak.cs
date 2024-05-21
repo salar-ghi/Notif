@@ -1,5 +1,4 @@
-﻿
-namespace Infrastructure.Services.ThirdParties;
+﻿namespace Infrastructure.Services.ThirdParties;
 
 public class Melipayamak : IMelipayamak
 {

@@ -10,7 +10,7 @@ public static class DIServiceRegistration
 
         services.AddTransient<Melipayamak>();
         services.AddTransient<Idehpardazan>();
-
+        services.AddTransient<PayamSms>();
 
         //services.AddTransient<ISmsProvider, Idehpardazan>();
         //services.AddTransient<ISmsProvider, Melipayamak>();
@@ -21,6 +21,7 @@ public static class DIServiceRegistration
 
         services.AddScoped<IMelipayamak, Melipayamak>();
         services.AddScoped<IIdehpardazan, Idehpardazan>();
+        services.AddScoped<IPayamSms, PayamSms>();
         services.AddScoped<ISendGridEmail, SendGridEmail>();
 
 

@@ -18,7 +18,7 @@ public class Idehpardazan : IIdehpardazan
         return Task.CompletedTask;
     }
 
-    public Task<bool> SendSmsAsync(string ProviderName, Notif message)
+    public Task<bool> SendAsync(string ProviderName, Notif message)
     {
         throw new NotImplementedException();
     }

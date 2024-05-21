@@ -82,6 +82,7 @@ public class NotifManagementService : INotifManagementService
             {
                 "MeliPayamak" => _serviceProvider.GetRequiredService<Melipayamak>(),
                 "Idehpardazan" => _serviceProvider.GetRequiredService<Idehpardazan>(),
+                "PayamSms" => _serviceProvider.GetRequiredService<PayamSms>(),
                 _ => throw new KeyNotFoundException("Provider not found.")
             };
         }

@@ -1,22 +1,27 @@
 ﻿
 using Castle.Core.Logging;
 using Infrastructure.Services.EntityFramework;
+using Infrastructure.Services.ThirdParties;
 
 namespace Infrastructure.Services;
 
+//public class SmsService : ProviderRepository, ISmsProvider
 public class SmsService : ISmsProvider
 {
     #region Definition & CTor
     private readonly IIdehpardazan _idehpardazan;
     private readonly IMelipayamak _melipayamak;
+    private readonly IPayamSms _payamSms;
     private readonly ILogger<SmsService> _logger;
     private readonly IServiceProvider _serviceProvider;
-    public SmsService(IIdehpardazan idehpardazan, IMelipayamak melipayamak, ILogger<SmsService> logger, IServiceProvider serviceProvider)
+    public SmsService(IIdehpardazan idehpardazan, IMelipayamak melipayamak, IPayamSms payamSms,
+        ILogger<SmsService> logger, IServiceProvider serviceProvider)
     {
         _idehpardazan = idehpardazan;
         _melipayamak = melipayamak;
         _logger = logger;
         _serviceProvider = serviceProvider;
+        _payamSms = payamSms;
     }
 
     #endregion
@@ -49,17 +54,22 @@ public class SmsService : ISmsProvider
     //}
 
 
-    public async Task<bool> SendSmsAsync(string providerName, Notif message)
+    public async Task<bool> SendAsync(string providerName, Notif message)
     {
         try
         {
+            var provider = GetService(providerName);
             switch (providerName)
             {
                 case "MeliPayamak":
                     await _melipayamak.SendMelipayamakSmsAsync(message);
                     break;
-                case "idehpardazan":
+                case "Idehpardazan":
                     await _idehpardazan.SendIdehpardazSmsAsync(message);
+                    break;
+                case "PayamSms":
+                    //await _payamSms.SendAsync(providerName, message);
+                    await provider.SendAsync(providerName, message);
                     break;
             }
             return true;
@@ -72,7 +82,6 @@ public class SmsService : ISmsProvider
     }
 
 
-
     public ISmsProvider GetService(string ProviderName)
     {
         try
@@ -81,6 +90,7 @@ public class SmsService : ISmsProvider
             {
                 "MeliPayamak" => _serviceProvider.GetRequiredService<Melipayamak>(),
                 "Idehpardazan" => _serviceProvider.GetRequiredService<Idehpardazan>(),
+                "PayamSms" => _serviceProvider.GetRequiredService<PayamSms>(),
                 _ => throw new KeyNotFoundException("Provider not found.")
             };
         }        
@@ -90,7 +100,6 @@ public class SmsService : ISmsProvider
             throw;
         }
     }
-
 
     #endregion
 }

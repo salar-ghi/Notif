@@ -1,18 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Application.Services.Abstractions.HttpClients.ThirdParties;
 
-namespace Infrastructure.Services.ThirdParties
+namespace Infrastructure.Services.ThirdParties;
+
+public class PayamSms : IPayamSms
 {
-    internal class PayamSms : ISmsProvider
+    #region Definition & Ctor
+    private readonly IPayamSmsClientService _payamSmsClientService;
+    public PayamSms(IPayamSmsClientService payamSmsClientService)
     {
-
-
-        public Task<bool> SendAsync(string ProviderName, Notif message)
-        {
-            throw new NotImplementedException();
-        }
+        _payamSmsClientService = payamSmsClientService;
     }
+    #endregion
+
+
+    #region Methods
+
+
+    public Task SendPayamSmsAsync(Notif message)
+    {
+        Console.WriteLine($"Sending Sms notification: {message}");
+        return Task.CompletedTask;
+    }
+
+    public async Task<bool> SendAsync(string ProviderName, Notif message)
+    {
+        Console.WriteLine($"Sending Sms notification from PayamSms: {message}");
+        return true;
+    }
+    #endregion
+
 }

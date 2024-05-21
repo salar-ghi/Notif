@@ -10,11 +10,19 @@ public class EmailService : IEmailProvider
         _sendGridEmail = sendGridEmail;
     }
 
+
+
     #endregion
 
 
     #region Methods
-    public Task SendEmailAsync(Notif message)
+
+    public Task BuyAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<bool> SendAsync(string ProviderName, Notif message)
     {
         throw new NotImplementedException();
     }
