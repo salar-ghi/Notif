@@ -22,15 +22,16 @@
 		</PackageReference>
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.4" />
 		<PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="8.0.4" />
+		<PackageReference Include="Microsoft.Extensions.Http.Resilience" Version="8.4.0" />
 		<PackageReference Include="NSwag.AspNetCore" Version="14.0.7" />
+		<PackageReference Include="Polly" Version="8.4.0" />
 		<PackageReference Include="StackExchange.Redis" Version="2.7.33" />
 	</ItemGroup>
 
 	<ItemGroup>
 		<Folder Include="Abstractions\" />
-		<Folder Include="Dtos\" />
+		<Folder Include="HttpClients\ThirdParties\Email\" />
 		<Folder Include="Middlewares\" />
-		<Folder Include="HttpClients\" />
 		<Folder Include="logs\" />
 	</ItemGroup>
 

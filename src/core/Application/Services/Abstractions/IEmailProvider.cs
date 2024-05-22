@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Application.Services.Abstractions;
 
-namespace Application.Services.Abstractions
+public interface IEmailProvider: IProvider
 {
-    internal interface IEmailProvider
-    {
-    }
+    Task BuyAsync();
+
 }

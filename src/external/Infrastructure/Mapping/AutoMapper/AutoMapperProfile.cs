@@ -12,6 +12,7 @@ public class AutoMapperProfile : Profile
 
         CreateMap<Notif, NotifVM>()
             .ForMember(dest => dest.SendDate, op => op.MapFrom(src => src.NextTry))
+            .ForMember(dest => dest.Provider, op => op.MapFrom(src => src.ProviderID))
             .ReverseMap();
             
         CreateMap<Recipient, RecipientVM>().ReverseMap();

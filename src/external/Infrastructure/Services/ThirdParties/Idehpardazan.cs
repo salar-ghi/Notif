@@ -1,7 +1,6 @@
-﻿
-namespace Infrastructure.Services.ThirdParties;
+﻿namespace Infrastructure.Services.ThirdParties;
 
-public class Idehpardazan : ISmsProvider
+public class Idehpardazan : IIdehpardazan
 {
     #region Definition & Ctor
     public Idehpardazan()
@@ -13,16 +12,15 @@ public class Idehpardazan : ISmsProvider
 
     #region Methods
 
-    public Task SendSms(Notif message)
+    public Task SendIdehpardazSmsAsync(Notif message)
     {
         Console.WriteLine($"Sending Sms notification: {message}");
         return Task.CompletedTask;
     }
 
-    public Task SendSmsAsync(Notif message)
+    public Task<bool> SendAsync(string ProviderName, Notif message)
     {
-        Console.WriteLine($"Sending Sms notification: {message}");
-        return Task.CompletedTask;
+        throw new NotImplementedException();
     }
     #endregion
 

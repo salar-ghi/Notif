@@ -54,16 +54,16 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
+                    b.Property<int>("Attemp")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 15, 8, 40, 7, 47, DateTimeKind.Utc).AddTicks(4290));
+                        .HasDefaultValue(new DateTime(2024, 5, 19, 11, 28, 22, 754, DateTimeKind.Utc).AddTicks(9994));
 
                     b.Property<long>("CreatedById")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("HangfireJobId")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsSent")
                         .HasColumnType("bit");
@@ -85,6 +85,9 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("NextTry")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ProviderID")
+                        .HasColumnType("int");
+
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .IsRequired()
@@ -103,7 +106,9 @@ namespace Infrastructure.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<byte>("status")
-                        .HasColumnType("tinyint");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)1);
 
                     b.HasKey("Id");
 
@@ -122,6 +127,7 @@ namespace Infrastructure.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("NotifId")
+                        .IsUnicode(false)
                         .HasColumnType("bigint");
 
                     b.Property<int>("ProviderId")
@@ -135,8 +141,7 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NotifId")
-                        .IsUnique();
+                    b.HasIndex("NotifId");
 
                     b.HasIndex("ProviderId");
 
@@ -215,8 +220,8 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Entities.NotifLog", b =>
                 {
                     b.HasOne("Domain.Entities.Notif", "Notif")
-                        .WithOne("NotifLog")
-                        .HasForeignKey("Domain.Entities.NotifLog", "NotifId")
+                        .WithMany("NotifLogs")
+                        .HasForeignKey("NotifId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -244,8 +249,7 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Notif", b =>
                 {
-                    b.Navigation("NotifLog")
-                        .IsRequired();
+                    b.Navigation("NotifLogs");
 
                     b.Navigation("Recipients");
                 });

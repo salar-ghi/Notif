@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Application.Services.Abstractions.ThirdParties;
 
-namespace Application.Services.Abstractions.ThirdParties
+public interface IIdehpardazan : ISmsProvider
 {
-    internal interface IIdehpardazan
-    {
-    }
+    Task SendIdehpardazSmsAsync(Notif message);
 }

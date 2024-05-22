@@ -1,4 +1,7 @@
-﻿using Presentation.Jobs;
+﻿using Hangfire;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
+using Presentation.Jobs;
 
 namespace Presentation;
 
@@ -31,7 +34,6 @@ public class Startup
         {
             //options.UseSqlServer(configuration.GetConnectionString("SqlConnection"),
             options.UseSqlServer(_configuration.GetConnectionString("SqlConnection"),
-            //options.EnableSensitiveDataLogging(),
             sqlServerOptionsAction: sqlOptions =>
             {
                 sqlOptions.EnableRetryOnFailure(
@@ -39,9 +41,11 @@ public class Startup
                 maxRetryDelay: TimeSpan.FromMilliseconds(10),
                 errorNumbersToAdd: null);
             });
+            options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }, ServiceLifetime.Scoped); //, ServiceLifetime.Transient
                                     //
 
+        //services.AddHostedService<CheckStorageBackgroundService>();
         services.AddOptions();
         services.AddHttpContextAccessor();
         services.AddHealthChecks()
@@ -74,7 +78,14 @@ public class Startup
         //});
 
         services.AddServices(_applicationExtenderSetting);
+        services.AddHttpClients(_applicationExtenderSetting);
+
         services.ConfigHangfire(_configuration, "Nitro_Notif", _environment);
+        //services.AddHangfireServer(x =>
+        //{
+        //    x.MaxDegreeOfParallelismForSchedulers = 10;
+        //    x.ServerTimeout = TimeSpan.FromMilliseconds(240);
+        //});
 
         services.AddControllers(options =>
         {
@@ -93,12 +104,11 @@ public class Startup
 
 
         services.AddMvc()
-                    .AddFluentValidation(fv =>
-                    {
-                        fv.ImplicitlyValidateChildProperties = true;
-                        fv.RegisterValidatorsFromAssembly(typeof(Startup).Assembly);
-
-                    });
+            .AddFluentValidation(fv =>
+            {
+                fv.ImplicitlyValidateChildProperties = true;
+                fv.RegisterValidatorsFromAssembly(typeof(Startup).Assembly);
+            });
 
         services.Configure<ApiBehaviorOptions>(options =>
         {
@@ -119,7 +129,7 @@ public class Startup
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
     {
         ServiceLocator.Configure(app.ApplicationServices, _applicationExtenderSetting);
-        if(env.IsDevelopment())
+        if (env.IsDevelopment())
         {
             app.UseDeveloperExceptionPage();
             app.UseSwaggerConfig<Startup>(_applicationExtenderSetting);
@@ -152,6 +162,12 @@ public class Startup
 
         app.UseResponseCompression();
 
-        JobScheduler.ScheduleJobs(app, _applicationExtenderSetting);
+        //JobScheduler.ScheduleJobs(app, _applicationExtenderSetting);
+
+
+
+        //RecurringJob.AddOrUpdate<CheckStorageBackgroundService>("Save data to cache ", x => x.ExecuteAsync(), "*/2 * * * *");
+
+        //RecurringJob.AddOrUpdate<SendNotifBackgroundService>("Send Notif", x => x.ExecuteAsync(), "*/2 * * * *");
     }
 }

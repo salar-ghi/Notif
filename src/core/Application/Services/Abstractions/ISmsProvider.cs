@@ -1,6 +1,6 @@
 ﻿namespace Application.Services.Abstractions;
 
-public interface ISmsProvider
+public interface ISmsProvider: IProvider
 {
-    Task SendSmsAsync(Notif message);
+    //ISmsProvider GetService(string ProviderName);
 }

@@ -21,3 +21,8 @@ global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Infrastructure.Persistence.Providers.EntityFramework.Context;
 global using Infrastructure.Persistence.Providers.EntityFramework.Configurations;
 global using Infrastructure.Persistence.Providers.EntityFramework;
+
+global using Infrastructure.Services.ThirdParties;
+global using Microsoft.Extensions.DependencyInjection;
+global using Application.Services.Abstractions.ThirdParties;
+global using Microsoft.Extensions.Configuration;

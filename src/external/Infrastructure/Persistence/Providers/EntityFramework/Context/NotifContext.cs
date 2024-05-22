@@ -4,7 +4,12 @@ public partial class NotifContext : DbContext
 {
     public NotifContext() { }
 
-    public NotifContext(DbContextOptions options) : base(options) { }
+    public NotifContext(DbContextOptions options)
+        : base(options)
+    {
+        ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        this.ChangeTracker.LazyLoadingEnabled = false;
+    }
 
 
 
@@ -25,7 +30,7 @@ public partial class NotifContext : DbContext
         modelBuilder.ApplyConfiguration(new BlackListConfiguration());
         modelBuilder.ApplyConfiguration(new NotifLogConfiguration());
         modelBuilder.ApplyConfiguration(new ProviderConfiguration());
-        modelBuilder.ApplyConfiguration(new  RecipientConfiguration());
+        modelBuilder.ApplyConfiguration(new RecipientConfiguration());
 
         base.OnModelCreating(modelBuilder);
 

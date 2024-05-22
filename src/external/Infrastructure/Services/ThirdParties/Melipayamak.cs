@@ -1,7 +1,6 @@
-﻿
-namespace Infrastructure.Services.ThirdParties;
+﻿namespace Infrastructure.Services.ThirdParties;
 
-public class Melipayamak : ISmsProvider
+public class Melipayamak : IMelipayamak
 {
     #region Definition & Ctor
     public Melipayamak()
@@ -13,16 +12,16 @@ public class Melipayamak : ISmsProvider
 
     #region Methods
 
-    public Task SendSms(Notif message)
+
+    public Task SendMelipayamakSmsAsync(Notif message)
     {
         Console.WriteLine($"Sending Sms notification: {message}");
         return Task.CompletedTask;
     }
 
-    public Task SendSmsAsync(Notif message)
+    public Task<bool> SendAsync(string ProviderName, Notif message)
     {
-        Console.WriteLine($"Sending Sms notification: {message}");
-        return Task.CompletedTask;
+        throw new NotImplementedException();
     }
     #endregion
 }

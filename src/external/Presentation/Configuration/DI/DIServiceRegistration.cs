@@ -1,7 +1,4 @@
-﻿using Infrastructure.Services.ThirdParties;
-using Presentation.Jobs;
-
-namespace Presentation.Configuration.DI;
+﻿namespace Presentation.Configuration.DI;
 
 public static class DIServiceRegistration
 {
@@ -13,17 +10,29 @@ public static class DIServiceRegistration
 
         services.AddTransient<Melipayamak>();
         services.AddTransient<Idehpardazan>();
+        services.AddTransient<PayamSms>();
 
-        services.AddTransient<ISmsProvider, Idehpardazan>();
-        services.AddTransient<ISmsProvider, Melipayamak>();
+        //services.AddTransient<ISmsProvider, Idehpardazan>();
+        //services.AddTransient<ISmsProvider, Melipayamak>();
 
-        services.AddTransient<INotifManagementService, NotifManagementService>();
+        services.AddTransient<ISmsProvider, SmsService>();
+        services.AddTransient<IEmailProvider, EmailService>();
+
+
+        services.AddScoped<IMelipayamak, Melipayamak>();
+        services.AddScoped<IIdehpardazan, Idehpardazan>();
+        services.AddScoped<IPayamSms, PayamSms>();
+        services.AddScoped<ISendGridEmail, SendGridEmail>();
+
+
+        services.AddScoped<INotifManagementService, NotifManagementService>();
 
         // Scoped
         //services.AddScoped();
         services.AddScoped<ISaveNotifToStorageJob, SaveNotifToStorageJob>();
+        services.AddScoped<ISendNotifJob, SendNotifJob>();
 
-        services.AddScoped<INotifService, NotifService>();
+        services.AddTransient<INotifService, NotifService>();
 
 
         services.AddScoped<INotifSender, NotifSenderService>();
@@ -34,6 +43,8 @@ public static class DIServiceRegistration
         
 
         services.AddScoped<ICacheMessage, InMemoryCacheRepository>();
+
+        //services.AddScoped<ISaveNotifToStorageJob, >();
         //services.AddScoped<ICacheMessage, RedisCacheRepository>();
         //RecurringJob.AddOrUpdate<ICacheMessage>("Notif-job", x => x.GetAllMessages(), "*/2 * * * * *");
         //BackgroundJob.Schedule<ICacheMessage>(x => x.GetAllMessages(), TimeSpan.FromSeconds(2));

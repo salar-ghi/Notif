@@ -1,30 +1,36 @@
 ﻿namespace Presentation.Jobs;
 
-public class SendNotifJob : ISaveNotifToStorageJob
+public class SendNotifJob : ISendNotifJob
 {
     private readonly ILogger<SendNotifJob> _logger;
-    private readonly ApplicationSettingExtenderModel _applicationSettings;
     private readonly INotifManagementService _notifManagement;
 
-    public SendNotifJob(ILogger<SendNotifJob> logger,
-         ApplicationSettingExtenderModel applicationSettings, INotifManagementService notifManagement)
+    public SendNotifJob(ILogger<SendNotifJob> logger, INotifManagementService notifManagement)
     {
         _logger = logger;
-        _applicationSettings = applicationSettings;
-        //_cache = cache;
         _notifManagement = notifManagement;
     }
 
+
+    [DisableConcurrentExecution(timeoutInSeconds: 10 * 60)]
+    //[AutomaticRetry(Attempts = 10, DelaysInSeconds = new int[] { 2 })]
     public async Task Run()
     {
         try
         {
-            var notif = await _notifManagement.CheckCacheAndSaveToStorage();
+            Console.WriteLine($"Running Run Method() 'Send' at: {DateTime.Now}");
+            CancellationToken ct = default(CancellationToken);
+            var notif = await _notifManagement.SendNotif(ct);
+            RecurringJob.AddOrUpdate("Save data to cache", () => this.Run(), "*/2 * * * *");
         }
         catch (Exception ex)
         {
             _logger.LogError(ex.Message, ex);
             throw;
+        }
+        finally
+        {
+            RecurringJob.AddOrUpdate("Save data to cache", () => this.Run(), "*/2 * * * *");
         }
     }
 

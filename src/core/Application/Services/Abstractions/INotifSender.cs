@@ -4,8 +4,6 @@ namespace Application.Services.Abstractions;
 
 public interface INotifSender
 {
-
-    Task SendNotif(Notif notif);
-    Task SendNotifAsync(Notif notif);
-
+    Task<bool> SendNotifAsync(string providerName, Notif notif);
+    Task<bool> ManageNotif(Provider provider, Notif notif, CancellationToken ct);
 }
