@@ -3,9 +3,9 @@
 public class SendNotifJob //: ISendNotifJob
 {
     private readonly ILogger<SendNotifJob> _logger;
-    private readonly INotifManagementService _notifManagement;
+    private readonly IMessageManagementService _notifManagement;
 
-    public SendNotifJob(ILogger<SendNotifJob> logger, INotifManagementService notifManagement)
+    public SendNotifJob(ILogger<SendNotifJob> logger, IMessageManagementService notifManagement)
     {
         _logger = logger;
         _notifManagement = notifManagement;

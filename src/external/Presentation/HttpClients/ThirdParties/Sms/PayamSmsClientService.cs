@@ -18,14 +18,14 @@ public class PayamSmsClientService : HttpClientService<PayamSmsClientService>, I
 
 
 
-    public async Task<bool> SendPayamSms(Notif notif, CancellationToken ct = default(CancellationToken))
+    public async Task<bool> SendPayamSms(Domain.Entities.Message notif, CancellationToken ct = default(CancellationToken))
     {
         try
         {
-            List<Message> messages = new List<Message>();
+            List<Dtos.Message> messages = new List<Dtos.Message>();
             foreach (var recip in notif.Recipients)
             {
-                var message = new Message
+                var message = new Dtos.Message
                 {
                     sender = _config.Provider.Sms.PayamSms.Sender,
                     recipient = recip.Destination,

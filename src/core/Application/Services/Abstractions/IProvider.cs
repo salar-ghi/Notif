@@ -2,5 +2,5 @@
 
 public interface IProvider
 {
-    Task<bool> SendAsync(string ProviderName, Notif message);
+    Task<bool> SendAsync(string ProviderName, Message message);
 }

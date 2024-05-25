@@ -2,7 +2,7 @@
 
 namespace Infrastructure.Services.EntityFramework;
 
-public class NotifService : CRUDService<Notif>, INotifService
+public class NotifService : CRUDService<Message>, INotifService
 {
     #region Definition & Ctor
 
@@ -23,7 +23,7 @@ public class NotifService : CRUDService<Notif>, INotifService
 
     #region Methods
 
-    public async Task<bool> MarkNotificationsAsReadAsync(Notif notif, CancellationToken ct)
+    public async Task<bool> MarkNotificationsAsReadAsync(Message notif, CancellationToken ct)
     {
         try
         {
@@ -33,7 +33,7 @@ public class NotifService : CRUDService<Notif>, INotifService
                 saveFailed = false;
                 try
                 {
-                    Notif note = new Notif
+                    Message note = new Message
                     {
                         status = NotifStatus.Delivered,
                         Attemp = notif.Attemp + 1,
@@ -55,7 +55,7 @@ public class NotifService : CRUDService<Notif>, INotifService
                 catch (DbUpdateConcurrencyException ex)
                 {
                     _unitOfWork.DbContext.Notifs.Entry(notif).Reload();
-                    Notif dto = new Notif
+                    Message dto = new Message
                     {
                         status = NotifStatus.Delivered,
                         Attemp = notif.Attemp + 1,
@@ -79,7 +79,7 @@ public class NotifService : CRUDService<Notif>, INotifService
         }
     }
 
-    public async Task MarkNotificationAsFailedAttemp(Notif notif, CancellationToken ct)
+    public async Task MarkNotificationAsFailedAttemp(Message notif, CancellationToken ct)
     {
         try
         {
@@ -94,7 +94,7 @@ public class NotifService : CRUDService<Notif>, INotifService
             throw;
         }
     }
-    public async Task MarkNotificationsAsReadAsync(List<Notif> notifs, CancellationToken ct)
+    public async Task MarkNotificationsAsReadAsync(List<Message> notifs, CancellationToken ct)
     {
         bool saveFailed;
         do
@@ -129,11 +129,11 @@ public class NotifService : CRUDService<Notif>, INotifService
     }
 
 
-    public async Task<Notif> SaveNotifAsync(NotifVM entity, CancellationToken ct = default(CancellationToken))
+    public async Task<Message> SaveNotifAsync(NotifVM entity, CancellationToken ct = default(CancellationToken))
     {
         try
         {
-            var notif = _mapper.Map<Notif>(entity);
+            var notif = _mapper.Map<Message>(entity);
             var data = await base.Create(notif);
             await _unitOfWork.DbContext.SaveChangesAsync();
             return data;
@@ -149,7 +149,7 @@ public class NotifService : CRUDService<Notif>, INotifService
     {
         try
         {
-            var notif = _mapper.Map<ICollection<Notif>>(entities);
+            var notif = _mapper.Map<ICollection<Message>>(entities);
             await base.Create(notif);
             await _unitOfWork.DbContext.SaveChangesAsync();
         }
@@ -161,7 +161,7 @@ public class NotifService : CRUDService<Notif>, INotifService
     }
 
 
-    public async Task ScheduleNotificationAsync(Notif entity, CancellationToken ct)
+    public async Task ScheduleNotificationAsync(Message entity, CancellationToken ct)
     {
         try
         {
@@ -184,7 +184,7 @@ public class NotifService : CRUDService<Notif>, INotifService
 
         Parallel.ForEach(messages, async message =>
         {
-            var notif = _mapper.Map<Notif>(message);
+            var notif = _mapper.Map<Message>(message);
             switch (message.Type)
             {
                 case NotifType.SMS:
@@ -211,13 +211,13 @@ public class NotifService : CRUDService<Notif>, INotifService
     }
 
 
-    public async Task<IEnumerable<Notif>> GetUnDeliveredAsync()
+    public async Task<IEnumerable<Message>> GetUnDeliveredAsync()
     {
         AttempValue = _configuration.Jobs.Attemp;
         var undeliverNotifs = await base.GetQuery()
             .Where(x => x.status == NotifStatus.waiting && x.Attemp < AttempValue)
             .AsNoTracking()
-            .Select(z => new Notif
+            .Select(z => new Message
             {
                 Id = z.Id,
                 Title = z.Title,

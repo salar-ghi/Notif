@@ -12,13 +12,13 @@ public class Idehpardazan : IIdehpardazan
 
     #region Methods
 
-    public Task SendIdehpardazSmsAsync(Notif message)
+    public Task SendIdehpardazSmsAsync(Message message)
     {
         Console.WriteLine($"Sending Sms notification: {message}");
         return Task.CompletedTask;
     }
 
-    public Task<bool> SendAsync(string ProviderName, Notif message)
+    public Task<bool> SendAsync(string ProviderName, Message message)
     {
         throw new NotImplementedException();
     }

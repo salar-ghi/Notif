@@ -1,8 +1,5 @@
-﻿//using Application.Services.Abstractions.HttpClients.ThirdParties;
+﻿namespace Infrastructure.Services;
 
-namespace Infrastructure.Services;
-
-//public class SmsService : ProviderRepository, ISmsProvider
 public class SmsService : ISmsProvider
 {
     #region Definition & CTor
@@ -54,7 +51,7 @@ public class SmsService : ISmsProvider
     //}
 
 
-    public async Task<bool> SendAsync(string providerName, Notif message)
+    public async Task<bool> SendAsync(string providerName, Message message)
     {
         try
         {

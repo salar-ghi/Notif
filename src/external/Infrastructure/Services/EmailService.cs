@@ -21,7 +21,7 @@ public class EmailService : IEmailProvider
 
     #region Methods
 
-    public async Task<bool> SendAsync(string ProviderName, Notif message)
+    public async Task<bool> SendAsync(string ProviderName, Message message)
     {
         try
         {
@@ -30,7 +30,7 @@ public class EmailService : IEmailProvider
                 var item = await _fluentEmail
                    .To(recipient.Destination)
                    .Subject(message.Title)
-                   .Body(message.Message)
+                   .Body(message.Body)
                    .SendAsync();
                 if (!item.Successful)
                 {

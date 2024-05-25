@@ -1,5 +1,5 @@
 ﻿namespace Application.Jobs.Abstractions;
 
-public interface ISendNotifJob : IJobWorker
+public interface ISendMessageJob : IJobWorker
 {
 }

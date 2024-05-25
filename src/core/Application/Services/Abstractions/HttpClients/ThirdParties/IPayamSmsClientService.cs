@@ -2,5 +2,5 @@
 
 public interface IPayamSmsClientService : IHttpClientService
 {
-    Task<bool> SendPayamSms(Notif message, CancellationToken ct = default(CancellationToken));
+    Task<bool> SendPayamSms(Message message, CancellationToken ct = default(CancellationToken));
 }

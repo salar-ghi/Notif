@@ -1,12 +1,12 @@
 ﻿namespace Application.Models.Requests;
 
-public record NotifRq
+public record MessageRq
 {
     [Required]
     public string Title { get; set; }
     //public MessageType MessageType { get; set; }
     [Required]
-    public string Message { get; set; }
+    public string Body { get; set; }
     public NotifType Type { get; set; }
     [Required]
     public int SenderId { get; set; }

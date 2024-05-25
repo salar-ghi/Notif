@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities;
 
-public class Notif : EntityBase, IValidate, ITrackable
+public class Message : EntityBase, IValidate, ITrackable
 {
     
     public long Id { get; set; } = default(long);
@@ -12,7 +12,7 @@ public class Notif : EntityBase, IValidate, ITrackable
 
     public string Title { get; set; } = default!;    
     public MessageType MessageType { get; set; }
-    public string Message { get; set; } = default!;
+    public string Body { get; set; } = default!;
 
     [DefaultValue(NotifStatus.Delivered)]
     public NotifStatus status { get; set; }
@@ -29,7 +29,7 @@ public class Notif : EntityBase, IValidate, ITrackable
     public int ProviderID { get; set; }
     public virtual ICollection<Recipient> Recipients { get; set; }
     
-    public virtual ICollection<NotifLog> NotifLogs { get; set; }
+    public virtual ICollection<MessageLog> MessageLogs { get; set; }
 
     public void Validate()
     {
@@ -38,13 +38,9 @@ public class Notif : EntityBase, IValidate, ITrackable
             _ValidationErrors.Add(ErrorsHelper.EmptyError(nameof(Title)));
         #endregion
 
-        #region Description
-        if (string.IsNullOrEmpty(Message))
-            _ValidationErrors.Add(ErrorsHelper.EmptyError(nameof(Message)));
-
-        #endregion
-
-        #region NotifType
+        #region Body
+        if (string.IsNullOrEmpty(Body))
+            _ValidationErrors.Add(ErrorsHelper.EmptyError(nameof(Body)));
 
         #endregion
     }

@@ -1,10 +1,10 @@
 ﻿namespace Infrastructure.Persistence.Providers.EntityFramework.Context;
 
-public partial class NotifContext : DbContext
+public partial class MessageContext : DbContext
 {
-    public NotifContext() { }
+    public MessageContext() { }
 
-    public NotifContext(DbContextOptions options)
+    public MessageContext(DbContextOptions options)
         : base(options)
     {
         ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
@@ -13,9 +13,9 @@ public partial class NotifContext : DbContext
 
 
 
-    public virtual DbSet<Notif> Notifs { get; set; }
+    public virtual DbSet<Message> Notifs { get; set; }
     public virtual DbSet<BlackList> BlackList { get; set; }
-    public virtual DbSet<NotifLog> NotifLog { get; set; }
+    public virtual DbSet<MessageLog> NotifLog { get; set; }
     public virtual DbSet<Provider> Provider { get; set; }
     //public virtual DbSet<ProviderSetting> ProviderConfigurations { get; set; }
     public virtual DbSet<Recipient> Recipient { get; set; }
@@ -26,9 +26,9 @@ public partial class NotifContext : DbContext
         modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
 
-        modelBuilder.ApplyConfiguration(new NotifConfiguration());
+        modelBuilder.ApplyConfiguration(new MessageConfiguration());
         modelBuilder.ApplyConfiguration(new BlackListConfiguration());
-        modelBuilder.ApplyConfiguration(new NotifLogConfiguration());
+        modelBuilder.ApplyConfiguration(new MessageLogConfiguration());
         modelBuilder.ApplyConfiguration(new ProviderConfiguration());
         modelBuilder.ApplyConfiguration(new RecipientConfiguration());
 

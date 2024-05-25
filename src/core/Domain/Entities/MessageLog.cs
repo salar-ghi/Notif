@@ -1,11 +1,11 @@
 ﻿namespace Domain.Entities;
 
-public class NotifLog : EntityBase
+public class MessageLog : EntityBase
 {
     public int Id { get; set; }
 
-    public long NotifId { get; set; }
-    public virtual Notif Notif { get; set; }
+    public long MessageId { get; set; }
+    public virtual Message Message { get; set; }
     
     public DateTime? SentAt { get; set; }
     public bool Success { get; set; }

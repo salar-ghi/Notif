@@ -13,13 +13,13 @@ public class Melipayamak : IMelipayamak
     #region Methods
 
 
-    public Task SendMelipayamakSmsAsync(Notif message)
+    public Task SendMelipayamakSmsAsync(Message message)
     {
         Console.WriteLine($"Sending Sms notification: {message}");
         return Task.CompletedTask;
     }
 
-    public Task<bool> SendAsync(string ProviderName, Notif message)
+    public Task<bool> SendAsync(string ProviderName, Message message)
     {
         throw new NotImplementedException();
     }

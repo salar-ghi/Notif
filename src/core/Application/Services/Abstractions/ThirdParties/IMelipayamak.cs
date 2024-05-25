@@ -2,5 +2,5 @@
 
 public interface IMelipayamak : ISmsProvider
 {
-    Task SendMelipayamakSmsAsync(Notif message);
+    Task SendMelipayamakSmsAsync(Message message);
 }

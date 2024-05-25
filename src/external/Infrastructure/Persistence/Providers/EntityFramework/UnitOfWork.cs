@@ -8,8 +8,8 @@ public class UnitOfWork : IUnitOfWork
 {
     private bool _ignoreSaveChanges = false;
 
-    public NotifContext DbContext { get; set; }
-    public UnitOfWork(NotifContext dbContext)
+    public MessageContext DbContext { get; set; }
+    public UnitOfWork(MessageContext dbContext)
     {
         DbContext = dbContext;
     }

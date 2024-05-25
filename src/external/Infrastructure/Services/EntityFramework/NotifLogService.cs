@@ -2,14 +2,14 @@
 
 namespace Infrastructure.Services.EntityFramework;
 
-public class NotifLogService : CRUDService<NotifLog>,  INotifLogService
+public class MessageLogService : CRUDService<MessageLog>,  IMessageLogService
 
 {
     #region Definition & Ctor
-    private readonly ILogger<NotifLogService> _logger;
+    private readonly ILogger<MessageLogService> _logger;
     private readonly IMapper _mapper;
 
-    public NotifLogService(ILogger<NotifLogService> logger, IMapper mapper)
+    public MessageLogService(ILogger<MessageLogService> logger, IMapper mapper)
     {
         _logger = logger;
         _mapper = mapper;
@@ -20,7 +20,7 @@ public class NotifLogService : CRUDService<NotifLog>,  INotifLogService
 
     #region Definition
 
-    public async Task<NotifLog> SaveNotifLogAsync(NotifLog entity, CancellationToken ct)
+    public async Task<MessageLog> SaveMessagLogAsync(MessageLog entity, CancellationToken ct)
     {
         try
         {
@@ -35,7 +35,7 @@ public class NotifLogService : CRUDService<NotifLog>,  INotifLogService
         }
     }
 
-    public async Task<bool> SaveNotifLogAsync(ICollection<NotifLog> entity, CancellationToken ct)
+    public async Task<bool> SaveMessagLogAsync(ICollection<MessageLog> entity, CancellationToken ct)
     {
         try
         {
@@ -50,7 +50,7 @@ public class NotifLogService : CRUDService<NotifLog>,  INotifLogService
         }
     }
 
-    public async Task<NotifLog> GetNotifLog(long Id)
+    public async Task<MessageLog> GetMessagLog(long Id)
     {
         try
         {
@@ -65,9 +65,9 @@ public class NotifLogService : CRUDService<NotifLog>,  INotifLogService
             //    .ConfigureAwait(false);
 
             var logItem = await base.GetQuery()
-                .Where(x => x.NotifId== Id)
+                .Where(x => x.MessageId == Id)
                 .AsNoTracking()
-                .Select(j => new NotifLog
+                .Select(j => new MessageLog
                 {
                     Id = j.Id,
                     ProviderId = j.ProviderId,
@@ -84,7 +84,7 @@ public class NotifLogService : CRUDService<NotifLog>,  INotifLogService
     }
 
 
-    public async Task MarkNotifLogAsFailed(NotifLog log, CancellationToken ct)
+    public async Task MarkMessagLogAsFailed(MessageLog log, CancellationToken ct)
     {
         try
         {
@@ -101,7 +101,7 @@ public class NotifLogService : CRUDService<NotifLog>,  INotifLogService
     }
 
 
-    public async Task MarkNotifLogAsSuccess(NotifLog log, CancellationToken ct)
+    public async Task MarkMessagLogAsSuccess(MessageLog log, CancellationToken ct)
     {
         try
         {

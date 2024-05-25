@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Infrastructure.Migrations
 {
-    [DbContext(typeof(NotifContext))]
+    [DbContext(typeof(MessageContext))]
     [Migration("20240519112823_init")]
     partial class init
     {

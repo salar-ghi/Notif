@@ -1,14 +1,14 @@
 ﻿namespace Infrastructure.Persistence.Providers.EntityFramework.Configurations;
 
-public class NotifConfiguration : IEntityTypeConfiguration<Notif>
+public class MessageConfiguration : IEntityTypeConfiguration<Message>
 {
-    public void Configure(EntityTypeBuilder<Notif> builder)
+    public void Configure(EntityTypeBuilder<Message> builder)
     {
-        BaseConfiguration<Notif>.Configure(builder);
+        BaseConfiguration<Message>.Configure(builder);
 
         builder.HasKey(x => x.Id);
         builder.Property(x => x.Title).IsRequired().HasMaxLength(100);
-        builder.Property(p => p.Message).IsRequired().HasMaxLength(1000);
+        builder.Property(p => p.Body).IsRequired().HasMaxLength(1000);
 
         builder.Property(n => n.status).IsRequired();
 

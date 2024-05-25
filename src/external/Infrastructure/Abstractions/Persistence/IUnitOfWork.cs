@@ -2,7 +2,7 @@
 
 public interface IUnitOfWork : IDisposable
 {
-    NotifContext DbContext { get; }
+    MessageContext DbContext { get; }
     Task SaveChanges(DateTime? useTrackableDateTime = null, CancellationToken cancellationToken = default);
     Task SaveChanges(Func<Task> func, bool ignoreSaveChanges = true, CancellationToken cancellationToken = default);
     Task<T> SaveChanges<T>(Func<Task<T>> func, bool ignoreSaveChanges = true, CancellationToken cancellationToken = default);

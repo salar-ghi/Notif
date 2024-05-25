@@ -26,18 +26,18 @@ public static class DIServiceRegistration
         services.AddScoped<IPayamSms, PayamSms>();
 
 
-        services.AddScoped<INotifManagementService, NotifManagementService>();
+        services.AddScoped<IMessageManagementService, MessagManagementService>();
 
         // Scoped
         //services.AddScoped();
         //services.AddScoped<ISaveNotifToStorageJob, SaveNotifToStorageJob>();
         //services.AddScoped<ISendNotifJob, SendNotifJob>();
 
-        services.AddTransient<INotifService, NotifService>();
+        services.AddTransient<IMessageService, NotifService>();
 
-        services.AddScoped<INotifSender, NotifSenderService>();
+        services.AddScoped<IMessageSender, NotifSenderService>();
 
-        services.AddScoped<INotifLogService, NotifLogService>();
+        services.AddScoped<IMessageLogService, NotifLogService>();
         services.AddScoped<IProviderService, ProviderService>();        
 
         services.AddScoped<ICacheMessage, InMemoryCacheRepository>();

@@ -31,7 +31,7 @@ public class Startup
         services.AddExceptionHandler<GlobalErrorHandler>();
         services.AddProblemDetails();
 
-        services.AddDbContext<NotifContext>(options =>
+        services.AddDbContext<MessageContext>(options =>
         {
             //options.UseSqlServer(configuration.GetConnectionString("SqlConnection"),
             options.UseSqlServer(_configuration.GetConnectionString("SqlConnection"),

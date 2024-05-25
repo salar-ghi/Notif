@@ -4,22 +4,22 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Infrastructure.Services.EntityFramework;
 
-public class NotifManagementService : INotifManagementService
+public class MessagManagementService : IMessageManagementService
 {
     #region Definition & Ctor
-    private readonly ILogger<NotifManagementService> _logger;
+    private readonly ILogger<MessagManagementService> _logger;
     private readonly IMapper _mapper;
 
-    private readonly INotifService _notif;
+    private readonly IMessageService _notif;
     private readonly IProviderService _provider;
-    private readonly INotifLogService _notifLog;
+    private readonly IMessageLogService _notifLog;
     private readonly ICacheMessage _cache;
     private readonly IServiceProvider _serviceProvider;
-    private readonly INotifSender _notifSender;
+    private readonly IMessageSender _notifSender;
 
-    public NotifManagementService(ILogger<NotifManagementService> logger, IMapper mapper, IProviderService provider,
-        INotifService notif, INotifLogService notifLog, ICacheMessage cache, IServiceProvider serviceProvider,
-        INotifSender notifSender)
+    public MessagManagementService(ILogger<MessagManagementService> logger, IMapper mapper, IProviderService provider,
+        IMessageService notif, IMessageLogService notifLog, ICacheMessage cache, IServiceProvider serviceProvider,
+        IMessageSender notifSender)
     {
         _logger = logger;
         _mapper = mapper;

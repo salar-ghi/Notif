@@ -1,11 +1,10 @@
 ﻿namespace Application.Models.Responses;
 
-public record NotifRs
+public record MessageRs
 {
     public string Title { get; set; }
-    //public MessageType MessageType { get; set; }
     [Required]
-    public string Message { get; set; }
+    public string Body { get; set; }
     public NotifType Type { get; set; }
     [Required]
     public int SenderId { get; set; }

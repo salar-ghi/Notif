@@ -4,10 +4,10 @@ public class SaveNotifToStorageJob //: ISaveNotifToStorageJob
 {
     private readonly ILogger<SaveNotifToStorageJob> _logger;
     private readonly ApplicationSettingExtenderModel _applicationSettings;
-    private readonly INotifManagementService _notifManagement;
+    private readonly IMessageManagementService _notifManagement;
 
     public SaveNotifToStorageJob(ILogger<SaveNotifToStorageJob> logger,
-         ApplicationSettingExtenderModel applicationSettings, INotifManagementService notifManagement)
+         ApplicationSettingExtenderModel applicationSettings, IMessageManagementService notifManagement)
     {
         _logger = logger;
         _applicationSettings = applicationSettings;

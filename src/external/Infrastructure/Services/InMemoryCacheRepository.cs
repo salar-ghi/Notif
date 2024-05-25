@@ -8,7 +8,7 @@ public class InMemoryCacheRepository : ICacheMessage
     public InMemoryCacheRepository(IMemoryCache cache) => _cache = cache;
 
 
-    public async Task<bool> AddMessage(string? InputKey, NotifVM message, TimeSpan? slidingExpiration = null)
+    public async Task<bool> AddMessage(string? InputKey, MessageVM message, TimeSpan? slidingExpiration = null)
     {
         try
         {
@@ -23,7 +23,7 @@ public class InMemoryCacheRepository : ICacheMessage
         }
     }
 
-    public async Task<bool> AddMessage(IDictionary<string, NotifVM> messages, TimeSpan? slidingExpiration = null)
+    public async Task<bool> AddMessage(IDictionary<string, MessageVM> messages, TimeSpan? slidingExpiration = null)
     {
         try
         {
@@ -40,7 +40,7 @@ public class InMemoryCacheRepository : ICacheMessage
 
     }
 
-    public async Task<bool> AddMessage(IEnumerable<NotifVM> messages)
+    public async Task<bool> AddMessage(IEnumerable<MessageVM> messages)
     {
         try
         {
@@ -56,33 +56,33 @@ public class InMemoryCacheRepository : ICacheMessage
 
 
 
-    public async Task<NotifVM> GetMessages()
+    public async Task<MessageVM> GetMessages()
     {
-        var message = _cache.Get<NotifVM>("__Allkeys__");
+        var message = _cache.Get<MessageVM>("__Allkeys__");
         return message;
     }
 
 
-    public async Task<IEnumerable<KeyValuePair<string, NotifVM>>> GetKeyValueMessages()
+    public async Task<IEnumerable<KeyValuePair<string, MessageVM>>> GetKeyValueMessages()
     {
-        var messages = _cache.Get<IEnumerable<KeyValuePair<string, NotifVM>>>("__AllKeys__") ?? Enumerable.Empty<KeyValuePair<string, NotifVM>>();
+        var messages = _cache.Get<IEnumerable<KeyValuePair<string, MessageVM>>>("__AllKeys__") ?? Enumerable.Empty<KeyValuePair<string, MessageVM>>();
         return messages;
     }
 
      
-    public async Task<IEnumerable<NotifVM>> GetAllMessages()
+    public async Task<IEnumerable<MessageVM>> GetAllMessages()
     {
-        var cache = _cache.Get<IEnumerable<NotifVM>>(_cacheKey) ?? Enumerable.Empty<NotifVM>();
+        var cache = _cache.Get<IEnumerable<MessageVM>>(_cacheKey) ?? Enumerable.Empty<MessageVM>();
 
         return cache;
     }
 
-    public Task RemoveMessage(NotifVM entity)
+    public Task RemoveMessage(MessageVM entity)
     {
         throw new NotImplementedException();
     }
 
-    public async Task RemoveMessage(ICollection<NotifVM> entity)
+    public async Task RemoveMessage(ICollection<MessageVM> entity)
     {
         _cache.Remove(_cacheKey);
         //throw new NotImplementedException();

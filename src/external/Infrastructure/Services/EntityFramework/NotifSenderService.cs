@@ -1,14 +1,14 @@
 ﻿namespace Infrastructure.Services.EntityFramework;
 
-public class NotifSenderService : INotifSender
+public class NotifSenderService : IMessageSender
 {
     #region Definition & Ctor
     private readonly ISmsProvider _smsProvider;
     private readonly IEmailProvider _emailProvider;
     private readonly ILogger<NotifSenderService> _logger;
-    private readonly INotifService _notif;
-    private readonly INotifLogService _notifLog;
-    public NotifSenderService(ISmsProvider smsProvider, IEmailProvider emailProvider, ILogger<NotifSenderService> logger, INotifService notif, INotifLogService notifLog)
+    private readonly IMessageService _notif;
+    private readonly IMessageLogService _notifLog;
+    public NotifSenderService(ISmsProvider smsProvider, IEmailProvider emailProvider, ILogger<NotifSenderService> logger, IMessageService notif, IMessageLogService notifLog)
     {
         _smsProvider = smsProvider;
         _emailProvider = emailProvider;
@@ -22,7 +22,7 @@ public class NotifSenderService : INotifSender
     #region Methods
 
 
-    public async Task<bool> SendNotifAsync(string providerName, Notif notif)
+    public async Task<bool> SendNotifAsync(string providerName, Message notif)
     {
         try
         {
@@ -57,9 +57,9 @@ public class NotifSenderService : INotifSender
 
 
 
-    public async Task<bool> ManageNotif(Provider provider, Notif notif, CancellationToken ct)
+    public async Task<bool> ManageNotif(Provider provider, Message notif, CancellationToken ct)
     {
-        var notLog = new NotifLog();
+        var notLog = new MessageLog();
         try
         {
             var notifSender = await this.SendNotifAsync(provider.Name, notif);

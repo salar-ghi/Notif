@@ -1,6 +1,6 @@
 ﻿namespace Application.Models;
 
-public record NotifVM
+public record MessageVM
 {
     [Required]
     public string Title { get; set; } = default!;
@@ -24,6 +24,7 @@ public record NotifVM
 
 public record RecipientVM
 {
-    public string UserId { get; set; }
-    public string nameofDevice { get; set; }
+    public long UserId { get; set; }
+    public string Destination { get; set; }
+
 }

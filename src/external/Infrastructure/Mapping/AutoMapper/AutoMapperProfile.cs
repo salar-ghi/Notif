@@ -1,15 +1,10 @@
-﻿using Application.Models;
-using FluentEmail.Core.Models;
-using Microsoft.EntityFrameworkCore.Diagnostics;
-
-
-namespace Infrastructure.Mapping.AutoMapper;
+﻿namespace Infrastructure.Mapping.AutoMapper;
 
 public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-        CreateMap<Notif, NotifVM>()
+        CreateMap<Message, MessageVM>()
             .ForMember(dest => dest.SendDate, op => op.MapFrom(src => src.NextTry))
             .ForMember(dest => dest.Provider, op => op.MapFrom(src => src.ProviderID))
             .ReverseMap();
