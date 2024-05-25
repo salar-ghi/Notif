@@ -1,7 +1,5 @@
-﻿using Domain.Entities;
-using FluentEmail.Core.Models;
-using AutoMapper;
-using System.Collections.Generic;
+﻿using Application.Configuration;
+using System.Net.Mail;
 
 namespace Infrastructure.Services;
 
@@ -12,11 +10,13 @@ public class EmailService : IEmailProvider
     private readonly IFluentEmail _fluentEmail;
     private readonly ILogger<EmailService> _logger;
     private readonly IMapper _mapper;
+    //private readonly IElasticsearchService _elasticsearchService;
     public EmailService(IFluentEmail fluentEmail, ILogger<EmailService> logger, IMapper mapper)
     {
         _fluentEmail = fluentEmail;
         _logger = logger;
         _mapper = mapper;
+        //_elasticsearchService = elasticsearchService;
     }
 
 
@@ -30,8 +30,6 @@ public class EmailService : IEmailProvider
     {
         try
         {
-
-
             foreach (var recipient in message.Recipients)
             {
                 var item = await _fluentEmail
@@ -43,6 +41,9 @@ public class EmailService : IEmailProvider
                 {
 
                 }
+                //await _elasticsearchService.SaveLogAsync(item);
+                _logger.LogInformation("HttpClient Response logged: {0}", item);
+
             }
 
             return true;

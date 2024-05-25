@@ -1,4 +1,6 @@
-﻿using Hangfire;
+﻿using Elastic.Clients.Elasticsearch;
+using Elasticsearch.Net;
+using Hangfire;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Presentation.Jobs;
@@ -28,7 +30,6 @@ public class Startup
     {
         services.AddExceptionHandler<GlobalErrorHandler>();
         services.AddProblemDetails();
-
 
         services.AddDbContext<NotifContext>(options =>
         {
@@ -89,6 +90,18 @@ public class Startup
 
         //services.AddFluentEmail((ConfigurationManager)_configuration);
         services.AddFluentEmail(_configuration) ;
+
+        //var elasticsearchSettings = _configuration.GetSection("ElasticsearchSettings").Get<ElasticsearchSettings>();
+        //services.AddSingleton(elasticsearchSettings);
+        //var pool = new SingleNodeConnectionPool(new Uri(elasticsearchSettings.Url));
+        
+        
+        //var settings = new ConnectionSettings(pool).
+        //    .DefaultIndex(elasticsearchSettings.DefaultIndex)
+        //    .BasicAuthentication(elasticsearchSettings.Username, elasticsearchSettings.Password);
+        //services.AddSingleton<IElasticsearchClient>(new ElasticsearchClient(settings));
+
+
 
         services.AddControllers(options =>
         {
@@ -169,7 +182,7 @@ public class Startup
 
         app.UseResponseCompression();
 
-        //JobScheduler.ScheduleJobs(app, _applicationExtenderSetting);
+        JobScheduler.ScheduleJobs(app, _applicationExtenderSetting);
 
 
 

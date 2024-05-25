@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "DI+LJ6bW427dpLHOpMT68MmGZbhe+Ad76FlFScV/8+RI+SjYy7K2OUTvVv0xVopOHjhZ3YSCXr4Bo9kNSd4HRQ==",
+  "dgSpecHash": "Lcx0/9tdMbbqe3jkGMy7x0t/X1DzrEXPiYnkyXHIoV2ek0sQ5tYAuEBBD7JZ8Vm0zMshAfx3jPDYiuI9StUK2w==",
   "success": true,
   "projectFilePath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Presentation\\Presentation.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,8 @@
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
+    "C:\\Users\\s.ghahremani\\.nuget\\packages\\elastic.clients.elasticsearch\\8.13.12\\elastic.clients.elasticsearch.8.13.12.nupkg.sha512",
+    "C:\\Users\\s.ghahremani\\.nuget\\packages\\elastic.transport\\0.4.19\\elastic.transport.0.4.19.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\elasticsearch.net\\7.17.5\\elasticsearch.net.7.17.5.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\epplus\\5.8.6\\epplus.5.8.6.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentemail.core\\3.0.2\\fluentemail.core.3.0.2.nupkg.sha512",

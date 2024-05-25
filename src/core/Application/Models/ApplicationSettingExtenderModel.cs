@@ -45,3 +45,12 @@ public record PayamSmsSettingModel
     public string method { get; set; }
     public string Sender { get; set; }
 }
+
+
+public record ElasticsearchSettings
+{
+    public string Url { get; init; }
+    public string Username { get; init; }
+    public string Password { get; init; }
+    public string DefaultIndex { get; init; }
+}

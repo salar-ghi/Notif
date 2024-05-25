@@ -8,23 +8,24 @@ public class JobScheduler
     {
         var appName = "nitro-Notif";
 
-        BackgroundJob.Enqueue<SaveNotifToStorageJob>(x => x.Run());
-        RecurringJob.AddOrUpdate<ISaveNotifToStorageJob>($"{appName}.{nameof(SaveNotifToStorageJob)}",
-            j => j.Run(), Cron.Minutely(), new RecurringJobOptions()
-            {
-                //QueueName = appName.ToLower(),
-                TimeZone = GlobalConstants.GetTehranTimeZoneInfo(),
-                //MisfireHandling = MisfireHandlingMode.Strict,
-    });
+        //BackgroundJob.Enqueue<SaveNotifToStorageJob>(x => x.Run());
+
+        //RecurringJob.AddOrUpdate<ISaveNotifToStorageJob>($"{appName}.{nameof(SaveNotifToStorageJob)}",
+        //    j => j.Run(), Cron.Minutely(), new RecurringJobOptions()
+        //    {
+        //        //QueueName = appName.ToLower(),
+        //        TimeZone = GlobalConstants.GetTehranTimeZoneInfo(),
+        //        //MisfireHandling = MisfireHandlingMode.Strict,
+        //    });
 
 
-        RecurringJob.AddOrUpdate<ISendNotifJob>($"{appName}.{nameof(SendNotifJob)}",
-            j => j.Run(), Cron.Minutely() , new RecurringJobOptions()
-            {
-                //QueueName = appName.ToLower(),
-                TimeZone = GlobalConstants.GetTehranTimeZoneInfo(),
-                //MisfireHandling = MisfireHandlingMode.Strict,
-    });
+        //RecurringJob.AddOrUpdate<ISendNotifJob>($"{appName}.{nameof(SendNotifJob)}",
+        //    j => j.Run(), Cron.Minutely(), new RecurringJobOptions()
+        //    {
+        //        //QueueName = appName.ToLower(),
+        //        TimeZone = GlobalConstants.GetTehranTimeZoneInfo(),
+        //        //MisfireHandling = MisfireHandlingMode.Strict,
+        //    });
 
 
     }

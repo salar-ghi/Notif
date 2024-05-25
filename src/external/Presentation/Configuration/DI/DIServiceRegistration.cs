@@ -1,4 +1,7 @@
-﻿namespace Presentation.Configuration.DI;
+﻿using Application.Configuration;
+using Infrastructure.Configuration;
+
+namespace Presentation.Configuration.DI;
 
 public static class DIServiceRegistration
 {
@@ -42,6 +45,8 @@ public static class DIServiceRegistration
         
 
         services.AddScoped<ICacheMessage, InMemoryCacheRepository>();
+
+        //services.AddScoped<IElasticsearchService, ElasticsearchService>();
 
         //services.AddScoped<ISaveNotifToStorageJob, >();
         //services.AddScoped<ICacheMessage, RedisCacheRepository>();

@@ -500,3 +500,7 @@ G:\train\.Net\project\Notif\src\external\Presentation\obj\Debug\net8.0\Presentat
 G:\train\.Net\project\Notif\src\external\Presentation\obj\Debug\net8.0\Presentation.pdb
 G:\train\.Net\project\Notif\src\external\Presentation\obj\Debug\net8.0\Presentation.genruntimeconfig.cache
 G:\train\.Net\project\Notif\src\external\Presentation\obj\Debug\net8.0\ref\Presentation.dll
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\FluentEmail.Core.dll
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\FluentEmail.Smtp.dll
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Elastic.Clients.Elasticsearch.dll
+C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\bin\Debug\net8.0\Elastic.Transport.dll
