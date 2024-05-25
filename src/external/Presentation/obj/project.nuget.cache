@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "CEVP1ES2qB+fjEoZ1z7P+nXJMwSUN+OegjBIaRFL4zYF0QVkx/nAxN+Sh0OV+CjpXVPqYATQmcJ7eqMmGFXWmg==",
+  "dgSpecHash": "DI+LJ6bW427dpLHOpMT68MmGZbhe+Ad76FlFScV/8+RI+SjYy7K2OUTvVv0xVopOHjhZ3YSCXr4Bo9kNSd4HRQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Presentation\\Presentation.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,8 @@
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\elasticsearch.net\\7.17.5\\elasticsearch.net.7.17.5.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\epplus\\5.8.6\\epplus.5.8.6.nupkg.sha512",
+    "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentemail.core\\3.0.2\\fluentemail.core.3.0.2.nupkg.sha512",
+    "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentemail.smtp\\3.0.2\\fluentemail.smtp.3.0.2.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentvalidation\\11.5.1\\fluentvalidation.11.5.1.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentvalidation.aspnetcore\\11.3.0\\fluentvalidation.aspnetcore.11.3.0.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\11.5.1\\fluentvalidation.dependencyinjectionextensions.11.5.1.nupkg.sha512",

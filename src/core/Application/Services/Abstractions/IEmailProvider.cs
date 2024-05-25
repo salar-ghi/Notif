@@ -2,6 +2,5 @@
 
 public interface IEmailProvider: IProvider
 {
-    Task BuyAsync();
 
 }

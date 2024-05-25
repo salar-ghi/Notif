@@ -43,3 +43,10 @@ global using Polly.Retry;
 global using System.Net;
 global using Presentation.HttpClients.ThirdParties.Sms;
 global using WebCore.Services.HttpClients.DelegatingHandlers;
+
+global using Hangfire.SqlServer;
+global using Presentation.Scheduler;
+global using Application.Models.Responses.ThirdParties;
+global using Domain.Entities;
+global using Presentation.Dtos;
+global using System.Text;

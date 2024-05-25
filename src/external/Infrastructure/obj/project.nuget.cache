@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YnEDZDZg6lbflioQuQU8Hx8/SEQr6CRWnnfeVcueacY1YUQ22AoYkTdIWqw/QUVajAD0uHtslPOnI7Lt89atVw==",
+  "dgSpecHash": "duvVwWy/ubFn97KsNgDa+fVzm702QvX159T+oUUnDKPnCiHhlQvdHHZQClUt1M7e1BtDWv5xYostIwGnaIfsoA==",
   "success": true,
   "projectFilePath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,7 @@
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\epplus\\5.8.6\\epplus.5.8.6.nupkg.sha512",
+    "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentemail.core\\3.0.2\\fluentemail.core.3.0.2.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\hangfire.core\\1.8.12\\hangfire.core.1.8.12.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

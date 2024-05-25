@@ -22,7 +22,6 @@ public static class DIServiceRegistration
         services.AddScoped<IMelipayamak, Melipayamak>();
         services.AddScoped<IIdehpardazan, Idehpardazan>();
         services.AddScoped<IPayamSms, PayamSms>();
-        services.AddScoped<ISendGridEmail, SendGridEmail>();
 
 
         services.AddScoped<INotifManagementService, NotifManagementService>();

@@ -1,8 +1,4 @@
-﻿using Hangfire;
-using Hangfire.SqlServer;
-using Presentation.Scheduler;
-
-namespace Presentation.Extensions;
+﻿namespace Presentation.Extensions;
 
 public static class IServiceCollectionExtensions
 {

@@ -7,8 +7,7 @@ public static class HttpClientRegistration
         services.AddTransient<LoggingDelegateHandler>();
         services.AddHttpClient<IPayamSmsClientService, PayamSmsClientService>(client =>
         {
-            client.BaseAddress = new Uri(applicationSetting.payamSms.Url);
-            //client.BaseAddress = new Uri("URL: https://new.payamsms.com/services/rest/index.php");
+            client.BaseAddress = new Uri(applicationSetting.Provider.Sms.PayamSms.Url);
         })
             .AddHttpMessageHandler<LoggingDelegateHandler>()
             .AddResilienceHandler("default", GetResiliencePipeline);

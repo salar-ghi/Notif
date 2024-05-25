@@ -2,6 +2,7 @@
 global using AutoMapper;
 global using Domain.Enums;
 global using Domain.Entities;
+global using FluentEmail.Core;
 global using System.Text.Json;
 global using Core.Abstractions;
 global using System.Reflection;
@@ -14,7 +15,7 @@ global using Microsoft.EntityFrameworkCore;
 global using Application.Services.Abstractions;
 
 global using Microsoft.Extensions.Caching.Memory;  // ??????????
-
+global using Application.Services.Abstractions.HttpClients.ThirdParties;
 global using Microsoft.Extensions.Caching.Distributed;
 global using Microsoft.Extensions.Caching.StackExchangeRedis;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;

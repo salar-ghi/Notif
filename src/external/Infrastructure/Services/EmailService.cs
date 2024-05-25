@@ -1,13 +1,22 @@
-﻿namespace Infrastructure.Services;
+﻿using Domain.Entities;
+using FluentEmail.Core.Models;
+using AutoMapper;
+using System.Collections.Generic;
+
+namespace Infrastructure.Services;
 
 public class EmailService : IEmailProvider
 {
     #region Definition & CTor
     
-    private readonly ISendGridEmail _sendGridEmail;
-    public EmailService(ISendGridEmail sendGridEmail)
+    private readonly IFluentEmail _fluentEmail;
+    private readonly ILogger<EmailService> _logger;
+    private readonly IMapper _mapper;
+    public EmailService(IFluentEmail fluentEmail, ILogger<EmailService> logger, IMapper mapper)
     {
-        _sendGridEmail = sendGridEmail;
+        _fluentEmail = fluentEmail;
+        _logger = logger;
+        _mapper = mapper;
     }
 
 
@@ -17,14 +26,33 @@ public class EmailService : IEmailProvider
 
     #region Methods
 
-    public Task BuyAsync()
+    public async Task<bool> SendAsync(string ProviderName, Notif message)
     {
-        throw new NotImplementedException();
-    }
+        try
+        {
 
-    public Task<bool> SendAsync(string ProviderName, Notif message)
-    {
-        throw new NotImplementedException();
+
+            foreach (var recipient in message.Recipients)
+            {
+                var item = await _fluentEmail
+                   .To(recipient.UserId)
+                   .Subject(message.Title)
+                   .Body(message.Message)
+                   .SendAsync();
+                if (!item.Successful)
+                {
+
+                }
+            }
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return false;
+        }
+
     }
 
     #endregion
