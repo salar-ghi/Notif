@@ -1,5 +1,7 @@
 ﻿using Application.Models;
+using FluentEmail.Core.Models;
 using Microsoft.EntityFrameworkCore.Diagnostics;
+
 
 namespace Infrastructure.Mapping.AutoMapper;
 
@@ -17,9 +19,8 @@ public class AutoMapperProfile : Profile
             
         CreateMap<Recipient, RecipientVM>().ReverseMap();
 
-
-
-
+        CreateMap<string, Address>();
+            
         //CreateMap<NotifType, ProviderType>()
         //    .ConvertUsing(src => (ProviderType)src);
         //CreateMap<Notif, Provider>()

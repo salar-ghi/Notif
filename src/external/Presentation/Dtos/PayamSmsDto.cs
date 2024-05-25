@@ -2,12 +2,12 @@
 
 public record PayamSmsDto
 {
-    public string Url { get; set; }
-    public string organization { get; set; }
-    public string username { get; set; }
-    public string password { get; set; }
+    public string Url { get; init; }
+    public string organization { get; init; }
+    public string username { get; init; }
+    public string password { get; init; }
     public string method { get; set; }
-    public ICollection<Message> messages { get; set; }
+    public List<Message> messages { get; set; }
 }
 
 public record Message

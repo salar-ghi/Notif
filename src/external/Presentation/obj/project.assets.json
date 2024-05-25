@@ -137,6 +137,30 @@
           }
         }
       },
+      "FluentEmail.Core/3.0.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/FluentEmail.Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentEmail.Core.dll": {}
+        }
+      },
+      "FluentEmail.Smtp/3.0.2": {
+        "type": "package",
+        "dependencies": {
+          "FluentEmail.Core": "3.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/FluentEmail.Smtp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentEmail.Smtp.dll": {}
+        }
+      },
       "FluentValidation/11.5.1": {
         "type": "package",
         "compile": {
@@ -4566,6 +4590,7 @@
         "dependencies": {
           "Application": "1.0.0",
           "Domain": "1.0.0",
+          "FluentEmail.Core": "3.0.2",
           "Hangfire.Core": "1.8.12",
           "Microsoft.EntityFrameworkCore": "8.0.4",
           "Microsoft.EntityFrameworkCore.Proxies": "8.0.4",
@@ -4762,6 +4787,32 @@
         "lib/netstandard2.1/EPPlus.xml",
         "license.md",
         "readme.txt"
+      ]
+    },
+    "FluentEmail.Core/3.0.2": {
+      "sha512": "uQFFbJgMhhCFUti7pfMi429fMNi7fLGMj+7uDtD7POlQzLxlhXJ6tmt4Y1SI51sZsA36GO5b7+o29eY/dKiICQ==",
+      "type": "package",
+      "path": "fluentemail.core/3.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fluentemail.core.3.0.2.nupkg.sha512",
+        "fluentemail.core.nuspec",
+        "fluentemail_logo_64x64.png",
+        "lib/netstandard2.0/FluentEmail.Core.dll"
+      ]
+    },
+    "FluentEmail.Smtp/3.0.2": {
+      "sha512": "Y5pZKS/mXSl7D5WJWecvfo1kpIMDc6U0VRU6wRbE9wEv2IqMH3cQXa/97Pwi+m31COepIqc6dMhGMtAJ2Qh7rw==",
+      "type": "package",
+      "path": "fluentemail.smtp/3.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fluentemail.smtp.3.0.2.nupkg.sha512",
+        "fluentemail.smtp.nuspec",
+        "fluentemail_logo_64x64.png",
+        "lib/netstandard2.0/FluentEmail.Smtp.dll"
       ]
     },
     "FluentValidation/11.5.1": {
@@ -12736,6 +12787,8 @@
       "Application >= 1.0.0",
       "AutoMapper >= 12.0.1",
       "AutoMapper.Extensions.Microsoft.DependencyInjection >= 12.0.1",
+      "FluentEmail.Core >= 3.0.2",
+      "FluentEmail.Smtp >= 3.0.2",
       "Hangfire.AspNetCore >= 1.8.12",
       "Hangfire.Core >= 1.8.12",
       "Hangfire.Dashboard.Basic.Authentication >= 7.0.1",
@@ -12753,23 +12806,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\s.ghahremani\\.nuget\\packages\\": {},
+    "C:\\Users\\sAlAr\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Presentation\\Presentation.csproj",
+      "projectUniqueName": "G:\\train\\.Net\\project\\Notif\\src\\external\\Presentation\\Presentation.csproj",
       "projectName": "Presentation",
-      "projectPath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Presentation\\Presentation.csproj",
-      "packagesPath": "C:\\Users\\s.ghahremani\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Presentation\\obj\\",
+      "projectPath": "G:\\train\\.Net\\project\\Notif\\src\\external\\Presentation\\Presentation.csproj",
+      "packagesPath": "C:\\Users\\sAlAr\\.nuget\\packages\\",
+      "outputPath": "G:\\train\\.Net\\project\\Notif\\src\\external\\Presentation\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\s.ghahremani\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\sAlAr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -12785,14 +12838,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\NitroBase\\WebCore\\WebCore.csproj": {
-              "projectPath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\NitroBase\\WebCore\\WebCore.csproj"
+            "G:\\train\\.Net\\project\\Notif\\NitroBase\\WebCore\\WebCore.csproj": {
+              "projectPath": "G:\\train\\.Net\\project\\Notif\\NitroBase\\WebCore\\WebCore.csproj"
             },
-            "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\core\\Application\\Application.csproj": {
-              "projectPath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\core\\Application\\Application.csproj"
+            "G:\\train\\.Net\\project\\Notif\\src\\core\\Application\\Application.csproj": {
+              "projectPath": "G:\\train\\.Net\\project\\Notif\\src\\core\\Application\\Application.csproj"
             },
-            "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Infrastructure\\Infrastructure.csproj": {
-              "projectPath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Infrastructure\\Infrastructure.csproj"
+            "G:\\train\\.Net\\project\\Notif\\src\\external\\Infrastructure\\Infrastructure.csproj": {
+              "projectPath": "G:\\train\\.Net\\project\\Notif\\src\\external\\Infrastructure\\Infrastructure.csproj"
             }
           }
         }
@@ -12819,6 +12872,14 @@
           "AutoMapper.Extensions.Microsoft.DependencyInjection": {
             "target": "Package",
             "version": "[12.0.1, )"
+          },
+          "FluentEmail.Core": {
+            "target": "Package",
+            "version": "[3.0.2, )"
+          },
+          "FluentEmail.Smtp": {
+            "target": "Package",
+            "version": "[3.0.2, )"
           },
           "Hangfire.AspNetCore": {
             "target": "Package",
@@ -12890,7 +12951,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

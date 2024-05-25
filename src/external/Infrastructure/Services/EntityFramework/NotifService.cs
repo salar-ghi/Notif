@@ -38,6 +38,7 @@ public class NotifService : CRUDService<Notif>, INotifService
                         status = NotifStatus.Delivered,
                         Attemp = notif.Attemp + 1,
                         IsSent = true,
+                        ModifiedAt = DateTime.UtcNow,
                     };
                     //_unitOfWork.DbContext.Notifs.Attach(notif);
                     //await base.Update(notif);
@@ -83,6 +84,7 @@ public class NotifService : CRUDService<Notif>, INotifService
         try
         {
             notif.Attemp = notif.Attemp + 1;
+            notif.ModifiedAt = DateTime.UtcNow;
             var @event = await base.Update(notif);
             await _unitOfWork.SaveChanges(ct);
         }
@@ -212,7 +214,7 @@ public class NotifService : CRUDService<Notif>, INotifService
     public async Task<IEnumerable<Notif>> GetUnDeliveredAsync()
     {
         AttempValue = _configuration.Jobs.Attemp;
-        var undeliverNotifs = await base.GetQuery()            
+        var undeliverNotifs = await base.GetQuery()
             .Where(x => x.status == NotifStatus.waiting && x.Attemp < AttempValue)
             .AsNoTracking()
             .Select(z => new Notif

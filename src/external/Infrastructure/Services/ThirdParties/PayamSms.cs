@@ -5,10 +5,12 @@ namespace Infrastructure.Services.ThirdParties;
 public class PayamSms : IPayamSms
 {
     #region Definition & Ctor
-    private readonly IPayamSmsClientService _payamSmsClientService;
-    public PayamSms(IPayamSmsClientService payamSmsClientService)
+    private readonly IPayamSmsClientService _payamClientService;
+    private readonly ILogger<PayamSms> _logger;
+    public PayamSms(IPayamSmsClientService payamSmsClientService, ILogger<PayamSms> logger)
     {
-        _payamSmsClientService = payamSmsClientService;
+        _payamClientService = payamSmsClientService;
+        _logger = logger;
     }
     #endregion
 
@@ -24,8 +26,21 @@ public class PayamSms : IPayamSms
 
     public async Task<bool> SendAsync(string ProviderName, Notif message)
     {
-        Console.WriteLine($"Sending Sms notification from PayamSms: {message}");
-        return true;
+        try
+        {
+            Console.WriteLine($"Sending Sms notification from PayamSms: {message}");
+            var result = await _payamClientService.SendPayamSms(message);
+
+            return true;
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            return false;
+        }
+
+        
+        
     }
     #endregion
 

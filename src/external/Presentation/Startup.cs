@@ -87,6 +87,9 @@ public class Startup
         //    x.ServerTimeout = TimeSpan.FromMilliseconds(240);
         //});
 
+        //services.AddFluentEmail((ConfigurationManager)_configuration);
+        services.AddFluentEmail(_configuration) ;
+
         services.AddControllers(options =>
         {
             options.Filters.Add(new AssignCorrelationId());
@@ -102,9 +105,13 @@ public class Startup
 
         });
 
+        //services.AddFluentValidationAutoValidation()
+        //    .AddFluentValidationClientsideAdapters(fl =>
+        //    {
+        //    });
 
         services.AddMvc()
-            .AddFluentValidation(fv =>
+            .AddFluentValidation (fv =>
             {
                 fv.ImplicitlyValidateChildProperties = true;
                 fv.RegisterValidatorsFromAssembly(typeof(Startup).Assembly);

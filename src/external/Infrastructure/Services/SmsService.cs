@@ -1,7 +1,4 @@
-﻿
-using Castle.Core.Logging;
-using Infrastructure.Services.EntityFramework;
-using Infrastructure.Services.ThirdParties;
+﻿//using Application.Services.Abstractions.HttpClients.ThirdParties;
 
 namespace Infrastructure.Services;
 
@@ -9,12 +6,15 @@ namespace Infrastructure.Services;
 public class SmsService : ISmsProvider
 {
     #region Definition & CTor
+    private readonly ILogger<SmsService> _logger;
+    private readonly IServiceProvider _serviceProvider;
+    
     private readonly IIdehpardazan _idehpardazan;
     private readonly IMelipayamak _melipayamak;
     private readonly IPayamSms _payamSms;
-    private readonly ILogger<SmsService> _logger;
-    private readonly IServiceProvider _serviceProvider;
-    public SmsService(IIdehpardazan idehpardazan, IMelipayamak melipayamak, IPayamSms payamSms,
+    
+    public SmsService(IPayamSmsClientService payamSmsClientService,
+        IIdehpardazan idehpardazan, IMelipayamak melipayamak, IPayamSms payamSms,
         ILogger<SmsService> logger, IServiceProvider serviceProvider)
     {
         _idehpardazan = idehpardazan;
@@ -23,6 +23,7 @@ public class SmsService : ISmsProvider
         _serviceProvider = serviceProvider;
         _payamSms = payamSms;
     }
+
 
     #endregion
 
@@ -58,7 +59,8 @@ public class SmsService : ISmsProvider
     {
         try
         {
-            var provider = GetService(providerName);
+            //var provider = GetService(providerName);
+            
             switch (providerName)
             {
                 case "MeliPayamak":
@@ -68,8 +70,8 @@ public class SmsService : ISmsProvider
                     await _idehpardazan.SendIdehpardazSmsAsync(message);
                     break;
                 case "PayamSms":
-                    //await _payamSms.SendAsync(providerName, message);
-                    await provider.SendAsync(providerName, message);
+                    await _payamSms.SendAsync(providerName, message);
+                    //await provider.SendAsync(providerName, message);
                     break;
             }
             return true;
