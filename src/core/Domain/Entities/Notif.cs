@@ -17,19 +17,11 @@ public class Notif : EntityBase, IValidate, ITrackable
     [DefaultValue(NotifStatus.Delivered)]
     public NotifStatus status { get; set; }
 
-
-    // hangfire
-    #region Hangfire
-
-    //public string? HangfireJobId { get; set; }
-    public bool IsSent { get; set; } // for hangfire job
+    public bool IsSent { get; set; } 
     public int Attemp { get; set; }
     public DateTime NextTry { get; set; } = DateTime.UtcNow;
     [Timestamp]
-    public byte[] RowVersion { get; set; } // ??? for cuncurrency
-    #endregion
-
-
+    public byte[] RowVersion { get; set; }
     public DateTime CreatedAt { get; set; }
     public long CreatedById { get; set; }
     public DateTime? ModifiedAt { get; set; }

@@ -6,7 +6,7 @@ public record NotifVM
     public string Title { get; set; } = default!;
     
     [Required]
-    public string Message { get; set; } = default!;
+    public string Body { get; set; } = default!;
     public NotifType Type { get; set; }
 
     [Required]

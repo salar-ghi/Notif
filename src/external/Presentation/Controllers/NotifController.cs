@@ -4,13 +4,11 @@
 [EnableCors(Constants.CorsPolicyName)]
 public class NotifController : BaseController<NotifController, ApplicationSettingExtenderModel>
 {
-    private readonly INotifService _notifService;
     private readonly ICacheMessage _cache;
     private readonly INotifManagementService _notifManagementService;
 
-    public NotifController(INotifService notifService, ICacheMessage cache, INotifManagementService notifManagementService)
+    public NotifController(ICacheMessage cache, INotifManagementService notifManagementService)
     {
-        _notifService = notifService;
         _cache = cache;
         _notifManagementService = notifManagementService;
     }
@@ -24,17 +22,8 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
         return Ok();
     }
 
-    [HttpPost("SendNotif")]
-    [ProducesResponseType(typeof(NotOkResultDto), StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(typeof(OkListResult<NotifVM>), StatusCodes.Status200OK)]
-    [MapToApiVersion("1.0")]
-    public async Task<IActionResult> SendNotifAsync([FromBody] IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default)
-    {
-        var result = await _cache.AddMessage(entities);
-        return Ok(result);
-    }
 
-    [HttpGet("AllCaches")]
+    [HttpGet("Get Caches")]
     [ProducesResponseType(typeof(OkListResult<NotifRs>),StatusCodes.Status200OK)]
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> GetAllCacheNotifs(CancellationToken cancellation = default(CancellationToken))
@@ -43,17 +32,8 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
         return Ok(notif.ToList());
     }
 
-    [HttpGet("")]
-    [ProducesResponseType( StatusCodes.Status200OK)]
-    [MapToApiVersion("1.0")]
-    public async Task<IActionResult> RunappAllCacheNotifs(CancellationToken cancellation = default(CancellationToken))
-    {
-        //await _notifManagementService.CheckCacheAndSaveToStorage();
-        return Ok();
-    }
 
-
-    [HttpGet("Check")]
+    [HttpGet("SendNotif")]
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> CheckNotifs(CancellationToken ct = default(CancellationToken))
     {
@@ -67,6 +47,16 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
             _logger.LogError(ex.Message, ex);
             throw;
         }
+    }
+
+    [HttpPost("SaveNotif")]
+    [ProducesResponseType(typeof(NotOkResultDto), StatusCodes.Status500InternalServerError)]
+    [ProducesResponseType(typeof(OkListResult<NotifVM>), StatusCodes.Status200OK)]
+    [MapToApiVersion("1.0")]
+    public async Task<IActionResult> SendNotifAsync([FromBody] IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default)
+    {
+        var result = await _cache.AddMessage(entities);
+        return Ok(result);
     }
 
 }

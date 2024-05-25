@@ -2,7 +2,6 @@
 
 public interface ICacheMessage
 {
-    //void AddMessage(string? InputKey, Notif message, TimeSpan? slidingExpiration = null);
     Task<bool> AddMessage(string? InputKey, NotifVM message, TimeSpan? slidingExpiration = null);
     Task<bool> AddMessage(IDictionary<string, NotifVM> messages, TimeSpan? slidingExpiration =null);
     Task<bool> AddMessage(IEnumerable<NotifVM> messages);

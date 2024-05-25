@@ -1,5 +1,4 @@
-﻿using Application.Configuration;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Presentation.Dtos;
 
 namespace Presentation.HttpClients.ThirdParties.Sms;
@@ -29,7 +28,7 @@ public class PayamSmsClientService : HttpClientService<PayamSmsClientService>, I
                 var message = new Message
                 {
                     sender = _config.Provider.Sms.PayamSms.Sender,
-                    recipient = recip.UserId,
+                    recipient = recip.Destination,
                     body = notif.Message,
                     customerId = 1,
                 };

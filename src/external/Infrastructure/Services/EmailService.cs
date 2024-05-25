@@ -1,7 +1,4 @@
-﻿using Application.Configuration;
-using System.Net.Mail;
-
-namespace Infrastructure.Services;
+﻿namespace Infrastructure.Services;
 
 public class EmailService : IEmailProvider
 {
@@ -19,8 +16,6 @@ public class EmailService : IEmailProvider
         //_elasticsearchService = elasticsearchService;
     }
 
-
-
     #endregion
 
 
@@ -33,7 +28,7 @@ public class EmailService : IEmailProvider
             foreach (var recipient in message.Recipients)
             {
                 var item = await _fluentEmail
-                   .To(recipient.UserId)
+                   .To(recipient.Destination)
                    .Subject(message.Title)
                    .Body(message.Message)
                    .SendAsync();

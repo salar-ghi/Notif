@@ -13,8 +13,7 @@ public class SmsService : ISmsProvider
     private readonly IMelipayamak _melipayamak;
     private readonly IPayamSms _payamSms;
     
-    public SmsService(IPayamSmsClientService payamSmsClientService,
-        IIdehpardazan idehpardazan, IMelipayamak melipayamak, IPayamSms payamSms,
+    public SmsService(IIdehpardazan idehpardazan, IMelipayamak melipayamak, IPayamSms payamSms,
         ILogger<SmsService> logger, IServiceProvider serviceProvider)
     {
         _idehpardazan = idehpardazan;

@@ -1,9 +1,9 @@
-﻿using Application.Configuration;
+﻿
 using Elastic.Clients.Elasticsearch;
 
 namespace Infrastructure.Configuration;
 
-public class ElasticsearchService : IElasticsearchService
+public class ElasticsearchService 
 {
     private readonly ApplicationSettingExtenderModel _applicationSettingExtender;
     private readonly ElasticsearchClient _elasticsearchClient;    

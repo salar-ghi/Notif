@@ -8,7 +8,7 @@ public class JobScheduler
     {
         var appName = "nitro-Notif";
 
-        //BackgroundJob.Enqueue<SaveNotifToStorageJob>(x => x.Run());
+        //BackgroundJob.Enqueue<CheckStorageBackgroundService>(x => x.ExecuteAsync());
 
         //RecurringJob.AddOrUpdate<ISaveNotifToStorageJob>($"{appName}.{nameof(SaveNotifToStorageJob)}",
         //    j => j.Run(), Cron.Minutely(), new RecurringJobOptions()

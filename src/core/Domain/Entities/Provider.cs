@@ -23,8 +23,4 @@ public class Provider : EntityBase , IValidate, ITrackable
     }
 
 
-    //.... Another Properties and Configurations
-    //public List<ProviderSetting> config { get; set; } = new List<ProviderSetting>();
-
-
 }

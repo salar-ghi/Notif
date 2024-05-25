@@ -11,7 +11,7 @@ public static class IServiceCollectionExtensions
 
             CommandBatchMaxTimeout = TimeSpan.FromSeconds(2),
             SlidingInvisibilityTimeout = TimeSpan.FromSeconds(2),
-            QueuePollInterval = TimeSpan.FromSeconds(30),
+            QueuePollInterval = TimeSpan.FromSeconds(3),
             UseRecommendedIsolationLevel = true,
             DisableGlobalLocks = true,
             

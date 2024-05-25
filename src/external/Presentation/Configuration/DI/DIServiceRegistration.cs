@@ -1,5 +1,4 @@
-﻿using Application.Configuration;
-using Infrastructure.Configuration;
+﻿using Infrastructure.Configuration;
 
 namespace Presentation.Configuration.DI;
 
@@ -31,18 +30,15 @@ public static class DIServiceRegistration
 
         // Scoped
         //services.AddScoped();
-        services.AddScoped<ISaveNotifToStorageJob, SaveNotifToStorageJob>();
-        services.AddScoped<ISendNotifJob, SendNotifJob>();
+        //services.AddScoped<ISaveNotifToStorageJob, SaveNotifToStorageJob>();
+        //services.AddScoped<ISendNotifJob, SendNotifJob>();
 
         services.AddTransient<INotifService, NotifService>();
 
-
         services.AddScoped<INotifSender, NotifSenderService>();
 
-
         services.AddScoped<INotifLogService, NotifLogService>();
-        services.AddScoped<IProviderService, ProviderService>();
-        
+        services.AddScoped<IProviderService, ProviderService>();        
 
         services.AddScoped<ICacheMessage, InMemoryCacheRepository>();
 

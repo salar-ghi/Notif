@@ -9,17 +9,12 @@ public class AutoMapperProfile : Profile
 {
     public AutoMapperProfile()
     {
-        //CreateMap<Notif, NotifRq>().ReverseMap();
-        //CreateMap<Recipient, RecipientRq>().ReverseMap();
-
         CreateMap<Notif, NotifVM>()
             .ForMember(dest => dest.SendDate, op => op.MapFrom(src => src.NextTry))
             .ForMember(dest => dest.Provider, op => op.MapFrom(src => src.ProviderID))
             .ReverseMap();
             
         CreateMap<Recipient, RecipientVM>().ReverseMap();
-
-        CreateMap<string, Address>();
             
         //CreateMap<NotifType, ProviderType>()
         //    .ConvertUsing(src => (ProviderType)src);
