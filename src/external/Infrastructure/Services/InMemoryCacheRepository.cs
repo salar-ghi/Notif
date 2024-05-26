@@ -12,9 +12,9 @@ public class InMemoryCacheRepository : ICacheMessage
     {
         try
         {
-            string key = InputKey ?? Guid.NewGuid().ToString(); // Generate unique key
+            string key = InputKey ?? _cacheKey; // Generate unique key
             //_cache.Set(key, message, slidingExpiration ?? TimeSpan.FromMinutes(15));
-            _cache.Set(key, message);
+            _cache.Set(_cacheKey, message);
             return true;
         }
         catch
@@ -29,7 +29,7 @@ public class InMemoryCacheRepository : ICacheMessage
         {
             foreach (var item in messages)
             {
-                await AddMessage(item.Key, item.Value, slidingExpiration);
+                await AddMessage("_cacheKey", item.Value, slidingExpiration);
             }
             return true;
         }
@@ -61,8 +61,6 @@ public class InMemoryCacheRepository : ICacheMessage
         var message = _cache.Get<MessageVM>("__Allkeys__");
         return message;
     }
-
-
     public async Task<IEnumerable<KeyValuePair<string, MessageVM>>> GetKeyValueMessages()
     {
         var messages = _cache.Get<IEnumerable<KeyValuePair<string, MessageVM>>>("__AllKeys__") ?? Enumerable.Empty<KeyValuePair<string, MessageVM>>();
@@ -77,9 +75,9 @@ public class InMemoryCacheRepository : ICacheMessage
         return cache;
     }
 
-    public Task RemoveMessage(MessageVM entity)
+    public async Task RemoveMessage(MessageVM entity)
     {
-        throw new NotImplementedException();
+        _cache.Remove(_cacheKey);
     }
 
     public async Task RemoveMessage(ICollection<MessageVM> entity)

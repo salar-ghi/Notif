@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "94UMK4LMw6J0HKY+PGUd6wxtX1JngwgBg7nFK87zq9QcAXXyNSZiw2ZIh0sdfsQV4p7F3AMu3Rp0PcJvosUtlQ==",
+  "dgSpecHash": "2BBg43xC7/Ly/cSsrqrIA58Qm4FghElyUT1XKsBrHw+p8uCIFK/EXicAu+vK/RuseIRS/lOh3bRPoxZeRYGrgQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\s.ghahremani\\source\\repos\\Temp\\src\\external\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
@@ -12,6 +12,7 @@
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\elastic.transport\\0.4.19\\elastic.transport.0.4.19.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\epplus\\5.8.6\\epplus.5.8.6.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentemail.core\\3.0.2\\fluentemail.core.3.0.2.nupkg.sha512",
+    "C:\\Users\\s.ghahremani\\.nuget\\packages\\fluentemail.smtp\\3.0.2\\fluentemail.smtp.3.0.2.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\hangfire.core\\1.8.12\\hangfire.core.1.8.12.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\s.ghahremani\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",

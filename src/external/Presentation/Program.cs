@@ -1,7 +1,3 @@
-using Presentation;
-using Serilog;
-using WebCore.Loggers.Serilog.Configuration;
-
 public class Program
 {
     public static void Main(string[] args)

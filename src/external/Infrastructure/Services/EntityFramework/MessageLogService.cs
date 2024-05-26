@@ -1,6 +1,4 @@
-﻿using Domain.Entities;
-
-namespace Infrastructure.Services.EntityFramework;
+﻿namespace Infrastructure.Services.EntityFramework;
 
 public class MessageLogService : CRUDService<MessageLog>,  IMessageLogService
 
@@ -20,7 +18,7 @@ public class MessageLogService : CRUDService<MessageLog>,  IMessageLogService
 
     #region Definition
 
-    public async Task<MessageLog> SaveMessagLogAsync(MessageLog entity, CancellationToken ct)
+    public async Task<MessageLog> SaveMessageLogAsync(MessageLog entity, CancellationToken ct)
     {
         try
         {
@@ -34,8 +32,8 @@ public class MessageLogService : CRUDService<MessageLog>,  IMessageLogService
             throw;
         }
     }
-
-    public async Task<bool> SaveMessagLogAsync(ICollection<MessageLog> entity, CancellationToken ct)
+    
+    public async Task<bool> SaveMessageLogAsync(ICollection<MessageLog> entity, CancellationToken ct)
     {
         try
         {
@@ -50,7 +48,7 @@ public class MessageLogService : CRUDService<MessageLog>,  IMessageLogService
         }
     }
 
-    public async Task<MessageLog> GetMessagLog(long Id)
+    public async Task<MessageLog> GetMessageLog(long Id)
     {
         try
         {
@@ -83,8 +81,7 @@ public class MessageLogService : CRUDService<MessageLog>,  IMessageLogService
         }
     }
 
-
-    public async Task MarkMessagLogAsFailed(MessageLog log, CancellationToken ct)
+    public async Task MarkMessageLogAsFailed(MessageLog log, CancellationToken ct)
     {
         try
         {
@@ -100,8 +97,7 @@ public class MessageLogService : CRUDService<MessageLog>,  IMessageLogService
         }
     }
 
-
-    public async Task MarkMessagLogAsSuccess(MessageLog log, CancellationToken ct)
+    public async Task MarkMessageLogAsSuccess(MessageLog log, CancellationToken ct)
     {
         try
         {

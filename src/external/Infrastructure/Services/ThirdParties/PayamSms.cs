@@ -30,8 +30,7 @@ public class PayamSms : IPayamSms
         {
             Console.WriteLine($"Sending Sms notification from PayamSms: {message}");
             var result = await _payamClientService.SendPayamSms(message);
-
-            return true;
+            return result;
         }
         catch (Exception ex)
         {

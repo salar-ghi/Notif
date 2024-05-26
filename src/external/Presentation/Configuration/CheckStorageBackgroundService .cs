@@ -1,16 +1,12 @@
-﻿using Presentation.Controllers;
-
-namespace Presentation.Configuration;
+﻿namespace Presentation.Configuration;
 
 public class CheckStorageBackgroundService //: BackgroundService
 {
-
-    private readonly INotifManagementService _notifManagement;
-    public CheckStorageBackgroundService(INotifManagementService notifManagement)
+    private readonly IMessageManagementService _messageManagement;
+    public CheckStorageBackgroundService(IMessageManagementService messageManagement)
     {
-        _notifManagement = notifManagement;
+        _messageManagement = messageManagement;
     }
-
 
     [DisableConcurrentExecution(timeoutInSeconds: 10 * 60)]
     //[AutomaticRetry(Attempts = 10, DelaysInSeconds = new int[] { 2 })]
@@ -20,11 +16,12 @@ public class CheckStorageBackgroundService //: BackgroundService
         while (!ct.IsCancellationRequested)
         {
             Console.WriteLine($"Running Execute Method() 'CheckCache' at: {DateTime.Now}");
-            await _notifManagement.CheckCacheAndSaveToStorage();
-            Console.WriteLine($"Running Execute Method() 'SendNotif' at: {DateTime.Now}");
-            var notif = await _notifManagement.SendNotif();
+            await _messageManagement.SaveMessagesToStorage();
 
-            await Task.Delay(2000);
+            Console.WriteLine($"Running Execute Method() 'SendNotif' at: {DateTime.Now}");
+            var notif = await _messageManagement.SendMessages();
+
+            await Task.Delay(3000);
         }
     }
 }

@@ -1,11 +1,4 @@
-﻿using Elastic.Clients.Elasticsearch;
-using Elasticsearch.Net;
-using Hangfire;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
-using Presentation.Jobs;
-
-namespace Presentation;
+﻿namespace Presentation;
 
 public class Startup
 {
@@ -33,7 +26,6 @@ public class Startup
 
         services.AddDbContext<MessageContext>(options =>
         {
-            //options.UseSqlServer(configuration.GetConnectionString("SqlConnection"),
             options.UseSqlServer(_configuration.GetConnectionString("SqlConnection"),
             sqlServerOptionsAction: sqlOptions =>
             {
@@ -43,8 +35,8 @@ public class Startup
                 errorNumbersToAdd: null);
             });
             options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-        }, ServiceLifetime.Scoped); //, ServiceLifetime.Transient
-                                    //
+        }, ServiceLifetime.Scoped);
+                                    
 
         //services.AddHostedService<CheckStorageBackgroundService>();
         services.AddOptions();
@@ -82,20 +74,14 @@ public class Startup
         services.AddHttpClients(_applicationExtenderSetting);
 
         services.ConfigHangfire(_configuration, "Nitro_Notif", _environment);
-        //services.AddHangfireServer(x =>
-        //{
-        //    x.MaxDegreeOfParallelismForSchedulers = 10;
-        //    x.ServerTimeout = TimeSpan.FromMilliseconds(240);
-        //});
 
-        //services.AddFluentEmail((ConfigurationManager)_configuration);
-        services.AddFluentEmail(_configuration) ;
+        services.AddFluentEmail(_configuration);
 
         //var elasticsearchSettings = _configuration.GetSection("ElasticsearchSettings").Get<ElasticsearchSettings>();
         //services.AddSingleton(elasticsearchSettings);
         //var pool = new SingleNodeConnectionPool(new Uri(elasticsearchSettings.Url));
-        
-        
+
+
         //var settings = new ConnectionSettings(pool).
         //    .DefaultIndex(elasticsearchSettings.DefaultIndex)
         //    .BasicAuthentication(elasticsearchSettings.Username, elasticsearchSettings.Password);
@@ -118,11 +104,6 @@ public class Startup
 
         });
 
-        //services.AddFluentValidationAutoValidation()
-        //    .AddFluentValidationClientsideAdapters(fl =>
-        //    {
-        //    });
-
         services.AddMvc()
             .AddFluentValidation (fv =>
             {
@@ -142,7 +123,7 @@ public class Startup
                 .AllowAnyHeader();
         }));
 
-        services.AddSwaggerConfig<NotifController>(typeof(Startup), _applicationExtenderSetting);
+        services.AddSwaggerConfig<MessageController>(typeof(Startup), _applicationExtenderSetting);
     }
 
 
@@ -183,11 +164,7 @@ public class Startup
         app.UseResponseCompression();
 
         JobScheduler.ScheduleJobs(app, _applicationExtenderSetting);
-
-
-
         //RecurringJob.AddOrUpdate<CheckStorageBackgroundService>("Save data to cache ", x => x.ExecuteAsync(), "*/2 * * * *");
 
-        //RecurringJob.AddOrUpdate<SendNotifBackgroundService>("Send Notif", x => x.ExecuteAsync(), "*/2 * * * *");
     }
 }

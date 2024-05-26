@@ -5,11 +5,11 @@ public class SmsService : ISmsProvider
     #region Definition & CTor
     private readonly ILogger<SmsService> _logger;
     private readonly IServiceProvider _serviceProvider;
-    
+
     private readonly IIdehpardazan _idehpardazan;
     private readonly IMelipayamak _melipayamak;
     private readonly IPayamSms _payamSms;
-    
+
     public SmsService(IIdehpardazan idehpardazan, IMelipayamak melipayamak, IPayamSms payamSms,
         ILogger<SmsService> logger, IServiceProvider serviceProvider)
     {
@@ -55,8 +55,6 @@ public class SmsService : ISmsProvider
     {
         try
         {
-            //var provider = GetService(providerName);
-            
             switch (providerName)
             {
                 case "MeliPayamak":
@@ -78,8 +76,6 @@ public class SmsService : ISmsProvider
             return false;
         }
     }
-
-
     public ISmsProvider GetService(string ProviderName)
     {
         try
@@ -91,7 +87,7 @@ public class SmsService : ISmsProvider
                 "PayamSms" => _serviceProvider.GetRequiredService<PayamSms>(),
                 _ => throw new KeyNotFoundException("Provider not found.")
             };
-        }        
+        }
         catch (Exception ex)
         {
             _logger?.LogError(ex.Message, ex);

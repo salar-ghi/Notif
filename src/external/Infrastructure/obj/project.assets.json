@@ -147,6 +147,18 @@
           "lib/netstandard2.0/FluentEmail.Core.dll": {}
         }
       },
+      "FluentEmail.Smtp/3.0.2": {
+        "type": "package",
+        "dependencies": {
+          "FluentEmail.Core": "3.0.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/FluentEmail.Smtp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentEmail.Smtp.dll": {}
+        }
+      },
       "Hangfire.Core/1.8.12": {
         "type": "package",
         "dependencies": {
@@ -3204,6 +3216,19 @@
         "fluentemail.core.nuspec",
         "fluentemail_logo_64x64.png",
         "lib/netstandard2.0/FluentEmail.Core.dll"
+      ]
+    },
+    "FluentEmail.Smtp/3.0.2": {
+      "sha512": "Y5pZKS/mXSl7D5WJWecvfo1kpIMDc6U0VRU6wRbE9wEv2IqMH3cQXa/97Pwi+m31COepIqc6dMhGMtAJ2Qh7rw==",
+      "type": "package",
+      "path": "fluentemail.smtp/3.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "fluentemail.smtp.3.0.2.nupkg.sha512",
+        "fluentemail.smtp.nuspec",
+        "fluentemail_logo_64x64.png",
+        "lib/netstandard2.0/FluentEmail.Smtp.dll"
       ]
     },
     "Hangfire.Core/1.8.12": {
@@ -9012,6 +9037,7 @@
       "Domain >= 1.0.0",
       "Elastic.Clients.Elasticsearch >= 8.13.12",
       "FluentEmail.Core >= 3.0.2",
+      "FluentEmail.Smtp >= 3.0.2",
       "Hangfire.Core >= 1.8.12",
       "Microsoft.EntityFrameworkCore >= 8.0.4",
       "Microsoft.EntityFrameworkCore.Design >= 8.0.4",
@@ -9087,6 +9113,10 @@
             "version": "[8.13.12, )"
           },
           "FluentEmail.Core": {
+            "target": "Package",
+            "version": "[3.0.2, )"
+          },
+          "FluentEmail.Smtp": {
             "target": "Package",
             "version": "[3.0.2, )"
           },

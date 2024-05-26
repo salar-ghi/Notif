@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,7 +26,7 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Notifs",
+                name: "Message",
                 columns: table => new
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
@@ -35,13 +35,13 @@ namespace Infrastructure.Migrations
                     SenderId = table.Column<int>(type: "int", nullable: false),
                     Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     MessageType = table.Column<byte>(type: "tinyint", nullable: false),
-                    Message = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
+                    Body = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     status = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)1),
                     IsSent = table.Column<bool>(type: "bit", nullable: false),
-                    Attemp = table.Column<int>(type: "int", nullable: false),
+                    Attemp = table.Column<int>(type: "int", nullable: false, defaultValue: 0),
                     NextTry = table.Column<DateTime>(type: "datetime2", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 19, 11, 28, 22, 754, DateTimeKind.Utc).AddTicks(9994)),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValue: new DateTime(2024, 5, 26, 10, 33, 43, 468, DateTimeKind.Utc).AddTicks(4717)),
                     CreatedById = table.Column<long>(type: "bigint", nullable: false),
                     ModifiedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     ModifiedById = table.Column<long>(type: "bigint", nullable: true),
@@ -49,7 +49,7 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Notifs", x => x.Id);
+                    table.PrimaryKey("PK_Message", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -80,27 +80,28 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<long>(type: "bigint", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NotifId = table.Column<long>(type: "bigint", nullable: false)
+                    UserId = table.Column<long>(type: "bigint", nullable: false),
+                    Destination = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    MessageId = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recipient", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Recipient_Notifs_NotifId",
-                        column: x => x.NotifId,
-                        principalTable: "Notifs",
+                        name: "FK_Recipient_Message_MessageId",
+                        column: x => x.MessageId,
+                        principalTable: "Message",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "NotifLog",
+                name: "MessageLog",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NotifId = table.Column<long>(type: "bigint", unicode: false, nullable: false),
+                    MessageId = table.Column<long>(type: "bigint", unicode: false, nullable: false),
                     SentAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Success = table.Column<bool>(type: "bit", nullable: false),
                     FailureReason = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -108,15 +109,15 @@ namespace Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_NotifLog", x => x.Id);
+                    table.PrimaryKey("PK_MessageLog", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_NotifLog_Notifs_NotifId",
-                        column: x => x.NotifId,
-                        principalTable: "Notifs",
+                        name: "FK_MessageLog_Message_MessageId",
+                        column: x => x.MessageId,
+                        principalTable: "Message",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_NotifLog_Provider_ProviderId",
+                        name: "FK_MessageLog_Provider_ProviderId",
                         column: x => x.ProviderId,
                         principalTable: "Provider",
                         principalColumn: "Id",
@@ -124,19 +125,19 @@ namespace Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_NotifLog_NotifId",
-                table: "NotifLog",
-                column: "NotifId");
+                name: "IX_MessageLog_MessageId",
+                table: "MessageLog",
+                column: "MessageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_NotifLog_ProviderId",
-                table: "NotifLog",
+                name: "IX_MessageLog_ProviderId",
+                table: "MessageLog",
                 column: "ProviderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recipient_NotifId",
+                name: "IX_Recipient_MessageId",
                 table: "Recipient",
-                column: "NotifId");
+                column: "MessageId");
         }
 
         /// <inheritdoc />
@@ -146,7 +147,7 @@ namespace Infrastructure.Migrations
                 name: "BlackList");
 
             migrationBuilder.DropTable(
-                name: "NotifLog");
+                name: "MessageLog");
 
             migrationBuilder.DropTable(
                 name: "Recipient");
@@ -155,7 +156,7 @@ namespace Infrastructure.Migrations
                 name: "Provider");
 
             migrationBuilder.DropTable(
-                name: "Notifs");
+                name: "Message");
         }
     }
 }

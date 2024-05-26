@@ -1,12 +1,12 @@
 ﻿namespace Presentation.Jobs;
 
-public class SaveNotifToStorageJob //: ISaveNotifToStorageJob
+public class SaveMessageToStorageJob //: ISaveNotifToStorageJob
 {
-    private readonly ILogger<SaveNotifToStorageJob> _logger;
+    private readonly ILogger<SaveMessageToStorageJob> _logger;
     private readonly ApplicationSettingExtenderModel _applicationSettings;
     private readonly IMessageManagementService _notifManagement;
 
-    public SaveNotifToStorageJob(ILogger<SaveNotifToStorageJob> logger,
+    public SaveMessageToStorageJob(ILogger<SaveMessageToStorageJob> logger,
          ApplicationSettingExtenderModel applicationSettings, IMessageManagementService notifManagement)
     {
         _logger = logger;

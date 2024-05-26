@@ -1,14 +1,14 @@
 ﻿namespace Infrastructure.Services.EntityFramework;
 
-public class NotifSenderService : IMessageSender
+public class MessageSenderService : IMessageSender
 {
     #region Definition & Ctor
     private readonly ISmsProvider _smsProvider;
     private readonly IEmailProvider _emailProvider;
-    private readonly ILogger<NotifSenderService> _logger;
+    private readonly ILogger<MessageSenderService> _logger;
     private readonly IMessageService _notif;
     private readonly IMessageLogService _notifLog;
-    public NotifSenderService(ISmsProvider smsProvider, IEmailProvider emailProvider, ILogger<NotifSenderService> logger, IMessageService notif, IMessageLogService notifLog)
+    public MessageSenderService(ISmsProvider smsProvider, IEmailProvider emailProvider, ILogger<MessageSenderService> logger, IMessageService notif, IMessageLogService notifLog)
     {
         _smsProvider = smsProvider;
         _emailProvider = emailProvider;
@@ -21,18 +21,18 @@ public class NotifSenderService : IMessageSender
 
     #region Methods
 
-
-    public async Task<bool> SendNotifAsync(string providerName, Message notif)
+    public async Task<bool> SendMessageAsync(string providerName, Message notif)
     {
         try
         {
+            var result = false;
             switch (notif.Type)
             {
                 case NotifType.SMS:
-                    var result = await _smsProvider.SendAsync(providerName, notif);
+                    result = await _smsProvider.SendAsync(providerName, notif);
                     break;
                 case NotifType.Email:
-                    await _emailProvider.SendAsync(providerName, notif);
+                    result = await _emailProvider.SendAsync(providerName, notif);
                     break;
                 case NotifType.Signal:
                     break;
@@ -45,7 +45,7 @@ public class NotifSenderService : IMessageSender
                 default:
                     break;
             }
-            return true;
+            return result;
         }
         catch (Exception ex)
         {
@@ -55,17 +55,15 @@ public class NotifSenderService : IMessageSender
     }
 
 
-
-
-    public async Task<bool> ManageNotif(Provider provider, Message notif, CancellationToken ct)
+    public async Task<bool> ManageMessage(Provider provider, Message notif, CancellationToken ct)
     {
         var notLog = new MessageLog();
         try
         {
-            var notifSender = await this.SendNotifAsync(provider.Name, notif);
+            var notifSender = await this.SendMessageAsync(provider.Name, notif);
             notLog = new()
             {
-                NotifId = notif.Id,
+                MessageId = notif.Id,
                 ProviderId = provider.Id, // ????????????????????
                 Success = notifSender,
                 SentAt = DateTime.UtcNow,
@@ -73,13 +71,13 @@ public class NotifSenderService : IMessageSender
 
             if (notifSender)
             {
-                await _notif.MarkNotificationsAsReadAsync(notif, ct);
+                await _notif.MarkMessagesAsReadAsync(notif, ct);
             }
             else
             {
-                await _notif.MarkNotificationAsFailedAttemp(notif, ct);
+                await _notif.MarkMessageAsFailedAttemp(notif, ct);
             }
-            await _notifLog.SaveNotifLogAsync(notLog, ct);
+            await _notifLog.SaveMessageLogAsync(notLog, ct);
             return true;
         }
         catch (Exception ex)
@@ -87,13 +85,13 @@ public class NotifSenderService : IMessageSender
             _logger?.LogError(ex.Message, ex);
             notLog = new()
             {
-                NotifId = notif.Id,
+                MessageId = notif.Id,
                 ProviderId = provider.Id, // ????????????????????
                 Success = false,
                 FailureReason = ex.Message,
                 SentAt = DateTime.UtcNow,
             };
-            await _notifLog.SaveNotifLogAsync(notLog, ct);
+            await _notifLog.SaveMessageLogAsync(notLog, ct);
             throw;
         }
     }

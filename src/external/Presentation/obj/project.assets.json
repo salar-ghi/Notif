@@ -4621,6 +4621,7 @@
           "Domain": "1.0.0",
           "Elastic.Clients.Elasticsearch": "8.13.12",
           "FluentEmail.Core": "3.0.2",
+          "FluentEmail.Smtp": "3.0.2",
           "Hangfire.Core": "1.8.12",
           "Microsoft.EntityFrameworkCore": "8.0.4",
           "Microsoft.EntityFrameworkCore.Proxies": "8.0.4",

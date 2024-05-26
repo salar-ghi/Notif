@@ -12,7 +12,6 @@ public record MessageVM
     [Required]
     public int SenderId { get; set; }
     public DateTime SendDate { get; set; }
-    public long CreatedById { get; set; }
     public int Provider { get; set; }
 
     

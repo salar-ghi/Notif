@@ -22,7 +22,26 @@ public record ProviderSettingModel
 
 public record EmailProviderConfiguration
 {
-    public string Host { get; init; }
+    public string DefaultFromEmail { get; init; }
+    public SmtpSettings SMTP { get; set; }
+    public Pop3Settings POP3 { get; set; }
+}
+
+public record Pop3Settings
+{
+    public string Host { get; set; }
+    public int Port { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+}
+
+public record SmtpSettings
+{
+    public string Host { get; set; }
+    public int Port { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
+    public bool EnableSsl { get; set; }
 }
 
 public record SmsProviderConfiguration

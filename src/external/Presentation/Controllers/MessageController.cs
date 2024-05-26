@@ -2,15 +2,15 @@
 
 
 [EnableCors(Constants.CorsPolicyName)]
-public class NotifController : BaseController<NotifController, ApplicationSettingExtenderModel>
+public class MessageController : BaseController<MessageController, ApplicationSettingExtenderModel>
 {
     private readonly ICacheMessage _cache;
-    private readonly INotifManagementService _notifManagementService;
+    private readonly IMessageManagementService _ManageService;
 
-    public NotifController(ICacheMessage cache, INotifManagementService notifManagementService)
+    public MessageController(ICacheMessage cache, IMessageManagementService ManageService)
     {
         _cache = cache;
-        _notifManagementService = notifManagementService;
+        _ManageService = ManageService;
     }
 
     [HttpGet("Index")]
@@ -18,13 +18,13 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> Index()
     {
-        await _notifManagementService.CheckCacheAndSaveToStorage();
+        await _ManageService.SaveMessagesToStorage();
         return Ok();
     }
 
 
     [HttpGet("Get Caches")]
-    [ProducesResponseType(typeof(OkListResult<NotifRs>),StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(OkListResult<MessageRs>), StatusCodes.Status200OK)]
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> GetAllCacheNotifs(CancellationToken cancellation = default(CancellationToken))
     {
@@ -37,23 +37,15 @@ public class NotifController : BaseController<NotifController, ApplicationSettin
     [MapToApiVersion("1.0")]
     public async Task<IActionResult> CheckNotifs(CancellationToken ct = default(CancellationToken))
     {
-        try
-        {
-            await _notifManagementService.SendNotif();
-            return Ok();
-        }
-        catch (Exception ex )
-        {
-            _logger.LogError(ex.Message, ex);
-            throw;
-        }
+        await _ManageService.SendMessages();
+        return Ok();
     }
 
     [HttpPost("SaveNotif")]
     [ProducesResponseType(typeof(NotOkResultDto), StatusCodes.Status500InternalServerError)]
-    [ProducesResponseType(typeof(OkListResult<NotifVM>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(OkListResult<MessageVM>), StatusCodes.Status200OK)]
     [MapToApiVersion("1.0")]
-    public async Task<IActionResult> SendNotifAsync([FromBody] IEnumerable<NotifVM> entities, CancellationToken cancellationToken = default)
+    public async Task<IActionResult> SendNotifAsync([FromBody] IEnumerable<MessageVM> entities, CancellationToken cancellationToken = default)
     {
         var result = await _cache.AddMessage(entities);
         return Ok(result);

@@ -1,35 +1,29 @@
-﻿using Microsoft.Extensions.Logging;
-using Presentation.Dtos;
-
-namespace Presentation.HttpClients.ThirdParties.Sms;
+﻿namespace Presentation.HttpClients.ThirdParties.Sms;
 
 public class PayamSmsClientService : HttpClientService<PayamSmsClientService>, IPayamSmsClientService
 {
-    private readonly IMapper _mapper;
     private readonly ApplicationSettingExtenderModel _config;
     //private readonly IElasticsearchService _elasticsearchService;
-    public PayamSmsClientService(HttpClient httpClient,
-        ApplicationSettingExtenderModel configuration, IMapper mapper) : base(httpClient)
+    public PayamSmsClientService(HttpClient httpClient, ApplicationSettingExtenderModel configuration) : base(httpClient)
     {
-        _mapper = mapper;
         _config = configuration;
         //_elasticsearchService = elasticsearchService;
     }
 
 
 
-    public async Task<bool> SendPayamSms(Domain.Entities.Message notif, CancellationToken ct = default(CancellationToken))
+    public async Task<bool> SendPayamSms(Message notif, CancellationToken ct = default(CancellationToken))
     {
         try
         {
-            List<Dtos.Message> messages = new List<Dtos.Message>();
+            List<MessageDto> messages = new List<MessageDto>();
             foreach (var recip in notif.Recipients)
             {
-                var message = new Dtos.Message
+                var message = new MessageDto
                 {
                     sender = _config.Provider.Sms.PayamSms.Sender,
                     recipient = recip.Destination,
-                    body = notif.Message,
+                    body = notif.Body,
                     customerId = 1,
                 };
                 messages.Add(message);

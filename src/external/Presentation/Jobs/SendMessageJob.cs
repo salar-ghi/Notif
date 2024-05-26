@@ -1,11 +1,11 @@
 ﻿namespace Presentation.Jobs;
 
-public class SendNotifJob //: ISendNotifJob
+public class SendMessageJob //: ISendNotifJob
 {
-    private readonly ILogger<SendNotifJob> _logger;
+    private readonly ILogger<SendMessageJob> _logger;
     private readonly IMessageManagementService _notifManagement;
 
-    public SendNotifJob(ILogger<SendNotifJob> logger, IMessageManagementService notifManagement)
+    public SendMessageJob(ILogger<SendMessageJob> logger, IMessageManagementService notifManagement)
     {
         _logger = logger;
         _notifManagement = notifManagement;

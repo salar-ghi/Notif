@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities.Base;
 
-public abstract class EntityBase  //<TId> where TId : struct
+public abstract class EntityBase 
 {
     protected EntityBase() { }
 

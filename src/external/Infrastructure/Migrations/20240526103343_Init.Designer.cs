@@ -4,6 +4,7 @@ using Infrastructure.Persistence.Providers.EntityFramework.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(MessageContext))]
-    partial class NotifContextModelSnapshot : ModelSnapshot
+    [Migration("20240526103343_Init")]
+    partial class Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,7 +49,7 @@ namespace Infrastructure.Migrations
                     b.ToTable("BlackList");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Notif", b =>
+            modelBuilder.Entity("Domain.Entities.Message", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -55,23 +58,25 @@ namespace Infrastructure.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
                     b.Property<int>("Attemp")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.Property<string>("Body")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<DateTime>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2024, 5, 19, 11, 28, 22, 754, DateTimeKind.Utc).AddTicks(9994));
+                        .HasDefaultValue(new DateTime(2024, 5, 26, 10, 33, 43, 468, DateTimeKind.Utc).AddTicks(4717));
 
                     b.Property<long>("CreatedById")
                         .HasColumnType("bigint");
 
                     b.Property<bool>("IsSent")
                         .HasColumnType("bit");
-
-                    b.Property<string>("Message")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<byte>("MessageType")
                         .HasColumnType("tinyint");
@@ -112,10 +117,10 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Notifs");
+                    b.ToTable("Message");
                 });
 
-            modelBuilder.Entity("Domain.Entities.NotifLog", b =>
+            modelBuilder.Entity("Domain.Entities.MessageLog", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,7 +131,7 @@ namespace Infrastructure.Migrations
                     b.Property<string>("FailureReason")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<long>("NotifId")
+                    b.Property<long>("MessageId")
                         .IsUnicode(false)
                         .HasColumnType("bigint");
 
@@ -141,11 +146,11 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NotifId");
+                    b.HasIndex("MessageId");
 
                     b.HasIndex("ProviderId");
 
-                    b.ToTable("NotifLog");
+                    b.ToTable("MessageLog");
                 });
 
             modelBuilder.Entity("Domain.Entities.Provider", b =>
@@ -203,60 +208,63 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
 
-                    b.Property<long>("NotifId")
-                        .HasColumnType("bigint");
-
-                    b.Property<string>("UserId")
+                    b.Property<string>("Destination")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<long>("MessageId")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("NotifId");
+                    b.HasIndex("MessageId");
 
                     b.ToTable("Recipient");
                 });
 
-            modelBuilder.Entity("Domain.Entities.NotifLog", b =>
+            modelBuilder.Entity("Domain.Entities.MessageLog", b =>
                 {
-                    b.HasOne("Domain.Entities.Notif", "Notif")
-                        .WithMany("NotifLogs")
-                        .HasForeignKey("NotifId")
+                    b.HasOne("Domain.Entities.Message", "Message")
+                        .WithMany("MessageLogs")
+                        .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Domain.Entities.Provider", "Provider")
-                        .WithMany("NotifLog")
+                        .WithMany("MessageLog")
                         .HasForeignKey("ProviderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Notif");
+                    b.Navigation("Message");
 
                     b.Navigation("Provider");
                 });
 
             modelBuilder.Entity("Domain.Entities.Recipient", b =>
                 {
-                    b.HasOne("Domain.Entities.Notif", "Notif")
+                    b.HasOne("Domain.Entities.Message", "Message")
                         .WithMany("Recipients")
-                        .HasForeignKey("NotifId")
+                        .HasForeignKey("MessageId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Notif");
+                    b.Navigation("Message");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Notif", b =>
+            modelBuilder.Entity("Domain.Entities.Message", b =>
                 {
-                    b.Navigation("NotifLogs");
+                    b.Navigation("MessageLogs");
 
                     b.Navigation("Recipients");
                 });
 
             modelBuilder.Entity("Domain.Entities.Provider", b =>
                 {
-                    b.Navigation("NotifLog");
+                    b.Navigation("MessageLog");
                 });
 #pragma warning restore 612, 618
         }

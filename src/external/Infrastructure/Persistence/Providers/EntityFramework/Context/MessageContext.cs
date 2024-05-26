@@ -13,9 +13,9 @@ public partial class MessageContext : DbContext
 
 
 
-    public virtual DbSet<Message> Notifs { get; set; }
+    public virtual DbSet<Message> Message { get; set; }
     public virtual DbSet<BlackList> BlackList { get; set; }
-    public virtual DbSet<MessageLog> NotifLog { get; set; }
+    public virtual DbSet<MessageLog> MessageLog { get; set; }
     public virtual DbSet<Provider> Provider { get; set; }
     //public virtual DbSet<ProviderSetting> ProviderConfigurations { get; set; }
     public virtual DbSet<Recipient> Recipient { get; set; }

@@ -477,6 +477,10 @@
               "target": "Package",
               "version": "[3.0.2, )"
             },
+            "FluentEmail.Smtp": {
+              "target": "Package",
+              "version": "[3.0.2, )"
+            },
             "Hangfire.Core": {
               "target": "Package",
               "version": "[1.8.12, )"

@@ -1,11 +1,11 @@
 ﻿namespace Presentation.Configuration;
 
-public class SendNotifBackgroundService
+public class SendMessageBackgroundService
 {
-    private readonly INotifManagementService _notifManagement;
-    public SendNotifBackgroundService(INotifManagementService notifManagement)
+    private readonly IMessageManagementService _messageManagement;
+    public SendMessageBackgroundService(IMessageManagementService messageManagement)
     {
-        _notifManagement = notifManagement;
+        _messageManagement = messageManagement;
     }
 
     [DisableConcurrentExecution(timeoutInSeconds: 10 * 60)]
@@ -16,16 +16,13 @@ public class SendNotifBackgroundService
         while (!ct.IsCancellationRequested)
         {
             Console.WriteLine($"Running Execute Method() 'SendNotif' at: {DateTime.Now}");
-            var notif = await _notifManagement.SendNotif();
+            var notif = await _messageManagement.SendMessages();
             //using (var scope  = _scopeFactory.CreateScope())
             //{
             //    var scopedService = scope.ServiceProvider.GetRequiredService<INotifManagementService>();
             //    Console.WriteLine($"Running method 'CheckCache' at: {DateTime.Now}");
             //    //var item = scopedService.CheckCacheAndSaveToStorage();
             //}
-
-            // Your method logic here
-            //await _saveNotifToStorageJob.CheckCacheAndSaveToStorage(stoppingToken);
             await Task.Delay(2000); 
         }
     }
