@@ -7,10 +7,10 @@ public record PayamSmsDto
     public string username { get; init; }
     public string password { get; init; }
     public string method { get; set; }
-    public List<Message> messages { get; set; }
+    public List<MessageDto> messages { get; set; }
 }
 
-public record Message
+public record MessageDto
 {
     public string sender { get; set; }
     public string recipient { get; set; }

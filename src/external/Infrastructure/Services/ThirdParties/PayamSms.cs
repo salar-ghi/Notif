@@ -18,20 +18,19 @@ public class PayamSms : IPayamSms
     #region Methods
 
 
-    public Task SendPayamSmsAsync(Notif message)
+    public Task SendPayamSmsAsync(Message message)
     {
         Console.WriteLine($"Sending Sms notification: {message}");
         return Task.CompletedTask;
     }
 
-    public async Task<bool> SendAsync(string ProviderName, Notif message)
+    public async Task<bool> SendAsync(string ProviderName, Message message)
     {
         try
         {
             Console.WriteLine($"Sending Sms notification from PayamSms: {message}");
             var result = await _payamClientService.SendPayamSms(message);
-
-            return true;
+            return result;
         }
         catch (Exception ex)
         {

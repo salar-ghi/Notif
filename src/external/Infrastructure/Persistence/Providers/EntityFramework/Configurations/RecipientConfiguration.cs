@@ -11,6 +11,6 @@ public class RecipientConfiguration : IEntityTypeConfiguration<Recipient>
         builder.Property(x => x.UserId).IsRequired();
 
 
-        builder.HasOne(x => x.Notif).WithMany(e => e.Recipients).IsRequired().HasForeignKey(x => x.NotifId);
+        builder.HasOne(x => x.Message).WithMany(e => e.Recipients).IsRequired().HasForeignKey(x => x.MessageId);
     }
 }

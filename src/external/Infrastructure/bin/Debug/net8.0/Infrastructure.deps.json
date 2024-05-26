@@ -10,7 +10,9 @@
         "dependencies": {
           "Application": "1.0.0",
           "Domain": "1.0.0",
+          "Elastic.Clients.Elasticsearch": "8.13.12",
           "FluentEmail.Core": "3.0.2",
+          "FluentEmail.Smtp": "3.0.2",
           "Hangfire.Core": "1.8.12",
           "Microsoft.EntityFrameworkCore": "8.0.4",
           "Microsoft.EntityFrameworkCore.Design": "8.0.4",
@@ -83,6 +85,25 @@
           }
         }
       },
+      "Elastic.Clients.Elasticsearch/8.13.12": {
+        "dependencies": {
+          "Elastic.Transport": "0.4.19"
+        },
+        "runtime": {
+          "lib/net8.0/Elastic.Clients.Elasticsearch.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.13.12.0"
+          }
+        }
+      },
+      "Elastic.Transport/0.4.19": {
+        "runtime": {
+          "lib/net8.0/Elastic.Transport.dll": {
+            "assemblyVersion": "0.0.0.0",
+            "fileVersion": "0.4.19.0"
+          }
+        }
+      },
       "EPPlus/5.8.6": {
         "dependencies": {
           "Microsoft.Extensions.Configuration.Json": "5.0.0",
@@ -112,6 +133,17 @@
         },
         "runtime": {
           "lib/netstandard2.0/FluentEmail.Core.dll": {
+            "assemblyVersion": "3.0.2.0",
+            "fileVersion": "3.0.2.0"
+          }
+        }
+      },
+      "FluentEmail.Smtp/3.0.2": {
+        "dependencies": {
+          "FluentEmail.Core": "3.0.2"
+        },
+        "runtime": {
+          "lib/netstandard2.0/FluentEmail.Smtp.dll": {
             "assemblyVersion": "3.0.2.0",
             "fileVersion": "3.0.2.0"
           }
@@ -1832,6 +1864,20 @@
       "path": "castle.core/5.1.1",
       "hashPath": "castle.core.5.1.1.nupkg.sha512"
     },
+    "Elastic.Clients.Elasticsearch/8.13.12": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-771p9YULrF9V04cuzVPnNNuXUQ8/Jh4qgWzq9nEiQ1KiAY5QdjbEv5nLTxgWoVrbgedXC5MtCyHPkSusPCESZg==",
+      "path": "elastic.clients.elasticsearch/8.13.12",
+      "hashPath": "elastic.clients.elasticsearch.8.13.12.nupkg.sha512"
+    },
+    "Elastic.Transport/0.4.19": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QsFtfHJi/DJDH4Gh602Y+hVTWS5KdpUPpRHxU57OSwty/nSDd/xRymThuIRgH5UxnSFVmQMEslyFtP7BkLFgmg==",
+      "path": "elastic.transport/0.4.19",
+      "hashPath": "elastic.transport.0.4.19.nupkg.sha512"
+    },
     "EPPlus/5.8.6": {
       "type": "package",
       "serviceable": true,
@@ -1845,6 +1891,13 @@
       "sha512": "sha512-uQFFbJgMhhCFUti7pfMi429fMNi7fLGMj+7uDtD7POlQzLxlhXJ6tmt4Y1SI51sZsA36GO5b7+o29eY/dKiICQ==",
       "path": "fluentemail.core/3.0.2",
       "hashPath": "fluentemail.core.3.0.2.nupkg.sha512"
+    },
+    "FluentEmail.Smtp/3.0.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Y5pZKS/mXSl7D5WJWecvfo1kpIMDc6U0VRU6wRbE9wEv2IqMH3cQXa/97Pwi+m31COepIqc6dMhGMtAJ2Qh7rw==",
+      "path": "fluentemail.smtp/3.0.2",
+      "hashPath": "fluentemail.smtp.3.0.2.nupkg.sha512"
     },
     "Hangfire.Core/1.8.12": {
       "type": "package",

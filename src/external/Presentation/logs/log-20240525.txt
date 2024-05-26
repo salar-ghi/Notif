@@ -846,3 +846,227 @@ Microsoft.Data.SqlClient.SqlException (0x80131904): A connection was successfull
    at Hangfire.SqlServer.SqlServerStorage.Initialize() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 455
 ClientConnectionId:2433f00d-1b64-40c6-bece-f625f5349b55
 Error Number:233,State:0,Class:20
+2024-05-25 08:40:21.426 +03:30 [INF] Starting web host
+2024-05-25 08:40:25.014 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 08:40:25.877 +03:30 [WRN] An exception occurred while trying to perform the migration. Retrying...
+Microsoft.Data.SqlClient.SqlException (0x80131904): Login failed for user 'sa'.
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, SqlCommand command, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.CompleteLogin(Boolean enlistOK)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.AttemptOneLogin(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, TimeoutTimer timeout, Boolean withFailover)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.LoginNoFailover(ServerInfo serverInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString connectionOptions, SqlCredential credential, TimeoutTimer timeout)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds.OpenLoginEnlist(TimeoutTimer timeout, SqlConnectionString connectionOptions, SqlCredential credential, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance)
+   at Microsoft.Data.SqlClient.SqlInternalConnectionTds..ctor(DbConnectionPoolIdentity identity, SqlConnectionString connectionOptions, SqlCredential credential, Object providerInfo, String newPassword, SecureString newSecurePassword, Boolean redirectedUserInstance, SqlConnectionString userConnectionOptions, SessionData reconnectSessionData, Boolean applyTransientFaultHandling, String accessToken, DbConnectionPool pool, Func`3 accessTokenCallback)
+   at Microsoft.Data.SqlClient.SqlConnectionFactory.CreateConnection(DbConnectionOptions options, DbConnectionPoolKey poolKey, Object poolGroupProviderInfo, DbConnectionPool pool, DbConnection owningConnection, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.CreatePooledConnection(DbConnectionPool pool, DbConnection owningObject, DbConnectionOptions options, DbConnectionPoolKey poolKey, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open(SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open()
+   at Hangfire.SqlServer.SqlServerStorage.CreateAndOpenConnection() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 365
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection[T](DbConnection dedicatedConnection, Func`2 func) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 256
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection(DbConnection dedicatedConnection, Action`1 action) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 243
+   at Hangfire.SqlServer.SqlServerStorage.Initialize() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 424
+ClientConnectionId:b01c6972-53fd-4963-ac70-9f158f0bdc41
+Error Number:18456,State:1,Class:14
+2024-05-25 08:40:25.940 +03:30 [WRN] An exception occurred while trying to perform the migration. Retrying...
+Microsoft.Data.SqlClient.SqlException (0x80131904): Login failed for user 'sa'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open(SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open()
+   at Hangfire.SqlServer.SqlServerStorage.CreateAndOpenConnection() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 365
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection[T](DbConnection dedicatedConnection, Func`2 func) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 256
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection(DbConnection dedicatedConnection, Action`1 action) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 243
+   at Hangfire.SqlServer.SqlServerStorage.Initialize() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 424
+ClientConnectionId:b01c6972-53fd-4963-ac70-9f158f0bdc41
+Error Number:18456,State:1,Class:14
+2024-05-25 08:40:25.943 +03:30 [WRN] An exception occurred while trying to perform the migration.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Login failed for user 'sa'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open(SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open()
+   at Hangfire.SqlServer.SqlServerStorage.CreateAndOpenConnection() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 365
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection[T](DbConnection dedicatedConnection, Func`2 func) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 256
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection(DbConnection dedicatedConnection, Action`1 action) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 243
+   at Hangfire.SqlServer.SqlServerStorage.Initialize() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 424
+ClientConnectionId:b01c6972-53fd-4963-ac70-9f158f0bdc41
+Error Number:18456,State:1,Class:14
+2024-05-25 08:40:25.949 +03:30 [WRN] Was unable to perform the Hangfire schema migration due to an exception. Ignore this message unless you've just installed or upgraded Hangfire.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Login failed for user 'sa'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open(SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open()
+   at Hangfire.SqlServer.SqlServerStorage.CreateAndOpenConnection() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 365
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection[T](DbConnection dedicatedConnection, Func`2 func) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 256
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection(DbConnection dedicatedConnection, Action`1 action) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 243
+   at Hangfire.SqlServer.SqlServerStorage.Initialize() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 424
+ClientConnectionId:b01c6972-53fd-4963-ac70-9f158f0bdc41
+Error Number:18456,State:1,Class:14
+2024-05-25 08:40:25.956 +03:30 [ERR] Was unable to use the TryAutoDetectSchemaDependentOptions option due to an exception.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Login failed for user 'sa'.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open(SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open()
+   at Hangfire.SqlServer.SqlServerStorage.CreateAndOpenConnection() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 365
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection[T](DbConnection dedicatedConnection, Func`2 func) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 256
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection(DbConnection dedicatedConnection, Action`1 action) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 243
+   at Hangfire.SqlServer.SqlServerStorage.Initialize() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 455
+ClientConnectionId:b01c6972-53fd-4963-ac70-9f158f0bdc41
+Error Number:18456,State:1,Class:14
+2024-05-25 08:45:11.690 +03:30 [INF] Starting web host
+2024-05-25 08:45:12.208 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 08:45:12.666 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 08:46:00.933 +03:30 [INF] Starting web host
+2024-05-25 08:46:01.478 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 08:46:01.842 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 08:53:11.577 +03:30 [INF] Starting web host
+2024-05-25 08:53:12.090 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 08:53:12.435 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 09:02:58.033 +03:30 [INF] Starting web host
+2024-05-25 09:02:58.547 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 09:02:58.930 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 09:49:27.553 +03:30 [INF] Starting web host
+2024-05-25 09:49:29.570 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 09:49:30.221 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 09:50:53.381 +03:30 [INF] Starting web host
+2024-05-25 09:50:53.919 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 09:50:54.286 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 10:02:51.950 +03:30 [INF] Starting web host
+2024-05-25 10:02:52.463 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 10:02:52.842 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 10:06:12.937 +03:30 [INF] Starting web host
+2024-05-25 10:06:13.447 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 10:06:13.798 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 10:10:31.239 +03:30 [INF] Starting web host
+2024-05-25 10:10:31.751 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 10:10:32.111 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 10:11:46.334 +03:30 [INF] Starting web host
+2024-05-25 10:11:46.914 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 10:11:47.316 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 10:12:59.732 +03:30 [INF] Starting web host
+2024-05-25 10:13:00.244 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 10:13:00.620 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 10:14:16.149 +03:30 [INF] Starting web host
+2024-05-25 10:14:16.673 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 10:14:17.061 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 10:36:01.244 +03:30 [INF] Starting web host
+2024-05-25 10:36:03.412 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 10:36:04.186 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 12:55:40.260 +03:30 [INF] Starting web host
+2024-05-25 12:55:41.861 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 12:55:42.348 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 12:55:47.868 +03:30 [ERR] Error occured
+System.ArgumentNullException: Value cannot be null. (Parameter 'implementationInstance')
+   at System.ThrowHelper.Throw(String paramName)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton[TService](IServiceCollection services, TService implementationInstance)
+   at Presentation.Startup.ConfigureServices(IServiceCollection services) in C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\Startup.cs:line 96
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureServicesBuilder.InvokeCore(Object instance, IServiceCollection services)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.UseStartup(Type startupType, HostBuilderContext context, IServiceCollection services, Object instance)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass7_0.<UseStartup>b__0(HostBuilderContext context, IServiceCollection services)
+   at Microsoft.Extensions.Hosting.HostBuilder.InitializeServiceProvider()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at Program.Main(String[] args) in C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\Program.cs:line 17
+2024-05-25 12:55:47.898 +03:30 [FTL] Host terminated unexpectedly
+System.ArgumentNullException: Value cannot be null. (Parameter 'implementationInstance')
+   at System.ThrowHelper.Throw(String paramName)
+   at Microsoft.Extensions.DependencyInjection.ServiceCollectionServiceExtensions.AddSingleton[TService](IServiceCollection services, TService implementationInstance)
+   at Presentation.Startup.ConfigureServices(IServiceCollection services) in C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\Startup.cs:line 96
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.AspNetCore.Hosting.ConfigureServicesBuilder.InvokeCore(Object instance, IServiceCollection services)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.UseStartup(Type startupType, HostBuilderContext context, IServiceCollection services, Object instance)
+   at Microsoft.AspNetCore.Hosting.GenericWebHostBuilder.<>c__DisplayClass7_0.<UseStartup>b__0(HostBuilderContext context, IServiceCollection services)
+   at Microsoft.Extensions.Hosting.HostBuilder.InitializeServiceProvider()
+   at Microsoft.Extensions.Hosting.HostBuilder.Build()
+   at Program.Main(String[] args) in C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\Program.cs:line 17
+2024-05-25 12:56:16.445 +03:30 [INF] Starting web host
+2024-05-25 12:56:17.189 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 12:56:17.600 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 12:58:48.721 +03:30 [INF] Starting web host
+2024-05-25 12:58:49.389 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 12:58:49.746 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 13:04:40.435 +03:30 [INF] Starting web host
+2024-05-25 13:04:40.988 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 13:04:41.403 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 13:19:13.595 +03:30 [INF] Starting web host
+2024-05-25 13:19:14.185 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 13:19:14.556 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 13:31:06.752 +03:30 [INF] Starting web host
+2024-05-25 13:31:07.477 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 13:31:07.943 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 13:55:58.852 +03:30 [INF] Starting web host
+2024-05-25 13:56:01.781 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 13:56:02.598 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 13:57:46.312 +03:30 [INF] Starting web host
+2024-05-25 13:57:47.880 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 13:57:48.259 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 13:59:13.041 +03:30 [INF] Starting web host
+2024-05-25 13:59:15.320 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 13:59:15.879 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 14:05:08.307 +03:30 [INF] Starting web host
+2024-05-25 14:05:08.947 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 14:05:09.166 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 14:20:38.591 +03:30 [INF] Starting web host
+2024-05-25 14:20:39.159 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 14:20:39.513 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 14:22:38.878 +03:30 [WRN] Failed to process the job '10798': an exception occurred. Retry attempt 1 of 10 will be performed in 00:00:29.
+System.InvalidOperationException: A second operation was started on this context instance before a previous operation completed. This is usually caused by different threads concurrently using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Infrastructure.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.<>c__DisplayClass30_0`2.<<ExecuteAsync>b__0>d.MoveNext()
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteImplementationAsync[TState,TResult](Func`4 operation, Func`4 verifySucceeded, TState state, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.ExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Infrastructure.Services.EntityFramework.NotifService.SaveNotifAsync(IEnumerable`1 entities, CancellationToken ct) in C:\Users\s.ghahremani\source\repos\Temp\src\external\Infrastructure\Services\EntityFramework\NotifService.cs:line 154
+   at Infrastructure.Services.EntityFramework.NotifManagementService.CheckCacheAndSaveToStorage(CancellationToken ct) in C:\Users\s.ghahremani\source\repos\Temp\src\external\Infrastructure\Services\EntityFramework\NotifManagementService.cs:line 44
+   at Presentation.Jobs.SaveNotifToStorageJob.Run() in C:\Users\s.ghahremani\source\repos\Temp\src\external\Presentation\Jobs\SaveNotifToStorageJob.cs:line 24
+   at InvokeStub_TaskAwaiter.GetResult(Object, Object, IntPtr*)
+   at System.Reflection.MethodBaseInvoker.InvokeWithNoArgs(Object obj, BindingFlags invokeAttr)
+2024-05-25 14:22:56.393 +03:30 [INF] Starting web host
+2024-05-25 14:22:56.963 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 14:22:57.335 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 14:24:48.493 +03:30 [INF] Starting web host
+2024-05-25 14:24:49.274 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 14:24:49.570 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 14:28:01.222 +03:30 [INF] Starting web host
+2024-05-25 14:28:01.882 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 14:28:05.379 +03:30 [INF] Hangfire SQL objects installed.
+2024-05-25 16:18:47.703 +03:30 [INF] Starting web host
+2024-05-25 16:18:49.301 +03:30 [INF] Start installing Hangfire SQL objects...
+2024-05-25 16:18:49.807 +03:30 [INF] Hangfire SQL objects installed.

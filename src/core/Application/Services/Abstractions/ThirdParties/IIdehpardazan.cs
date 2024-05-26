@@ -2,5 +2,5 @@
 
 public interface IIdehpardazan : ISmsProvider
 {
-    Task SendIdehpardazSmsAsync(Notif message);
+    Task SendIdehpardazSmsAsync(Message message);
 }

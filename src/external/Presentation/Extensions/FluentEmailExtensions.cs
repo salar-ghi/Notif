@@ -8,24 +8,21 @@ public static class FluentEmailExtensions
     {
         var emailSettings = config.GetSection("Provider").GetSection("Email");
         var defaultFromEmail = emailSettings["DefaultFromEmail"];
-        //var host = emailSettings["SMTPSetting:Host"];
-        var host = emailSettings.GetSection("SMTPSetting")["Host"];
-        var port = emailSettings.GetSection("SMTPSetting").GetValue<int>("Port");
-        var userName = emailSettings["SMTPSetting:UserName"];
-        var password = emailSettings["SMTPSetting:Password"];
+        var host = emailSettings.GetSection("SMTP")["Host"];
+        var port = emailSettings.GetSection("SMTP").GetValue<int>("Port");
+        var userName = emailSettings["SMTP:UserName"];
+        var password = emailSettings["SMTP:Password"];
 
-        //var client = new SmtpClient(host, port)
+        //var client = new SmtpClient()
         //{
-        //    EnableSsl = true,
-        //    Credentials = new NetworkCredential(userName, password)
+        //    Credentials = new NetworkCredential(userName, password),
+        //    Host = host,
+        //    Port = port,
         //};
-        //client.SendMailAsync(
-        //    new MailMessage(from:defaultFromEmail,
-            
-        //    ))
 
-        services.AddFluentEmail(defaultFromEmail)
-            //.addRazorRenderer()
+
+        services
+            .AddFluentEmail(defaultFromEmail)
             .AddSmtpSender(host, port, userName, password);
     }
 }

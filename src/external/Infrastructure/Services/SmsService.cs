@@ -1,20 +1,16 @@
-﻿//using Application.Services.Abstractions.HttpClients.ThirdParties;
+﻿namespace Infrastructure.Services;
 
-namespace Infrastructure.Services;
-
-//public class SmsService : ProviderRepository, ISmsProvider
 public class SmsService : ISmsProvider
 {
     #region Definition & CTor
     private readonly ILogger<SmsService> _logger;
     private readonly IServiceProvider _serviceProvider;
-    
+
     private readonly IIdehpardazan _idehpardazan;
     private readonly IMelipayamak _melipayamak;
     private readonly IPayamSms _payamSms;
-    
-    public SmsService(IPayamSmsClientService payamSmsClientService,
-        IIdehpardazan idehpardazan, IMelipayamak melipayamak, IPayamSms payamSms,
+
+    public SmsService(IIdehpardazan idehpardazan, IMelipayamak melipayamak, IPayamSms payamSms,
         ILogger<SmsService> logger, IServiceProvider serviceProvider)
     {
         _idehpardazan = idehpardazan;
@@ -55,12 +51,10 @@ public class SmsService : ISmsProvider
     //}
 
 
-    public async Task<bool> SendAsync(string providerName, Notif message)
+    public async Task<bool> SendAsync(string providerName, Message message)
     {
         try
         {
-            //var provider = GetService(providerName);
-            
             switch (providerName)
             {
                 case "MeliPayamak":
@@ -82,8 +76,6 @@ public class SmsService : ISmsProvider
             return false;
         }
     }
-
-
     public ISmsProvider GetService(string ProviderName)
     {
         try
@@ -95,7 +87,7 @@ public class SmsService : ISmsProvider
                 "PayamSms" => _serviceProvider.GetRequiredService<PayamSms>(),
                 _ => throw new KeyNotFoundException("Provider not found.")
             };
-        }        
+        }
         catch (Exception ex)
         {
             _logger?.LogError(ex.Message, ex);

@@ -1,4 +1,6 @@
-﻿namespace Presentation.Configuration.DI;
+﻿using Infrastructure.Configuration;
+
+namespace Presentation.Configuration.DI;
 
 public static class DIServiceRegistration
 {
@@ -12,41 +14,27 @@ public static class DIServiceRegistration
         services.AddTransient<Idehpardazan>();
         services.AddTransient<PayamSms>();
 
-        //services.AddTransient<ISmsProvider, Idehpardazan>();
-        //services.AddTransient<ISmsProvider, Melipayamak>();
-
         services.AddTransient<ISmsProvider, SmsService>();
         services.AddTransient<IEmailProvider, EmailService>();
-
 
         services.AddScoped<IMelipayamak, Melipayamak>();
         services.AddScoped<IIdehpardazan, Idehpardazan>();
         services.AddScoped<IPayamSms, PayamSms>();
 
-
-        services.AddScoped<INotifManagementService, NotifManagementService>();
+        services.AddScoped<IMessageManagementService, MessageManagementService>();
+        services.AddTransient<IMessageService, MessageService>();
 
         // Scoped
         //services.AddScoped();
-        services.AddScoped<ISaveNotifToStorageJob, SaveNotifToStorageJob>();
-        services.AddScoped<ISendNotifJob, SendNotifJob>();
+        services.AddScoped<IMessageSender, MessageSenderService>();
 
-        services.AddTransient<INotifService, NotifService>();
-
-
-        services.AddScoped<INotifSender, NotifSenderService>();
-
-
-        services.AddScoped<INotifLogService, NotifLogService>();
-        services.AddScoped<IProviderService, ProviderService>();
-        
+        services.AddScoped<IMessageLogService, MessageLogService>();
+        services.AddScoped<IProviderService, ProviderService>();        
 
         services.AddScoped<ICacheMessage, InMemoryCacheRepository>();
 
-        //services.AddScoped<ISaveNotifToStorageJob, >();
-        //services.AddScoped<ICacheMessage, RedisCacheRepository>();
-        //RecurringJob.AddOrUpdate<ICacheMessage>("Notif-job", x => x.GetAllMessages(), "*/2 * * * * *");
-        //BackgroundJob.Schedule<ICacheMessage>(x => x.GetAllMessages(), TimeSpan.FromSeconds(2));
+        //services.AddScoped<IElasticsearchService, ElasticsearchService>();
+
 
         // Singleton
         //services.AddSingleton();

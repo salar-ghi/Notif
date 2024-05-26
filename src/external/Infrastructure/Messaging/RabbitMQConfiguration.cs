@@ -1,5 +1,4 @@
-﻿//using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using RabbitMQ.Client;
 
 namespace Infrastructure.Messaging;

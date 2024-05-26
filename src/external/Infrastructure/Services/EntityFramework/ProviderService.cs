@@ -38,6 +38,34 @@ public class ProviderService : CRUDService<Provider>, IProviderService
             throw;
         }
     }
+    public async Task<Provider> GetSpecificProvider(int Id, NotifType? type)
+    {
+        try
+        {
+            var provider = await base.GetQuery()
+                .Where(z => z.Id == Id && z.IsEnabled == true)
+                .AsNoTracking()
+                .Select(j => new Provider
+                {
+                    Id = j.Id,
+                    Name = j.Name,
+                    Type = j.Type,
+                    JsonConfig = j.JsonConfig
+                })
+                .SingleOrDefaultAsync()
+                .ConfigureAwait(false);
+            //if (provider == null)
+            //{
+            //    provider =  await GetRandomProvider(type);
+            //}
+            return provider ?? await GetRandomProvider(type);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex.Message, ex);
+            throw;
+        }
+    }
     public async Task<Provider> GetRandomProvider(NotifType? type)
     {
         try
@@ -66,34 +94,7 @@ public class ProviderService : CRUDService<Provider>, IProviderService
         }
     }
 
-    public async Task<Provider> GetSpecificProvider(int Id, NotifType? type)
-    {
-        try
-        {
-            var provider = await base.GetQuery()
-                .Where(z => z.Id == Id && z.IsEnabled == true)
-                .AsNoTracking()
-                .Select(j => new Provider
-                {
-                    Id = j.Id,
-                    Name = j.Name,
-                    Type = j.Type,
-                    JsonConfig = j.JsonConfig
-                })
-                .SingleOrDefaultAsync()
-                .ConfigureAwait(false);            
-            //if (provider == null)
-            //{
-            //    provider =  await GetRandomProvider(type);
-            //}
-            return provider ?? await GetRandomProvider(type); 
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex.Message, ex);
-            throw;
-        }
-    }
+    
 
 
 
@@ -132,10 +133,6 @@ public class ProviderService : CRUDService<Provider>, IProviderService
     //        throw;
     //    }
     //}
-
-
-
-
 
 
     #endregion
